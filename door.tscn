@@ -7,7 +7,7 @@ size = Vector3(0.2, 22.5, 20)
 albedo_color = Color(0.9412253, 0.69073534, 0.2725564, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dhrd0"]
-size = Vector3(0.2, 22.5, 1)
+size = Vector3(0.2, 22.5, 20)
 
 [node name="Door" type="StaticBody3D" unique_id=859078470]
 

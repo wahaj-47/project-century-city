@@ -1,11 +1,13 @@
 extends CharacterBody3D
 
-
-@export var SPEED = 14
+var WALK: float = 15
+var SPRINT: float = 25
+var CROUCH: float = 8
 #@export var JUMP_VELOCITY = 4.5
 
-@onready var interaction_zone = $InteractionZone
+var SPEED: float
 
+@onready var interaction_zone = $InteractionZone
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -15,6 +17,20 @@ func _physics_process(delta: float) -> void:
 	## Handle jump.
 	#if Input.is_action_just_pressed("jump") and is_on_floor():
 		#velocity.y = JUMP_VELOCITY
+	
+	### Check if sprinting
+	if Input.is_action_pressed("crouch"):
+		SPEED = CROUCH
+		$Pivot/Character.scale.y = 0.5
+		$Pivot/Character.position.y = -2.0
+	elif Input.is_action_just_released("crouch"):
+		$Pivot/Character.scale.y = 1.0
+		$Pivot/Character.position.y = 0
+		#SPEED = WALK
+	elif Input.is_action_pressed("sprint"):
+		SPEED = SPRINT
+	else:
+		SPEED = WALK
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.

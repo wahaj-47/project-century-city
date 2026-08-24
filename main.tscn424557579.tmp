@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://jsnesmd30dqv"]
+
+[ext_resource type="PackedScene" uid="uid://34aguhdium7h" path="res://floor.tscn" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://6526a3mmxeke" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://door.tscn" id="1_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bmsruei8wasj7" path="res://wall.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://door.gd" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://hlrm1xdsrb4g" path="res://doorway_wall.tscn" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://bxuon4lss1b2a" path="res://entry_point.gd" id="7_272bh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dhrd0"]
+size = Vector3(4.673584, 11.961914, 20.308563)
+
+[node name="Main" type="Node" unique_id=1474689114]
+
+[node name="Door" parent="." unique_id=859078470 instance=ExtResource("1_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 11.75394, 0)
+script = ExtResource("2_7mycd")
+
+[node name="Player" parent="." unique_id=429383614 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9384542, 0)
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=531318694]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 32.448242, 4.958065)
+light_color = Color(0.76909083, 0.6363484, 0.55337226, 1)
+light_energy = 16.0
+light_indirect_energy = 16.0
+light_volumetric_fog_energy = 0.0
+light_size = 1.0
+shadow_enabled = true
+area_range = 45.285
+area_size = Vector2(60, 60)
+
+[node name="Room1" type="Marker3D" parent="." unique_id=402940051]
+
+[node name="rightWall" parent="Room1" unique_id=1324519208 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 30, 15, 0)
+
+[node name="doorwayWall" parent="Room1" unique_id=713159128 instance=ExtResource("3_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
+
+[node name="frontWall" parent="Room1" unique_id=372741030 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -30)
+
+[node name="CameraPivot" type="Marker3D" parent="Room1" unique_id=548587282]
+transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Room1/CameraPivot" unique_id=413397705]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 5.9604645e-08, 0, -5.9604645e-08, 1.0000001, -4.4309506, -0.070013046, 45.30841)
+fov = 81.7
+
+[node name="hallwayFloor" parent="Room1" unique_id=1332907276 instance=ExtResource("1_h2yge")]
+
+[node name="EntryPoint" type="Area3D" parent="Room1" unique_id=1767360750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.86981, 3.0982847, 0)
+script = ExtResource("7_272bh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room1/EntryPoint" unique_id=107789593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2866592, 1.3725586, -0.8847809)
+shape = SubResource("BoxShape3D_dhrd0")
+
+[node name="Room2" type="Marker3D" parent="." unique_id=966621817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, 0)
+
+[node name="EntryPoint2" type="Area3D" parent="Room2" unique_id=446433907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.583199, 3.0982847, 0)
+script = ExtResource("7_272bh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room2/EntryPoint2" unique_id=1562097055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2866592, 1.3725586, -0.8847809)
+shape = SubResource("BoxShape3D_dhrd0")
+
+[node name="leftWall" parent="Room2" unique_id=1389754194 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -30, 15, 0)
+
+[node name="frontWall" parent="Room2" unique_id=1239612546 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -30)
+
+[node name="CameraPivot" type="Marker3D" parent="Room2" unique_id=1199195094]
+transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Room2/CameraPivot" unique_id=1395412225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
+
+[node name="hallwayFloor" parent="Room2" unique_id=311166820 instance=ExtResource("1_h2yge")]
