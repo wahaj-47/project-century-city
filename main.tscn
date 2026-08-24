@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://jsnesmd30dqv"]
 
+[ext_resource type="PackedScene" uid="uid://6526a3mmxeke" path="res://player.tscn" id="1_ig7tw"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_d0u6y"]
 size = Vector3(60, 2, 60)
 
@@ -7,6 +9,12 @@ size = Vector3(60, 2, 60)
 size = Vector3(60, 2, 60)
 
 [node name="Main" type="Node" unique_id=1474689114]
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=548587282]
+transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=413397705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1543151592]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -16,3 +24,8 @@ shape = SubResource("BoxShape3D_d0u6y")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=642451103]
 mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="Player" parent="." unique_id=429383614 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9384542, 0)
+SPEED = 10.0
+JUMP_VELOCITY = 10.0
