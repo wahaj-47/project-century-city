@@ -1,42 +1,18 @@
 [gd_scene format=3 uid="uid://jsnesmd30dqv"]
 
+[ext_resource type="PackedScene" uid="uid://34aguhdium7h" path="res://floor.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://6526a3mmxeke" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://door.tscn" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bmsruei8wasj7" path="res://wall.tscn" id="2_0xm2m"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_d0u6y"]
-size = Vector3(60, 2, 60)
-
-[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
-size = Vector3(60, 2, 60)
+[ext_resource type="PackedScene" uid="uid://hlrm1xdsrb4g" path="res://doorway_wall.tscn" id="3_1bvp3"]
 
 [node name="Main" type="Node" unique_id=1474689114]
 
-[node name="CameraPivot" type="Marker3D" parent="." unique_id=548587282]
-transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=413397705]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
-
-[node name="Floor" type="StaticBody3D" parent="." unique_id=1543151592]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=2116232443]
-shape = SubResource("BoxShape3D_d0u6y")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=642451103]
-mesh = SubResource("BoxMesh_g4v7s")
+[node name="Door" parent="." unique_id=859078470 instance=ExtResource("1_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 11.75394, 0)
 
 [node name="Player" parent="." unique_id=429383614 instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9384542, 0)
-
-[node name="frontWall" parent="." unique_id=924173895 instance=ExtResource("2_0xm2m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -30)
-
-[node name="leftWall" parent="." unique_id=1966242544 instance=ExtResource("2_0xm2m")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -30, 15, 0)
-
-[node name="rightWall" parent="." unique_id=1324519208 instance=ExtResource("2_0xm2m")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 30, 15, 0)
 
 [node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=531318694]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 32.448242, 4.958065)
@@ -48,3 +24,40 @@ light_size = 1.0
 shadow_enabled = true
 area_range = 45.285
 area_size = Vector2(60, 60)
+
+[node name="Hallway" type="Marker3D" parent="." unique_id=402940051]
+
+[node name="rightWall" parent="Hallway" unique_id=1324519208 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 30, 15, 0)
+
+[node name="doorwayWall" parent="Hallway" unique_id=713159128 instance=ExtResource("3_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
+
+[node name="frontWall" parent="Hallway" unique_id=372741030 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -30)
+
+[node name="CameraPivot" type="Marker3D" parent="Hallway" unique_id=548587282]
+transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Hallway/CameraPivot" unique_id=413397705]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 5.9604645e-08, 0, -5.9604645e-08, 1.0000001, -4.4309506, -0.070013046, 45.30841)
+fov = 81.7
+
+[node name="hallwayFloor" parent="Hallway" unique_id=1332907276 instance=ExtResource("1_h2yge")]
+
+[node name="Hallway2" type="Marker3D" parent="." unique_id=966621817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, 0)
+
+[node name="leftWall" parent="Hallway2" unique_id=1389754194 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -30, 15, 0)
+
+[node name="frontWall" parent="Hallway2" unique_id=1239612546 instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, -30)
+
+[node name="CameraPivot" type="Marker3D" parent="Hallway2" unique_id=1199195094]
+transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Hallway2/CameraPivot" unique_id=1395412225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
+
+[node name="hallwayFloor" parent="Hallway2" unique_id=311166820 instance=ExtResource("1_h2yge")]
