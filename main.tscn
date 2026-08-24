@@ -4,12 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://6526a3mmxeke" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://door.tscn" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bmsruei8wasj7" path="res://wall.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://door.gd" id="2_7mycd"]
 [ext_resource type="PackedScene" uid="uid://hlrm1xdsrb4g" path="res://doorway_wall.tscn" id="3_1bvp3"]
 
 [node name="Main" type="Node" unique_id=1474689114]
 
 [node name="Door" parent="." unique_id=859078470 instance=ExtResource("1_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 11.75394, 0)
+script = ExtResource("2_7mycd")
 
 [node name="Player" parent="." unique_id=429383614 instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9384542, 0)

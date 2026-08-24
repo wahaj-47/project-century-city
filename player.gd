@@ -4,6 +4,8 @@ extends CharacterBody3D
 @export var SPEED = 14
 #@export var JUMP_VELOCITY = 4.5
 
+@onready var interaction_zone = $InteractionZone
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -26,3 +28,11 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		var overlapping_bodies = interaction_zone.get_overlapping_bodies()
+		for body in overlapping_bodies:
+			if body.has_method("interact"):
+				body.interact()
+				break
