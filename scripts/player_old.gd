@@ -21,11 +21,11 @@ func _physics_process(delta: float) -> void:
 	### Check if sprinting
 	if Input.is_action_pressed("crouch"):
 		SPEED = CROUCH
-		$Pivot/Character.scale.y = 0.5
-		$Pivot/Character.position.y = -2.0
+		$Character.scale.y = 0.5
+		$Character.position.y = -2.0
 	elif Input.is_action_just_released("crouch"):
-		$Pivot/Character.scale.y = 1.0
-		$Pivot/Character.position.y = 0
+		$Character.scale.y = 1.0
+		$Character.position.y = 0
 		#SPEED = WALK
 	elif Input.is_action_pressed("sprint"):
 		SPEED = SPRINT

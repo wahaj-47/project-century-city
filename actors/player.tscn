@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://6526a3mmxeke"]
+
+[ext_resource type="PackedScene" uid="uid://cfwvtk7xp87g2" path="res://actors/character.tscn" id="1_niuxy"]
+[ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://scripts/player.gd" id="2_mvpqy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dwr5h"]
+albedo_color = Color(0, 1, 1, 1)
+
+[node name="Player" unique_id=167650114 instance=ExtResource("1_niuxy")]
+script = ExtResource("2_mvpqy")
+
+[node name="Character" parent="." index="0" unique_id=1885673827]
+surface_material_override/0 = SubResource("StandardMaterial3D_dwr5h")

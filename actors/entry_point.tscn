@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://chaene6tnnfei"]
+
+[ext_resource type="Script" uid="uid://bxuon4lss1b2a" path="res://scripts/switch_cam.gd" id="1_ss3xq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3fjkm"]
+size = Vector3(1.4, 2, 0.2)
+
+[node name="EntryPoint" type="Area3D" unique_id=1352364654]
+script = ExtResource("1_ss3xq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=786620461]
+shape = SubResource("BoxShape3D_3fjkm")

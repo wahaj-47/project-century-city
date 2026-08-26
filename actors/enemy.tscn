@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cvq1ccaqi7jt8"]
+
+[ext_resource type="PackedScene" uid="uid://cfwvtk7xp87g2" path="res://actors/character.tscn" id="1_ho334"]
+[ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://scripts/enemy.gd" id="2_c6xed"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvpqy"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Enemy" unique_id=167650114 instance=ExtResource("1_ho334")]
+script = ExtResource("2_c6xed")
+
+[node name="Character" parent="." index="0" unique_id=1885673827]
+surface_material_override/0 = SubResource("StandardMaterial3D_mvpqy")

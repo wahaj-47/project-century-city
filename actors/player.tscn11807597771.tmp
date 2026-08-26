@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://6526a3mmxeke"]
+
+[ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://scripts/grid_move.gd" id="1_niuxy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kts2"]
+albedo_color = Color(0.46890807, 0.769176, 0.7537254, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2uyj2"]
+material = SubResource("StandardMaterial3D_0kts2")
+radius = 1.0
+height = 4.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dhrd0"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dhrd0"]
+size = Vector3(8, 8, 8)
+
+[node name="Player" type="CharacterBody3D" unique_id=429383614]
+script = ExtResource("1_niuxy")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1042118642]
+
+[node name="Character" type="MeshInstance3D" parent="Pivot" unique_id=874869927]
+mesh = SubResource("CapsuleMesh_2uyj2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=163654823]
+shape = SubResource("CapsuleShape3D_dhrd0")
+
+[node name="InteractionZone" type="Area3D" parent="." unique_id=1257542899]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionZone" unique_id=935752368]
+shape = SubResource("BoxShape3D_dhrd0")
+disabled = true
