@@ -57,7 +57,7 @@ _surfaces = [{
 size = Vector3(8, 6.5499997, 8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
-size = Vector3(8, 0.1, 8)
+size = Vector3(8, 0.2, 8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5m1pw"]
 size = Vector3(8, 0.1, 8)
