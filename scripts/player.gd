@@ -1,5 +1,11 @@
 extends Character
 
+signal player_moved
+
+func _on_movement_finished() -> void:
+	super._on_movement_finished()
+	player_moved.emit()
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	

@@ -1,11 +1,12 @@
-class_name cellBlocking
-extends GridMap
+@tool
+class_name cellBlocking extends EditorScript
 
-var astar_grid: AStarGrid2D
-
-func _ready():
-	var wall_cells = get_used_cells_by_item(mesh_library.find_item_by_name("Wall"))
-	var corner_cells = get_used_cells_by_item(mesh_library.find_item_by_name("Corner"))
+func _run() -> void:
+	var current_scene = get_scene()
+	var gridmap: GridMap = current_scene.get_node_or_null("floor")
+	
+	var wall_cells = gridmap.get_used_cells_by_item(gridmap.mesh_library.find_item_by_name("Wall"))
+	var corner_cells = gridmap.get_used_cells_by_item(gridmap.mesh_library.find_item_by_name("Corner"))
 	
 	var wall_arr: Array[Vector2i] = []
 	for cell in wall_cells:
@@ -19,5 +20,3 @@ func _ready():
 	blocked_cells.corners = corner_arr
 	
 	ResourceSaver.save(blocked_cells, "res://blockedCells.tres")
-		
-	

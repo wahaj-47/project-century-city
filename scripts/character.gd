@@ -28,9 +28,11 @@ func move_on_grid(direction: Vector3i) -> void:
 	current_direction = direction
 
 	if is_moving:
+		print("is moving")
 		return
 
 	if is_blocked(direction):
+		print("is blocked")
 		return
 
 	var target_grid_position := grid_position + direction
@@ -38,26 +40,23 @@ func move_on_grid(direction: Vector3i) -> void:
 
 	grid_position = target_grid_position
 	is_moving = true
+	print("is moving set to true")
 
 	movement_tween = create_tween()
-
 	movement_tween.tween_property(
 		self,
 		"global_position:x",
 		target_position.x,
 		move_duration
 	)
-
 	movement_tween.parallel().tween_property(
 		self,
 		"global_position:z",
 		target_position.z,
 		move_duration
 	)
-
 	movement_tween.set_trans(Tween.TRANS_QUAD)
 	movement_tween.set_ease(Tween.EASE_OUT)
-
 	movement_tween.finished.connect(_on_movement_finished)
 
 
@@ -69,6 +68,7 @@ func is_blocked(direction: Vector3i) -> bool:
 
 
 func _on_movement_finished() -> void:
+	print("moving is false")
 	is_moving = false
 
 
