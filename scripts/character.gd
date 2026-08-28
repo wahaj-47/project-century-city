@@ -3,13 +3,16 @@ extends CharacterBody3D
 
 @export var tile_size := 8.0
 @export var move_duration := 0.16
+@export var interaction_distance := 8.0
 
-@onready var ray_cast: RayCast3D = $RayCast3D
+@onready var raycast_collision: RayCast3D = $RayCast3D_Collision
+@onready var raycast_interaction: RayCast3D = $RayCast3D_Interaction
 @onready var grid_origin: Vector3 = global_position
 
 var grid_position := Vector3i.ZERO
 var is_moving := false
 var movement_tween: Tween
+var current_direction := Vector3i.ZERO
 
 
 func _physics_process(delta: float) -> void:
@@ -22,6 +25,8 @@ func _physics_process(delta: float) -> void:
 
 
 func move_on_grid(direction: Vector3i) -> void:
+	current_direction = direction
+
 	if is_moving:
 		return
 
@@ -57,11 +62,22 @@ func move_on_grid(direction: Vector3i) -> void:
 
 
 func is_blocked(direction: Vector3i) -> bool:
-	ray_cast.target_position = Vector3(direction) * tile_size
-	ray_cast.force_raycast_update()
+	raycast_collision.target_position = Vector3(direction) * tile_size
+	raycast_collision.force_raycast_update()
 
-	return ray_cast.is_colliding()
+	return raycast_collision.is_colliding()
 
 
 func _on_movement_finished() -> void:
 	is_moving = false
+
+
+func try_interact() -> void:
+	raycast_interaction.target_position = Vector3(current_direction) * interaction_distance
+	raycast_interaction.force_raycast_update()
+
+	if raycast_interaction.is_colliding():
+		var collider := raycast_interaction.get_collider()
+		var item = collider.owner
+		if item is Interactable:
+			item.on_interact(self)

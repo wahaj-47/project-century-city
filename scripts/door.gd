@@ -1,24 +1,46 @@
-extends StaticBody3D
-var isDoorOpen = false
-var doorIsMoving = false
-var movementAmount = 15
+extends Interactable
 
-func flipDoor():
-	doorIsMoving = not doorIsMoving
+@onready var mesh: Node3D = $Mesh
 
-func interact():
-	if doorIsMoving:
+@export var animation_duration := 0.2
+
+var open = false
+var moving = false
+
+func on_interact(instigator: Node3D) -> void:
+	super.on_interact(instigator)
+
+	if moving:
 		return
-	flipDoor()
-	var curPos = global_position
-	
-	var tween = create_tween()
-	if not isDoorOpen:
-		tween.tween_property(self, "global_position", Vector3(curPos.x, curPos.y+movementAmount, curPos.z), 1.0)
+
+	moving = true
+
+	if open:
+		_close_door()
 	else:
-		tween.tween_property(self, "global_position", Vector3(curPos.x, curPos.y-movementAmount, curPos.z), 1.0)
-		
-	tween.tween_callback(flipDoor)
-	isDoorOpen = not isDoorOpen
+		_open_door(instigator)
 	
-		
+
+func _open_door(player: Node3D) -> void:
+	var to_player: Vector3 = player.global_position - global_position
+	var door_forward: Vector3 = - global_transform.basis.z
+	
+	var dot: float = to_player.dot(door_forward)
+	var target_angle: float = 0 if open else 90 if dot > 0 else -90
+	
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "mesh:rotation:y", deg_to_rad(target_angle), animation_duration)
+	
+	tween.finished.connect(func():
+		open = not open
+		moving = false
+	)
+
+func _close_door() -> void:
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(self, "mesh:rotation:y", 0.0, animation_duration)
+	
+	tween.finished.connect(func():
+		open = false
+		moving = false
+	)

@@ -17,3 +17,6 @@ func _physics_process(delta: float) -> void:
 
 	elif Input.is_action_just_pressed("move_right"):
 		move_on_grid(Vector3i.RIGHT)
+
+	if Input.is_action_just_pressed("interact"):
+		try_interact()

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0p7xu0e1rax7"]
 
-[ext_resource type="PackedScene" uid="uid://d10d35fik8o0p" path="res://art/building_blocks.glb" id="1_kgeyp"]
+[ext_resource type="PackedScene" uid="uid://dxuku2ubu1kvt" path="res://art/building_blocks/building_blocks.glb" id="1_kgeyp"]
 
 [node name="Node3D" type="Node3D" unique_id=990146932]
 
-[node name="building_blocks" parent="." unique_id=1640015539 instance=ExtResource("1_kgeyp")]
+[node name="building_blocks" parent="." unique_id=694887984 instance=ExtResource("1_kgeyp")]
