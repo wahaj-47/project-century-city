@@ -10,6 +10,7 @@ height = 4.0
 
 [node name="Character" type="CharacterBody3D" unique_id=167650114]
 script = ExtResource("1_dwr5h")
+move_duration = 0.333
 
 [node name="Character" type="MeshInstance3D" parent="." unique_id=1885673827]
 mesh = SubResource("CapsuleMesh_bja7f")

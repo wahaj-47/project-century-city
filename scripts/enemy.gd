@@ -1,6 +1,6 @@
 extends Character
 
-func _physics_process(delta: float) -> void:
+func _ready() -> void:
 	var player = get_tree().get_first_node_in_group("Player")
 	player.player_moved.connect(moveEnemy)
 
