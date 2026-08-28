@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 PathFinder="*uid://dhg35iswmapu2"
 Floor="*uid://s5gieahhaaq8"
+Blackboard="*uid://cscatcwj8egsy"
 
 [display]
 

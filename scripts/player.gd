@@ -1,29 +1,33 @@
 extends Character
 
 signal player_moved
-
+	
 func _on_movement_finished() -> void:
 	super._on_movement_finished()
+	player_moved.emit()
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	if is_moving:
 		return
-
-func _input(event: InputEvent) -> void:
+		
+func input_handler(event: InputEvent) -> void:
 	if event.is_action_pressed("move_forward"):
 		move_on_grid(Vector3i.FORWARD)
-
+		
 	if event.is_action_pressed("move_backward"):
-		move_on_grid(Vector3i.BACK)
+			move_on_grid(Vector3i.BACK)
 
 	if event.is_action_pressed("move_left"):
-		move_on_grid(Vector3i.LEFT)
+			move_on_grid(Vector3i.LEFT)
 
 	if event.is_action_pressed("move_right"):
 		move_on_grid(Vector3i.RIGHT)
 
 	if event.is_action_pressed("interact"):
 		try_interact()
-
-	player_moved.emit()
+		
+func _input(event: InputEvent) -> void:
+	if not Blackboard.enemyMoving:
+		input_handler(event)
+	

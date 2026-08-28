@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://6526a3mmxeke" path="res://actors/player.tscn" id="1_qy63d"]
 [ext_resource type="MeshLibrary" uid="uid://du2t3lmoi7ogu" path="res://art/ml_building_blocks.tres" id="2_wdj6m"]
-[ext_resource type="PackedScene" uid="uid://bkrdur88w3v3x" path="res://actors/door.tscn" id="3_l8qe7"]
+[ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://actors/door.tscn" id="3_l8qe7"]
 [ext_resource type="PackedScene" uid="uid://cvq1ccaqi7jt8" path="res://actors/enemy.tscn" id="4_m1504"]
 
 [sub_resource type="GDScript" id="GDScript_wdj6m"]
@@ -44,6 +44,10 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12,
 [node name="door-002" parent="." unique_id=1050975347 instance=ExtResource("3_l8qe7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 20, 0.2, -29.35)
 
-[node name="enemy" parent="." unique_id=167650114 instance=ExtResource("4_m1504")]
+[node name="enemy" parent="." unique_id=167650114 groups=["Enemy"] instance=ExtResource("4_m1504")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 2, -36)
+move_duration = 0.33
+
+[node name="enemy2" parent="." unique_id=999340040 groups=["Enemy"] instance=ExtResource("4_m1504")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, -36)
 move_duration = 0.33

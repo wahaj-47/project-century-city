@@ -14,6 +14,10 @@ var is_moving := false
 var movement_tween: Tween
 var current_direction := Vector3i.ZERO
 
+func setCurrentTileSolid():
+	var currentPosition = Floor.convertCellCoords(global_position)
+	
+	return
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -23,24 +27,21 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-
 func move_on_grid(direction: Vector3i) -> void:
 	current_direction = direction
 
 	if is_moving:
-		print("is moving")
 		return
 
 	if is_blocked(direction):
-		print("is blocked")
+		_on_movement_finished()
 		return
-
+	
 	var target_grid_position := grid_position + direction
 	var target_position := grid_origin + Vector3(target_grid_position) * tile_size
 
 	grid_position = target_grid_position
 	is_moving = true
-	print("is moving set to true")
 
 	movement_tween = create_tween()
 	movement_tween.tween_property(
@@ -59,18 +60,14 @@ func move_on_grid(direction: Vector3i) -> void:
 	movement_tween.set_ease(Tween.EASE_OUT)
 	movement_tween.finished.connect(_on_movement_finished)
 
-
 func is_blocked(direction: Vector3i) -> bool:
 	raycast_collision.target_position = Vector3(direction) * tile_size
 	raycast_collision.force_raycast_update()
 
 	return raycast_collision.is_colliding()
 
-
 func _on_movement_finished() -> void:
-	print("moving is false")
 	is_moving = false
-
 
 func try_interact() -> void:
 	raycast_interaction.target_position = Vector3(current_direction) * interaction_distance

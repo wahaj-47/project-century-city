@@ -7,6 +7,10 @@ extends Interactable
 var open = false
 var moving = false
 
+#Doors are closed by default therefore considered solid in A*Grid
+func _ready() -> void:
+	PathFinder.astar_grid.set_point_solid(Floor.convertCellCoords(global_position), true)
+
 func on_interact(instigator: Node3D) -> void:
 	super.on_interact(instigator)
 
@@ -35,6 +39,9 @@ func _open_door(player: Node3D) -> void:
 		open = not open
 		moving = false
 	)
+	# Open doors are no longer solid in A*Grid
+	PathFinder.astar_grid.set_point_solid(Floor.convertCellCoords(global_position), false)
+	
 
 func _close_door() -> void:
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
@@ -44,3 +51,6 @@ func _close_door() -> void:
 		open = false
 		moving = false
 	)
+	# Closed doors are solid in A*Grid
+	PathFinder.astar_grid.set_point_solid(Floor.convertCellCoords(global_position), true)
+	
