@@ -1,7 +1,7 @@
 extends Interactable
 
 @onready var mesh: Node3D = $Mesh
-
+@onready var detection_zone: Area3D = $DetectionZone
 @export var animation_duration := 0.2
 
 var open = false
@@ -9,7 +9,7 @@ var moving = false
 
 #Doors are closed by default therefore considered solid in A*Grid
 func _ready() -> void:
-	PathFinder.astar_grid.set_point_solid(Floor.convertCellCoords(global_position), true)
+	PathFinder.astar_grid.set_point_solid(Blackboard.convertCellCoords(global_position), true)
 
 func on_interact(instigator: Node3D) -> void:
 	super.on_interact(instigator)
@@ -20,7 +20,14 @@ func on_interact(instigator: Node3D) -> void:
 	moving = true
 
 	if open:
-		_close_door()
+		var canClose = true
+		var bodies = detection_zone.get_overlapping_bodies()
+		for body in bodies:
+			if body.is_in_group("Enemy"):
+				canClose = false
+				break
+		if canClose:
+			_close_door()
 	else:
 		_open_door(instigator)
 	
@@ -40,7 +47,7 @@ func _open_door(player: Node3D) -> void:
 		moving = false
 	)
 	# Open doors are no longer solid in A*Grid
-	PathFinder.astar_grid.set_point_solid(Floor.convertCellCoords(global_position), false)
+	PathFinder.astar_grid.set_point_solid(Blackboard.convertCellCoords(global_position), false)
 	
 
 func _close_door() -> void:
@@ -52,5 +59,5 @@ func _close_door() -> void:
 		moving = false
 	)
 	# Closed doors are solid in A*Grid
-	PathFinder.astar_grid.set_point_solid(Floor.convertCellCoords(global_position), true)
+	PathFinder.astar_grid.set_point_solid(Blackboard.convertCellCoords(global_position), true)
 	

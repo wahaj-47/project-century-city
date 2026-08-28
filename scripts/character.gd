@@ -15,7 +15,7 @@ var movement_tween: Tween
 var current_direction := Vector3i.ZERO
 
 func setCurrentTileSolid():
-	var currentPosition = Floor.convertCellCoords(global_position)
+	var currentPosition = Blackboard.convertCellCoords(global_position)
 	
 	return
 

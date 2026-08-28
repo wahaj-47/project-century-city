@@ -1,6 +1,16 @@
+#Helper functions
 extends Node
 
 var enemyMoving: bool = false
+
+func convertCellCoords(globalPos) -> Vector2i:
+	var localX = (-4+globalPos.x)/8 
+	var localY = (-4+globalPos.z)/8
+	return Vector2i(localX, localY)
+
+func findPlayer() -> Vector2i:
+	var player = get_tree().get_first_node_in_group("Player")
+	return convertCellCoords(player.global_position)
 
 func movementAllowed(enemyMovement: bool):
 	enemyMoving = enemyMovement

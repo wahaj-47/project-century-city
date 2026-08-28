@@ -18,10 +18,9 @@ func moveEnemy():
 
 func get_ai_direction() -> Vector3i:
 	# Your AI logic goes here
-	var playerPos = Floor.getPos("Player")
-	var myPos = Floor.convertCellCoords(global_position)
+	var playerPos = Blackboard.findPlayer()
+	var myPos = Blackboard.convertCellCoords(global_position)
 	var path = PathFinder.astar_grid.get_id_path(myPos, playerPos)
-	print(path)
 	var directions = PathFinder.getDirections(path)
 	if directions.is_empty():
 		return Vector3i.ZERO
