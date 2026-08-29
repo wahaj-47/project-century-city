@@ -3,5 +3,5 @@ extends Resource
 
 @export var walls: Array[Vector2i] = []
 @export var corners: Array[Vector2i] = []
-@export var startPos: Vector2i
+@export var start_pos: Vector2i
 @export var endPos: Vector2i

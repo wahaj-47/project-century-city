@@ -1,5 +1,5 @@
 @tool
-class_name cellBlocking extends EditorScript
+class_name CellBlocking extends EditorScript
 
 func _run() -> void:
 	var current_scene = get_scene()

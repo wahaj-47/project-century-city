@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="blockedCells" format=3 uid="uid://c70d485ckbdfe"]
 
-[ext_resource type="Script" uid="uid://bbuw4t7r5wfnj" path="res://scripts/blockedCells.gd" id="1_gcp6q"]
+[ext_resource type="Script" uid="uid://bbuw4t7r5wfnj" path="res://scripts/blocked_cells.gd" id="1_gcp6q"]
 
 [resource]
 script = ExtResource("1_gcp6q")
