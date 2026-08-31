@@ -16,3 +16,8 @@ script = ExtResource("2_6m35f")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=100646589]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.335, 2.4, 0)
 shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="ObstructionCheck" type="RayCast3D" parent="." unique_id=1843718941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+enabled = false
+target_position = Vector3(-2.6, 0, 0)

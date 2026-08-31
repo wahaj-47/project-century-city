@@ -9,5 +9,9 @@ albedo_color = Color(1, 0, 0, 1)
 [node name="Enemy" unique_id=167650114 instance=ExtResource("1_ho334")]
 script = ExtResource("2_c6xed")
 
-[node name="Character" parent="." index="0" unique_id=1885673827]
+[node name="Registrar" parent="." index="0" unique_id=2077212095 node_paths=PackedStringArray("registered_node")]
+key = &"enemy"
+registered_node = NodePath(".")
+
+[node name="Character" parent="." index="1" unique_id=1885673827]
 surface_material_override/0 = SubResource("StandardMaterial3D_mvpqy")

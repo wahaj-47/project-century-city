@@ -14,10 +14,7 @@ var is_moving := false
 var movement_tween: Tween
 var current_direction := Vector3i.ZERO
 
-func setCurrentTileSolid():
-	var currentPosition = Blackboard.convertCellCoords(global_position)
-	
-	return
+signal moving(bool)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -37,6 +34,8 @@ func move_on_grid(direction: Vector3i) -> void:
 		_on_movement_finished()
 		return
 	
+	moving.emit(true)
+
 	var target_grid_position := grid_position + direction
 	var target_position := grid_origin + Vector3(target_grid_position) * tile_size
 
@@ -68,6 +67,8 @@ func is_blocked(direction: Vector3i) -> bool:
 
 func _on_movement_finished() -> void:
 	is_moving = false
+	
+	moving.emit(false)
 
 func try_interact() -> void:
 	raycast_interaction.target_position = Vector3(current_direction) * interaction_distance
