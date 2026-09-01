@@ -1,6 +1,7 @@
 shader_type spatial;
 
 uniform sampler2D floor_texture : source_color, filter_nearest, repeat_enable;
+uniform vec4 floor_tint : source_color = vec4(1.0);
 uniform float texture_size = 1.0;
 
 varying vec3 world_position;
@@ -13,7 +14,8 @@ void vertex() {
 void fragment() {
 	// Called for every pixel the material is visible on.
 	 vec2 uv = world_position.xz / texture_size;
-    ALBEDO = texture(floor_texture, uv).rgb;
+	 vec3 texture_color = texture(floor_texture, uv).rgb;
+    ALBEDO = texture_color * floor_tint.rgb;
 }
 
 //void light() {

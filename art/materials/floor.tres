@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bkyce4nupnj6p"]
+
+[ext_resource type="Shader" uid="uid://d23e7swkv8fbm" path="res://art/shaders/world_space_uv.gdshader" id="1_r7qdr"]
+[ext_resource type="Texture2D" uid="uid://bdjpfax25sd07" path="res://art/building_blocks/building_blocks_d.png" id="2_ffpt6"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_r7qdr")
+shader_parameter/floor_texture = ExtResource("2_ffpt6")
+shader_parameter/floor_tint = Color(1, 1, 1, 1)
+shader_parameter/texture_size = 8.0
