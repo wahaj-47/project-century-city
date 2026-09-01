@@ -1,0 +1,27 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://dolikxcfvpjdp"]
+
+[ext_resource type="Script" uid="uid://ry1vmdb5d08d" path="res://ai/tasks/save_nodes.gd" id="1_jogcj"]
+[ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://ai/tasks/move_to_player.gd" id="2_1td8q"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_7a1ea"]
+var/var/name = &"var"
+var/var/type = 3
+var/var/value = 0.0
+var/var/hint = 0
+var/var/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_1td8q"]
+script = ExtResource("1_jogcj")
+
+[sub_resource type="BTRunLimit" id="BTRunLimit_1td8q"]
+children = [SubResource("BTAction_1td8q")]
+
+[sub_resource type="BTAction" id="BTAction_agtu2"]
+script = ExtResource("2_1td8q")
+
+[sub_resource type="BTSelector" id="BTSelector_agtu2"]
+children = [SubResource("BTRunLimit_1td8q"), SubResource("BTAction_agtu2")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_7a1ea")
+root_task = SubResource("BTSelector_agtu2")
