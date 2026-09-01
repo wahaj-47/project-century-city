@@ -5,8 +5,8 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puroo"]
 resource_name = "Solid"
 cull_mode = 2
-albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
-roughness = 0.5
+albedo_color = Color(0.8209723, 0.8036669, 0.7568618, 1)
+metallic_specular = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_0kqlc"]
 _surfaces = [{
