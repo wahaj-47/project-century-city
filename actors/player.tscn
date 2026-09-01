@@ -9,18 +9,14 @@ albedo_color = Color(0, 1, 1, 1)
 [node name="Player" unique_id=167650114 instance=ExtResource("1_niuxy")]
 script = ExtResource("2_mvpqy")
 
-[node name="Registrar" parent="." index="0" unique_id=2077212095 node_paths=PackedStringArray("registered_node")]
-key = &"player"
-registered_node = NodePath("..")
-
-[node name="Character" parent="." index="1" unique_id=1885673827]
+[node name="Character" parent="." index="0" unique_id=1885673827]
 surface_material_override/0 = SubResource("StandardMaterial3D_dwr5h")
 
 [node name="Pivot" type="Marker3D" parent="." index="4" unique_id=1950812249]
 transform = Transform3D(0.93969256, 0.24184471, -0.24184471, 0, 0.7071067, 0.7071067, 0.3420201, -0.6644629, 0.6644629, 0, -2.0499997, -5)
 
 [node name="Camera" type="Camera3D" parent="Pivot" index="0" unique_id=1406908645]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 5.9604645e-08, 0, -5.9604645e-08, 1.0000001, 0, 0, 25)
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 5.9604645e-08, 0, -5.9604645e-08, 1.0000001, 0, 0, 30)
 projection = 1
 size = 34.476
 near = 0.001
