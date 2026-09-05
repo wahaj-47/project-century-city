@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://cigjuhyfie4qn"]
 
-[ext_resource type="PackedScene" uid="uid://bbjl8tjmqu3w5" path="res://art/door/door.glb" id="1_t0fup"]
-[ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://scripts/door.gd" id="2_6m35f"]
+[ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://actors/door/door.gd" id="1_t7gc3"]
+[ext_resource type="PackedScene" uid="uid://bbjl8tjmqu3w5" path="res://art/door/door.glb" id="2_qfphl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 size = Vector3(2.67, 4.8, 0.2)
 
 [node name="Door" type="Node3D" unique_id=1884502191]
-script = ExtResource("2_6m35f")
+script = ExtResource("1_t7gc3")
 
-[node name="Mesh" parent="." unique_id=15829244 instance=ExtResource("1_t0fup")]
+[node name="Mesh" parent="." unique_id=15829244 instance=ExtResource("2_qfphl")]
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=1066917586]
 

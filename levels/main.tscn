@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://jsnesmd30dqv"]
 
-[ext_resource type="PackedScene" uid="uid://6526a3mmxeke" path="res://actors/player.tscn" id="1_qy63d"]
+[ext_resource type="PackedScene" uid="uid://b18pk6e2j3oxo" path="res://characters/player/player.tscn" id="1_qy63d"]
 [ext_resource type="MeshLibrary" uid="uid://du2t3lmoi7ogu" path="res://art/ml_building_blocks.tres" id="2_wdj6m"]
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://scripts/astar_gridmap.gd" id="3_ifaiv"]
-[ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://actors/door.tscn" id="3_l8qe7"]
-[ext_resource type="PackedScene" uid="uid://cvq1ccaqi7jt8" path="res://actors/enemy.tscn" id="4_m1504"]
+[ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://actors/door/door.tscn" id="3_l8qe7"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
 fog_light_color = Color(0.03612666, 0.0437299, 0.05523669, 1)
@@ -14,35 +13,21 @@ fog_height_density = 3.6174
 
 [node name="Main" type="Node" unique_id=1474689114]
 
-[node name="player" parent="." unique_id=429383614 groups=["Player"] instance=ExtResource("1_qy63d")]
-transform = Transform3D(0.9949761, -0.10011245, 0, 0.10011245, 0.9949761, 0, 0, 0, 1, 4, 2, 4)
-move_duration = 0.16
-
-[node name="Camera" parent="player/Pivot" parent_id_path=PackedInt32Array(429383614, 1950812249) index="0" unique_id=1406908645]
-transform = Transform3D(0.99174863, 0.12819879, -1.4901161e-08, -0.1281988, 0.9917486, 1.1920929e-07, 5.9604645e-08, -2.0861626e-07, 1, 2.3841858e-07, 2.7418137e-06, 29.999992)
-
-[node name="sun" type="DirectionalLight3D" parent="." unique_id=1946412389]
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1946412389]
 transform = Transform3D(0.5937606, -0.23721164, -0.76888156, 0.8043612, 0.14975847, 0.5749568, -0.021239895, -0.95984524, 0.2797246, 0, 7.6293945e-06, 0)
 shadow_enabled = true
 shadow_opacity = 0.7
 
-[node name="door-001" parent="." unique_id=1884502191 instance=ExtResource("3_l8qe7")]
+[node name="Door-001" parent="." unique_id=1884502191 instance=ExtResource("3_l8qe7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12, 0.2, -29.35)
 
-[node name="door-002" parent="." unique_id=1050975347 instance=ExtResource("3_l8qe7")]
+[node name="Door-002" parent="." unique_id=1050975347 instance=ExtResource("3_l8qe7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 20, 0.2, -29.35)
 
-[node name="enemy" parent="." unique_id=167650114 groups=["Enemy"] instance=ExtResource("4_m1504")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 2, -36)
-
-[node name="enemy2" parent="." unique_id=1259083091 groups=["Enemy"] instance=ExtResource("4_m1504")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, -36)
-move_duration = 0.33
-
-[node name="world-environment" type="WorldEnvironment" parent="." unique_id=1807349354]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1807349354]
 environment = SubResource("Environment_r7qdr")
 
-[node name="map" type="GridMap" parent="." unique_id=1543279110]
+[node name="Map" type="GridMap" parent="." unique_id=1543279110 groups=["Map"]]
 mesh_library = ExtResource("2_wdj6m")
 cell_size = Vector3(8, 6.6, 8)
 cell_center_y = false
@@ -52,8 +37,9 @@ data = {
 script = ExtResource("3_ifaiv")
 region = Rect2i(-6, -8, 13, 11)
 solids = Array[String](["wall", "wall-half", "corner"])
-solid_cells = Array[Vector2i]([Vector2i(-2, -3), Vector2i(-2, -5), Vector2i(2, -3), Vector2i(2, -5), Vector2i(-2, 1), Vector2i(-2, 0), Vector2i(-2, -1), Vector2i(2, -1), Vector2i(2, 0), Vector2i(2, 1), Vector2i(-1, 2), Vector2i(1, 2), Vector2i(0, 2), Vector2i(-2, -7), Vector2i(2, -7), Vector2i(-1, -8), Vector2i(0, -8), Vector2i(1, -8), Vector2i(-3, -2), Vector2i(-5, -2), Vector2i(-4, -2), Vector2i(-5, -6), Vector2i(-4, -6), Vector2i(-3, -6), Vector2i(3, -6), Vector2i(4, -6), Vector2i(5, -6), Vector2i(3, -2), Vector2i(4, -2), Vector2i(5, -2), Vector2i(-6, -3), Vector2i(-6, -4), Vector2i(-6, -5), Vector2i(6, -5), Vector2i(6, -4), Vector2i(6, -3), Vector2i(-2, 2), Vector2i(2, 2), Vector2i(-2, -8), Vector2i(2, -8), Vector2i(-6, -2), Vector2i(-6, -6), Vector2i(6, -6), Vector2i(6, -2)])
+solid_cells = Array[Vector2i]([Vector2i(-2, -3), Vector2i(-2, -5), Vector2i(2, -3), Vector2i(2, -5), Vector2i(-2, 1), Vector2i(-2, 0), Vector2i(-2, -1), Vector2i(2, -1), Vector2i(2, 0), Vector2i(2, 1), Vector2i(-1, 2), Vector2i(1, 2), Vector2i(0, 2), Vector2i(-2, -7), Vector2i(2, -7), Vector2i(-1, -8), Vector2i(0, -8), Vector2i(1, -8), Vector2i(-3, -2), Vector2i(-5, -2), Vector2i(-4, -2), Vector2i(-5, -6), Vector2i(-4, -6), Vector2i(-3, -6), Vector2i(3, -6), Vector2i(4, -6), Vector2i(5, -6), Vector2i(3, -2), Vector2i(4, -2), Vector2i(5, -2), Vector2i(-6, -3), Vector2i(-6, -4), Vector2i(-6, -5), Vector2i(6, -5), Vector2i(6, -3), Vector2i(6, -4), Vector2i(-2, 2), Vector2i(2, 2), Vector2i(-2, -8), Vector2i(2, -8), Vector2i(-6, -2), Vector2i(-6, -6), Vector2i(6, -6), Vector2i(6, -2)])
 metadata/_custom_type_script = "uid://yeacy85cb1cj"
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[editable path="player"]
+[node name="Player" parent="." unique_id=167650114 instance=ExtResource("1_qy63d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.6330357, 4)

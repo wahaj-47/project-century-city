@@ -1,3 +1,4 @@
+# Switches player to the target camera when the player enters the entry point.
 extends Area3D
 
 @export var target_camera: Camera3D

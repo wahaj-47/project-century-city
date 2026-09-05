@@ -41,16 +41,15 @@ func _tick(delta: float) -> Status:
 	if TurnTracker.turn == TurnTracker.ActorType.ENEMIES:
 		var path = getPath()
 		if path.size() <= 1:
-			TurnTracker.flipTracker()
+			TurnTracker.end_turn()
 			return FAILURE
 		else:
-			var step = Vector3i(path[1].x-path[0].x,0,path[1].y-path[0].y)
+			var step = Vector3i(path[1].x - path[0].x, 0, path[1].y - path[0].y)
 			parent.move_on_grid(step)
-			TurnTracker.flipTracker()
+			TurnTracker.end_turn()
 			return SUCCESS
 	else:
 		return RUNNING
-
 
 
 # Strings returned from this method are displayed as warnings in the behavior tree editor (requires @tool).

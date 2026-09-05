@@ -15,15 +15,18 @@ func _ready() -> void:
 	map = get_tree().get_first_node_in_group("Map")
 	map.set_cell_solid(map.to_grid_coords(global_position), true)
 
-func on_interact(instigator: Node3D) -> void:
-	super.on_interact(instigator)
+func _interact(instigator: Node3D) -> void:
+	super._interact(instigator)
 
 	if obstruction_check.is_colliding():
+		interaction_ended.emit()
 		return
 
 	if moving:
+		interaction_ended.emit()
 		return
 
+	interaction_started.emit()
 	moving = true
 
 	if open:
@@ -46,6 +49,7 @@ func _open_door(player: Node3D) -> void:
 		open = not open
 		moving = false
 		obstruction_check.enabled = true
+		interaction_ended.emit()
 	)
 	map.set_cell_solid(map.to_grid_coords(global_position), false)
 	
@@ -58,5 +62,6 @@ func _close_door() -> void:
 		open = false
 		moving = false
 		obstruction_check.enabled = false
+		interaction_ended.emit()
 	)
 	map.set_cell_solid(map.to_grid_coords(global_position), true)

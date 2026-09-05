@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b18pk6e2j3oxo"]
+
+[ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://characters/player/player.gd" id="1_508ok"]
+[ext_resource type="PackedScene" uid="uid://cfwvtk7xp87g2" path="res://characters/base/character.tscn" id="1_e425n"]
+[ext_resource type="Script" uid="uid://y55r8buxojk3" path="res://characters/player/states/waiting_for_turn.gd" id="3_exd8k"]
+[ext_resource type="PackedScene" uid="uid://7map1u43mhuc" path="res://components/camera_boom/camera_boom.tscn" id="3_ixbpm"]
+[ext_resource type="Script" uid="uid://bsu1nnrm0lr4u" path="res://characters/player/states/moving.gd" id="5_c6leb"]
+[ext_resource type="Script" uid="uid://cpp3x4qgicuak" path="res://characters/player/states/idle.gd" id="5_ixbpm"]
+[ext_resource type="Script" uid="uid://1vdrn56o5e7c" path="res://characters/player/states/interacting.gd" id="7_dirf7"]
+
+[node name="Player" unique_id=167650114 instance=ExtResource("1_e425n")]
+script = ExtResource("1_508ok")
+
+[node name="CameraBoom" parent="." index="0" unique_id=361584401 instance=ExtResource("3_ixbpm")]
+transform = Transform3D(0.93969256, 0.24184474, -0.24184473, 0, 0.70710677, 0.7071067, 0.3420201, -0.664463, 0.6644629, 0, 0, 0)
+top_level = true
+
+[node name="Camera" type="Camera3D" parent="CameraBoom" index="0" unique_id=1406908645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 90)
+projection = 1
+size = 35.0
+near = 0.001
+
+[node name="WaitingForTurn" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="0" unique_id=2044972584]
+script = ExtResource("3_exd8k")
+
+[node name="Idle" type="LimboState" parent="StateMachine/TakingTurn" parent_id_path=PackedInt32Array(877587001) index="0" unique_id=1787902812]
+script = ExtResource("5_ixbpm")
+
+[node name="Moving" type="LimboState" parent="StateMachine/TakingTurn" parent_id_path=PackedInt32Array(877587001) index="1" unique_id=1210772350]
+script = ExtResource("5_c6leb")
+
+[node name="Interacting" type="LimboState" parent="StateMachine/TakingTurn" parent_id_path=PackedInt32Array(877587001) index="2" unique_id=782402771]
+script = ExtResource("7_dirf7")

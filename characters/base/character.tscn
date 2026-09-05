@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cfwvtk7xp87g2"]
+
+[ext_resource type="Script" uid="uid://bch5a2bgcfig7" path="res://characters/base/character.gd" id="1_dwr5h"]
+[ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://components/character_movement_component/character_movement_component.tscn" id="2_yo2jm"]
+[ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://components/interaction_ability_component/interaction_ability_component.tscn" id="3_bh43n"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bja7f"]
+height = 4.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
+height = 4.0
+
+[node name="Character" type="CharacterBody3D" unique_id=167650114]
+script = ExtResource("1_dwr5h")
+
+[node name="CharacterMesh" type="MeshInstance3D" parent="." unique_id=1885673827]
+mesh = SubResource("CapsuleMesh_bja7f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1607071947]
+shape = SubResource("CapsuleShape3D_yo2jm")
+
+[node name="StateMachine" type="LimboHSM" parent="." unique_id=1717741298]
+
+[node name="WaitingForTurn" type="LimboState" parent="StateMachine" unique_id=2044972584]
+
+[node name="TakingTurn" type="LimboHSM" parent="StateMachine" unique_id=877587001]
+
+[node name="CharacterMovementComponent" parent="." unique_id=137649720 instance=ExtResource("2_yo2jm")]
+
+[node name="InteractionAbilityComponent" parent="." unique_id=1540746576 instance=ExtResource("3_bh43n")]
