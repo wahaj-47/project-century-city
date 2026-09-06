@@ -84,17 +84,21 @@ func build_astar_grid() -> void:
 			astar_grid.set_point_solid(cell, true)
 
 
-func set_cell_solid(cell: Vector2i, solid: bool) -> void:
+func set_point_solid(point: Vector3, solid: bool) -> void:
 	if astar_grid == null:
 		return
+
+	var cell: Vector2i = to_grid_coords(point)
 
 	if astar_grid.region.has_point(cell):
 		astar_grid.set_point_solid(cell, solid)
 
 
-func is_cell_solid(cell: Vector2i) -> bool:
+func is_point_solid(point: Vector3) -> bool:
 	if astar_grid == null:
 		return true
+	
+	var cell: Vector2i = to_grid_coords(point)
 
 	return astar_grid.is_point_solid(cell)
 

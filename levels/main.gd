@@ -10,3 +10,6 @@ func _ready() -> void:
 
 	assert(map != null, "AStarGridMap not found.")
 	GameState.map = map
+
+	for node in get_tree().get_nodes_in_group("Solid"):
+		map.set_point_solid(node.global_position, true)

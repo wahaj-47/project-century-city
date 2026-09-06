@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 size = Vector3(2.67, 4.8, 0.2)
 
-[node name="Door" type="Node3D" unique_id=1884502191]
+[node name="Door" type="Node3D" unique_id=1884502191 groups=["Solid"]]
 script = ExtResource("1_t7gc3")
 
 [node name="Mesh" parent="." unique_id=15829244 instance=ExtResource("2_qfphl")]

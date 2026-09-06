@@ -8,12 +8,6 @@ extends Interactable
 
 var open = false
 var moving = false
-var map
-
-# Doors are closed by default therefore considered solid in map
-func _ready() -> void:
-	map = get_tree().get_first_node_in_group("Map")
-	map.set_cell_solid(map.to_grid_coords(global_position), true)
 
 func _interact(instigator: Node3D) -> void:
 	super._interact(instigator)
@@ -51,7 +45,7 @@ func _open_door(player: Node3D) -> void:
 		obstruction_check.enabled = true
 		interaction_ended.emit()
 	)
-	map.set_cell_solid(map.to_grid_coords(global_position), false)
+	GameState.map.set_point_solid(global_position, false)
 	
 
 func _close_door() -> void:
@@ -64,4 +58,4 @@ func _close_door() -> void:
 		obstruction_check.enabled = false
 		interaction_ended.emit()
 	)
-	map.set_cell_solid(map.to_grid_coords(global_position), true)
+	GameState.map.set_point_solid(global_position, true)
