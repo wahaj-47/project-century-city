@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://7map1u43mhuc"]
+
+[ext_resource type="Script" uid="uid://chl5hh02ltsy4" path="res://components/camera_boom/camera_boom.gd" id="1_i08ag"]
+
+[node name="CameraBoom" type="Marker3D" unique_id=92780663]
+script = ExtResource("1_i08ag")

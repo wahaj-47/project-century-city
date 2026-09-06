@@ -1,0 +1,28 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://dolikxcfvpjdp"]
+
+[ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://ai/tasks/move_to_player.gd" id="2_bk8ns"]
+[ext_resource type="Script" uid="uid://buddwnpihnqhd" path="res://ai/tasks/wait_signal.gd" id="2_r04dg"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_7a1ea"]
+var/var/name = &"var"
+var/var/type = 3
+var/var/value = 0.0
+var/var/hint = 0
+var/var/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_agtu2"]
+custom_name = "Find path to player and take one step towards player"
+script = ExtResource("2_bk8ns")
+
+[sub_resource type="BTAction" id="BTAction_bk8ns"]
+custom_name = "Wait for movement to end"
+script = ExtResource("2_r04dg")
+signal_source = NodePath("CharacterMovementComponent")
+signal_name = "movement_ended"
+
+[sub_resource type="BTSequence" id="BTSequence_ol8kc"]
+children = [SubResource("BTAction_agtu2"), SubResource("BTAction_bk8ns")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_7a1ea")
+root_task = SubResource("BTSequence_ol8kc")

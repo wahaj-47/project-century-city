@@ -21,6 +21,7 @@ func _ready() -> void:
 	print("Building AStar Grid...")
 	build_astar_grid()
 
+
 func generate_astar_grid() -> void:
 	print("Generating AStar Grid...")
 
@@ -70,6 +71,7 @@ func generate_astar_grid() -> void:
 	print("Region: ", region)
 	print("Solid cells: ", solid_cells.size())
 
+
 func build_astar_grid() -> void:
 	astar_grid = AStarGrid2D.new()
 	astar_grid.region = region
@@ -80,6 +82,7 @@ func build_astar_grid() -> void:
 	for cell in solid_cells:
 		if astar_grid.region.has_point(cell):
 			astar_grid.set_point_solid(cell, true)
+
 
 func set_cell_solid(cell: Vector2i, solid: bool) -> void:
 	if astar_grid == null:
@@ -93,26 +96,18 @@ func is_cell_solid(cell: Vector2i) -> bool:
 	if astar_grid == null:
 		return true
 
-	if not astar_grid.region.has_point(cell):
-		return true
-
 	return astar_grid.is_point_solid(cell)
 
 
-func get_id_path(from: Vector2i, to: Vector2i, allow_partial_path: bool = false) -> Array[Vector2i]:
+func get_id_path(from: Vector3, to: Vector3, allow_partial_path: bool = false) -> Array[Vector2i]:
 	if astar_grid == null:
 		return []
 
-	if not astar_grid.region.has_point(from):
-		return []
+	var from_cell = to_grid_coords(from)
+	var to_cell = to_grid_coords(to)
 
-	if not astar_grid.region.has_point(to):
-		return []
+	return astar_grid.get_id_path(from_cell, to_cell, allow_partial_path)
 
-	if astar_grid.is_point_solid(to):
-		return []
-
-	return astar_grid.get_id_path(from, to, allow_partial_path)
 
 func to_grid_coords(in_position: Vector3) -> Vector2i:
 	var local_position = to_local(in_position)

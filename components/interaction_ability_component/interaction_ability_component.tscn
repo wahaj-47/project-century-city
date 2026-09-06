@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://7vk682fu3w0x"]
+
+[ext_resource type="Script" uid="uid://k03t5ffifsv7" path="res://components/interaction_ability_component/interaction_ability_component.gd" id="1_btrmq"]
+
+[node name="InteractionAbilityComponent" type="Node3D" unique_id=229688444]
+script = ExtResource("1_btrmq")
+
+[node name="RayCast3D_Interaction" type="RayCast3D" parent="." unique_id=692155427]
+target_position = Vector3(0, 0, 8)
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(0, 0, 1, 1)
+debug_shape_thickness = 5

@@ -1,0 +1,25 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://3j804ti4whao"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_gxg16"]
+
+[sub_resource type="BTComment" id="BTComment_gxg16"]
+custom_name = "This tree does nothing and repeats infinitely"
+
+[sub_resource type="BTComment" id="BTComment_aekwr"]
+custom_name = "The tree ends execution when the agent gets its turn"
+
+[sub_resource type="BTComment" id="BTComment_ylblo"]
+custom_name = "We can run idle animations, sounds etc. here"
+
+[sub_resource type="BTWait" id="BTWait_gxg16"]
+
+[sub_resource type="BTRepeat" id="BTRepeat_aekwr"]
+forever = true
+children = [SubResource("BTWait_gxg16")]
+
+[sub_resource type="BTSequence" id="BTSequence_aekwr"]
+children = [SubResource("BTComment_gxg16"), SubResource("BTComment_aekwr"), SubResource("BTComment_ylblo"), SubResource("BTRepeat_aekwr")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_gxg16")
+root_task = SubResource("BTSequence_aekwr")
