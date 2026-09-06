@@ -80,7 +80,6 @@ func move(direction: Vector3i) -> bool:
 	)
 
 	if is_blocked(direction):
-		is_moving = false
 		return false
 	
 	is_moving = true

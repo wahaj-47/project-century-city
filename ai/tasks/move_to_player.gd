@@ -2,54 +2,41 @@
 extends BTAction
 ## MoveToPlayer
 
-@export var player_var: StringName = &"player_node"
-@export var map_var: StringName = &"map_node"
-@export var step_var: StringName = &"step_to_take"
-
-var player
-var map
-var parent
+var player: Character
+var map: AStarGridMap
+var character: Character
 
 # Display a customized name (requires @tool).
 func _generate_name() -> String:
 	return "MoveToPlayer"
 
-
 # Called once during initialization.
-func _setup() -> void:
-	pass
-
-# Called each time this task is entered.
 func _enter() -> void:
-	player = blackboard.get_var(player_var)
-	map = blackboard.get_var(map_var)
-	parent = agent as Character
+	player = GameState.player
+	map = GameState.map
+	character = agent as Character
 
-
-# Called each time this task is exited.
-func _exit() -> void:
-	pass
-	
-
-func getPath() -> Array:
-	var pos = map.to_grid_coords(parent.global_position)
-	var playerPos = map.to_grid_coords(player.global_position)
-	return map.get_id_path(pos, playerPos)
+func find_path() -> Array[Vector2i]:
+	return map.get_id_path(character.global_position, player.global_position)
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
-	if TurnTracker.turn == TurnTracker.ActorType.ENEMIES:
-		var path = getPath()
-		if path.size() <= 1:
-			TurnTracker.end_turn()
-			return FAILURE
-		else:
-			var step = Vector3i(path[1].x - path[0].x, 0, path[1].y - path[0].y)
-			parent.move_on_grid(step)
-			TurnTracker.end_turn()
-			return SUCCESS
-	else:
-		return RUNNING
+	var path: Array[Vector2i] = find_path()
+	if path.size() <= 1:
+		return FAILURE
+
+	var step: Vector2i = path[1] - path[0]
+	var direction: Vector3i = Vector3i(step.x, 0, step.y)
+
+	# This means the character is blocked.
+	# @TODO: Different status codes for blocked and no path.
+	#        We need to be able to distinguish between being blocked by environment or another character
+	#        If blocked by character, we kill the character.
+	#        If blocked by environment, we can move around it.	
+	if not character.apply_movement(direction):
+		return FAILURE
+
+	return SUCCESS
 
 
 # Strings returned from this method are displayed as warnings in the behavior tree editor (requires @tool).

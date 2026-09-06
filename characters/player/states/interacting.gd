@@ -8,7 +8,6 @@ func _setup() -> void:
 	interaction_ability_component.interaction_ended.connect(_on_interaction_ended)
 
 func _enter() -> void:
-	print("Entered Interacting state")
 	interaction_ability_component.try_interact()
 
 func _on_interaction_ended() -> void:

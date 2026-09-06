@@ -7,9 +7,6 @@ func _setup() -> void:
 	character_movement_component = character.get_character_movement_component()
 	add_event_handler(&'movement_requested', _on_movement_requested)
 
-func _enter() -> void:
-	print("Entered Idle state")
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("move_forward"):
 		dispatch(&'movement_requested', Vector3i.FORWARD)

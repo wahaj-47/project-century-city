@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://jsnesmd30dqv"]
 
+[ext_resource type="Script" uid="uid://duwwy21a3c8gn" path="res://levels/main.gd" id="1_5k4jt"]
 [ext_resource type="PackedScene" uid="uid://b18pk6e2j3oxo" path="res://characters/player/player.tscn" id="1_qy63d"]
 [ext_resource type="MeshLibrary" uid="uid://du2t3lmoi7ogu" path="res://art/ml_building_blocks.tres" id="2_wdj6m"]
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://scripts/astar_gridmap.gd" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://actors/door/door.tscn" id="3_l8qe7"]
+[ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://characters/enemy/enemy.tscn" id="5_ifaiv"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
 fog_light_color = Color(0.03612666, 0.0437299, 0.05523669, 1)
@@ -12,6 +14,7 @@ fog_height = -0.01
 fog_height_density = 3.6174
 
 [node name="Main" type="Node" unique_id=1474689114]
+script = ExtResource("1_5k4jt")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1946412389]
 transform = Transform3D(0.5937606, -0.23721164, -0.76888156, 0.8043612, 0.14975847, 0.5749568, -0.021239895, -0.95984524, 0.2797246, 0, 7.6293945e-06, 0)
@@ -43,3 +46,11 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Player" parent="." unique_id=167650114 instance=ExtResource("1_qy63d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.6330357, 4)
+
+[node name="Enemy-001" parent="." unique_id=92052109 instance=ExtResource("5_ifaiv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, -28)
+actor_type = 1
+
+[node name="Enemy-002" parent="." unique_id=1811435041 instance=ExtResource("5_ifaiv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.2, -36)
+actor_type = 1
