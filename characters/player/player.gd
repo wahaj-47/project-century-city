@@ -6,12 +6,12 @@ extends Character
 @onready var interacting_state: LimboState = $StateMachine/TakingTurn/Interacting
 
 func _ready() -> void:
-    super._ready()
+	super._ready()
 
-    # Initial state
-    taking_turn_state.initial_state = idle_state
+	# Initial state
+	taking_turn_state.initial_state = idle_state
 
-    # Transitions between states
-    taking_turn_state.add_transition(idle_state, moving_state, &'movement_started') # Idle -> Moving
-    taking_turn_state.add_transition(idle_state, interacting_state, &'interaction_started') # Idle -> Interacting
-    taking_turn_state.add_transition(interacting_state, idle_state, &'interaction_ended') # Interacting -> Idle
+	# Transitions between states
+	taking_turn_state.add_transition(idle_state, moving_state, &'movement_started') # Idle -> Moving
+	taking_turn_state.add_transition(idle_state, interacting_state, &'interaction_started') # Idle -> Interacting
+	taking_turn_state.add_transition(interacting_state, idle_state, &'interaction_ended') # Interacting -> Idle

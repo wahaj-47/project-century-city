@@ -51,6 +51,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5.6330357, 4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, -28)
 actor_type = 1
 
+[node name="Enemy-003" parent="." unique_id=982974690 instance=ExtResource("5_ifaiv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 2, -28)
+actor_type = 1
+
 [node name="Enemy-002" parent="." unique_id=1811435041 instance=ExtResource("5_ifaiv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.2, -36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2.2, -44)
 actor_type = 1

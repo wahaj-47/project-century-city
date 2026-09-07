@@ -12,6 +12,7 @@ script = ExtResource("1_t7gc3")
 [node name="Mesh" parent="." unique_id=15829244 instance=ExtResource("2_qfphl")]
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=1066917586]
+collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=100646589]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.335, 2.4, 0)

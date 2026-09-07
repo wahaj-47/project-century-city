@@ -1,7 +1,8 @@
 extends LimboState
 
 func _enter() -> void:
-	print(agent.name, ": TakingTurn")
+	#print(agent.name, ": TakingTurn")
+	pass
 
 func _exit() -> void:
 	var character = agent as Character

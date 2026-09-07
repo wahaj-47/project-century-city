@@ -1,7 +1,9 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://dolikxcfvpjdp"]
 
+[ext_resource type="Script" uid="uid://cmxth8qy10t2s" path="res://ai/tasks/killPlayer.gd" id="1_xq0um"]
 [ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://ai/tasks/move_to_player.gd" id="2_bk8ns"]
 [ext_resource type="Script" uid="uid://buddwnpihnqhd" path="res://ai/tasks/wait_signal.gd" id="2_r04dg"]
+[ext_resource type="Script" uid="uid://cww70cbm730pb" path="res://ai/tasks/playerDistance.gd" id="3_bk8ns"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_7a1ea"]
 var/var/name = &"var"
@@ -9,6 +11,41 @@ var/var/type = 3
 var/var/value = 0.0
 var/var/hint = 0
 var/var/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_dcnia"]
+type = 2
+saved_value = 1
+resource_name = "1"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_d01sq"]
+property = &"numEnemiesDetected"
+check_type = 4
+value = SubResource("BBVariant_dcnia")
+
+[sub_resource type="BTSequence" id="BTSequence_14qlb"]
+custom_name = "Move out of Door"
+children = [SubResource("BTCheckAgentProperty_d01sq")]
+
+[sub_resource type="BBVariant" id="BBVariant_r04dg"]
+type = 2
+saved_value = 0
+resource_name = "0"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_bk8ns"]
+property = &"numEnemiesDetected"
+value = SubResource("BBVariant_r04dg")
+
+[sub_resource type="BBVariant" id="BBVariant_bk8ns"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_xq0um"]
+property = &"playerDetected"
+value = SubResource("BBVariant_bk8ns")
+
+[sub_resource type="BTAction" id="BTAction_d01sq"]
+script = ExtResource("3_bk8ns")
 
 [sub_resource type="BTAction" id="BTAction_agtu2"]
 custom_name = "Find path to player and take one step towards player"
@@ -20,8 +57,38 @@ script = ExtResource("2_r04dg")
 signal_source = NodePath("CharacterMovementComponent")
 signal_name = "movement_ended"
 
+[sub_resource type="BTSequence" id="BTSequence_dcnia"]
+custom_name = "Enemy moves towards player"
+children = [SubResource("BTAction_d01sq"), SubResource("BTAction_agtu2"), SubResource("BTAction_bk8ns")]
+
+[sub_resource type="BBVariant" id="BBVariant_xq0um"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_dcnia"]
+property = &"killPlayer"
+value = SubResource("BBVariant_xq0um")
+
+[sub_resource type="BTAction" id="BTAction_dcnia"]
+script = ExtResource("1_xq0um")
+
+[sub_resource type="BTSequence" id="BTSequence_xq0um"]
+custom_name = "Enemy kills player"
+children = [SubResource("BTCheckAgentProperty_dcnia"), SubResource("BTAction_dcnia")]
+
+[sub_resource type="BTSelector" id="BTSelector_d01sq"]
+children = [SubResource("BTSequence_dcnia"), SubResource("BTSequence_xq0um")]
+
+[sub_resource type="BTSequence" id="BTSequence_r5v5v"]
+custom_name = "Chasing Player"
+children = [SubResource("BTCheckAgentProperty_bk8ns"), SubResource("BTCheckAgentProperty_xq0um"), SubResource("BTSelector_d01sq")]
+
+[sub_resource type="BTSelector" id="BTSelector_i0pjc"]
+children = [SubResource("BTSequence_14qlb"), SubResource("BTSequence_r5v5v")]
+
 [sub_resource type="BTSequence" id="BTSequence_ol8kc"]
-children = [SubResource("BTAction_agtu2"), SubResource("BTAction_bk8ns")]
+children = [SubResource("BTSelector_i0pjc")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_7a1ea")

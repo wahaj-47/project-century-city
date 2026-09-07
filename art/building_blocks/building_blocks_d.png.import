@@ -3,11 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdjpfax25sd07"
-path.s3tc="res://.godot/imported/building_blocks_d.png-b25c3d769e7bfed974921c2722af1ad0.s3tc.ctex"
-metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
-}
+valid=false
 generator_parameters={
 "md5": "6a49663d0b0e3f1a92bd9ae363b93a0c"
 }
@@ -15,7 +11,6 @@ generator_parameters={
 [deps]
 
 source_file="res://art/building_blocks/building_blocks_d.png"
-dest_files=["res://.godot/imported/building_blocks_d.png-b25c3d769e7bfed974921c2722af1ad0.s3tc.ctex"]
 
 [params]
 

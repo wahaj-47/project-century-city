@@ -8,7 +8,9 @@
 [ext_resource type="Script" uid="uid://cpp3x4qgicuak" path="res://characters/player/states/idle.gd" id="5_ixbpm"]
 [ext_resource type="Script" uid="uid://1vdrn56o5e7c" path="res://characters/player/states/interacting.gd" id="7_dirf7"]
 
-[node name="Player" unique_id=167650114 node_paths=PackedStringArray("initial_state") instance=ExtResource("1_e425n")]
+[node name="Player" unique_id=167650114 node_paths=PackedStringArray("initial_state") groups=["Player"] instance=ExtResource("1_e425n")]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_508ok")
 initial_state = NodePath("StateMachine/TakingTurn")
 
