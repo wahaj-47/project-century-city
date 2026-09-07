@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdjpfax25sd07"
-path.s3tc="res://.godot/imported/building_blocks_d.png-b25c3d769e7bfed974921c2722af1ad0.s3tc.ctex"
+uid="uid://dedrdghc734cx"
+path.s3tc="res://.godot/imported/idle.png-9023fcb9eb70af63c7e63320c29dcfef.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "6a49663d0b0e3f1a92bd9ae363b93a0c"
-}
 
 [deps]
 
-source_file="res://art/building_blocks/building_blocks_d.png"
-dest_files=["res://.godot/imported/building_blocks_d.png-b25c3d769e7bfed974921c2722af1ad0.s3tc.ctex"]
+source_file="res://art/characters/jack/idle.png"
+dest_files=["res://.godot/imported/idle.png-9023fcb9eb70af63c7e63320c29dcfef.s3tc.ctex"]
 
 [params]
 

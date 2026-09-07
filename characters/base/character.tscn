@@ -6,21 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://components/character_movement_component/character_movement_component.tscn" id="2_yo2jm"]
 [ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://components/interaction_ability_component/interaction_ability_component.tscn" id="3_bh43n"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_bja7f"]
-height = 4.0
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
-height = 4.0
+height = 3.5
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_o6sry"]
 
 [node name="Character" type="CharacterBody3D" unique_id=167650114]
 script = ExtResource("1_dwr5h")
 
-[node name="CharacterMesh" type="MeshInstance3D" parent="." unique_id=1885673827]
-mesh = SubResource("CapsuleMesh_bja7f")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1607071947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28808594, 0)
 shape = SubResource("CapsuleShape3D_yo2jm")
 
 [node name="StateMachine" type="LimboHSM" parent="." unique_id=1717741298]
