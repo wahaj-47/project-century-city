@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cfwvtk7xp87g2"]
 
 [ext_resource type="Script" uid="uid://bch5a2bgcfig7" path="res://characters/base/character.gd" id="1_dwr5h"]
+[ext_resource type="PackedScene" uid="uid://clym27i3foxy7" path="res://components/sprite_zd/sprite_zd.tscn" id="2_nvf7k"]
 [ext_resource type="Script" uid="uid://lflc54byo7n6" path="res://characters/base/states/waiting_for_turn.gd" id="2_oiltk"]
 [ext_resource type="BehaviorTree" uid="uid://3j804ti4whao" path="res://ai/trees/waiting_for_turn.tres" id="2_xg31s"]
 [ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://components/character_movement_component/character_movement_component.tscn" id="2_yo2jm"]
@@ -13,6 +14,8 @@ height = 3.5
 
 [node name="Character" type="CharacterBody3D" unique_id=167650114]
 script = ExtResource("1_dwr5h")
+
+[node name="SpriteZD" parent="." unique_id=138765691 instance=ExtResource("2_nvf7k")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1607071947]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28808594, 0)

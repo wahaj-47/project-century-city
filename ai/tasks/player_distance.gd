@@ -14,10 +14,11 @@ func _generate_name() -> String:
 
 
 # Called each time this task is entered.
-func _setup() -> void:
+func _enter() -> void:
 	player = GameState.player
 	map = GameState.map
 	character = agent as Character
+
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:

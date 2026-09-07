@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://clym27i3foxy7"]
+
+[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://art/characters/jack/idle.png" id="1_vw5ij"]
+[ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://components/sprite_zd/sprite_zd.gd" id="2_r328t"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r328t"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3naib"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_g4v7s"]
+states/Start/position = Vector2(201, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_r328t")
+states/idle/position = Vector2(476, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_3naib")]
+
+[sub_resource type="Animation" id="Animation_r328t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3naib"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8vloo"]
+_data = {
+&"RESET": SubResource("Animation_r328t"),
+&"idle": SubResource("Animation_3naib")
+}
+
+[node name="SpriteZD" type="Sprite3D" unique_id=947239736]
+pixel_size = 0.04
+billboard = 1
+texture_filter = 0
+texture = ExtResource("1_vw5ij")
+hframes = 4
+vframes = 8
+script = ExtResource("2_r328t")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1935611159]
+tree_root = SubResource("AnimationNodeStateMachine_g4v7s")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1095932881]
+libraries/ = SubResource("AnimationLibrary_8vloo")

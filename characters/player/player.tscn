@@ -21,7 +21,7 @@ top_level = true
 [node name="Camera" type="Camera3D" parent="CameraBoom" index="0" unique_id=1406908645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 90)
 projection = 1
-size = 35.0
+size = 30.0
 near = 0.001
 
 [node name="TakingTurn" type="LimboHSM" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="1" unique_id=1906634445]

@@ -1,7 +1,9 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://dolikxcfvpjdp"]
 
+[ext_resource type="Script" uid="uid://cufbmhrar5qv1" path="res://ai/tasks/player_distance.gd" id="1_xq0um"]
 [ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://ai/tasks/move_to_player.gd" id="2_bk8ns"]
 [ext_resource type="Script" uid="uid://buddwnpihnqhd" path="res://ai/tasks/wait_signal.gd" id="2_r04dg"]
+[ext_resource type="Script" uid="uid://dgdscu44bbpk0" path="res://ai/tasks/kill_player.gd" id="3_bk8ns"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_7a1ea"]
 var/var/name = &"var"
@@ -42,7 +44,26 @@ resource_name = "true"
 property = &"player_detected"
 value = SubResource("BBVariant_bk8ns")
 
-[sub_resource type="BTAction" id="BTAction_d01sq"]
+[sub_resource type="BBVariant" id="BBVariant_xq0um"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_dcnia"]
+property = &"kill_player"
+value = SubResource("BBVariant_xq0um")
+
+[sub_resource type="BTAction" id="BTAction_xq0um"]
+custom_name = "Kill the player"
+script = ExtResource("3_bk8ns")
+
+[sub_resource type="BTSequence" id="BTSequence_xq0um"]
+custom_name = "Enemy kills player"
+children = [SubResource("BTCheckAgentProperty_dcnia"), SubResource("BTAction_xq0um")]
+
+[sub_resource type="BTAction" id="BTAction_dcnia"]
+custom_name = "Find distance to player"
+script = ExtResource("1_xq0um")
 
 [sub_resource type="BTAction" id="BTAction_agtu2"]
 custom_name = "Find path to player and take one step towards player"
@@ -56,25 +77,10 @@ signal_name = "movement_ended"
 
 [sub_resource type="BTSequence" id="BTSequence_dcnia"]
 custom_name = "Enemy moves towards player"
-children = [SubResource("BTAction_d01sq"), SubResource("BTAction_agtu2"), SubResource("BTAction_bk8ns")]
-
-[sub_resource type="BBVariant" id="BBVariant_xq0um"]
-type = 1
-saved_value = true
-resource_name = "true"
-
-[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_dcnia"]
-property = &"kill_player"
-value = SubResource("BBVariant_xq0um")
-
-[sub_resource type="BTAction" id="BTAction_xq0um"]
-
-[sub_resource type="BTSequence" id="BTSequence_xq0um"]
-custom_name = "Enemy kills player"
-children = [SubResource("BTCheckAgentProperty_dcnia"), SubResource("BTAction_xq0um")]
+children = [SubResource("BTAction_dcnia"), SubResource("BTAction_agtu2"), SubResource("BTAction_bk8ns")]
 
 [sub_resource type="BTSelector" id="BTSelector_d01sq"]
-children = [SubResource("BTSequence_dcnia"), SubResource("BTSequence_xq0um")]
+children = [SubResource("BTSequence_xq0um"), SubResource("BTSequence_dcnia")]
 
 [sub_resource type="BTSequence" id="BTSequence_r5v5v"]
 custom_name = "Chasing Player"
