@@ -87,8 +87,8 @@ func move(direction: Vector3i) -> bool:
 
 	var target_position: Vector3 = owner.global_position + (direction * tile_size)
 	var movement_tween = create_tween()
-	movement_tween.set_trans(Tween.TRANS_QUAD)
-	movement_tween.set_ease(Tween.EASE_OUT)
+	# movement_tween.set_trans(Tween.TRANS_QUAD)
+	# movement_tween.set_ease(Tween.EASE_OUT)
 	movement_tween.finished.connect(_on_movement_finished)
 	movement_tween.tween_property(
 		owner,

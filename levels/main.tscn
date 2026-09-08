@@ -17,8 +17,9 @@ fog_height_density = 3.6174
 script = ExtResource("1_5k4jt")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=1946412389]
-transform = Transform3D(0.5937606, -0.23721164, -0.76888156, 0.8043612, 0.14975847, 0.5749568, -0.021239895, -0.95984524, 0.2797246, 0, 7.6293945e-06, 0)
+transform = Transform3D(0.59018826, -0.2432302, -0.76975113, 0.80670714, 0.14224428, 0.57357645, -0.030018415, -0.95948184, 0.2801665, 0, 7.6293945e-06, 0)
 shadow_enabled = true
+shadow_normal_bias = 10.0
 shadow_opacity = 0.7
 
 [node name="Door-001" parent="." unique_id=1884502191 instance=ExtResource("3_l8qe7")]
@@ -45,7 +46,7 @@ metadata/_custom_type_script = "uid://yeacy85cb1cj"
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Player" parent="." unique_id=167650114 instance=ExtResource("1_qy63d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.2380857, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.988086, 4)
 
 [node name="Enemy-001" parent="." unique_id=92052109 instance=ExtResource("5_ifaiv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, -28)

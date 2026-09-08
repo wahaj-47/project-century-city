@@ -54,7 +54,9 @@ _data = {
 
 [node name="SpriteZD" type="Sprite3D" unique_id=947239736]
 pixel_size = 0.04
-billboard = 1
+billboard = 2
+shaded = true
+alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("1_vw5ij")
 hframes = 4
