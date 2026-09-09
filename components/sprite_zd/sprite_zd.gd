@@ -1,3 +1,4 @@
+class_name SpriteZD
 extends Sprite3D
 
 var camera: Camera3D
