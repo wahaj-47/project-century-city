@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://ciir5ixa4ol2w"]
+
+[ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://characters/enemy/enemy.tscn" id="1_dwaah"]
+[ext_resource type="Texture2D" uid="uid://bvjrgpgxpyq7x" path="res://art/characters/payne/walk.png" id="2_mire4"]
+[ext_resource type="Texture2D" uid="uid://3lfft43yf0v3" path="res://art/characters/payne/idle.png" id="2_s7rf6"]
+
+[sub_resource type="Animation" id="Animation_s7rf6"]
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [16]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [ExtResource("2_s7rf6")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:frame_coords:x")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8333333, 1, 1.1666666, 1.3333334, 1.5, 1.6666666, 1.8333334, 2, 2.1666667, 2.3333333, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_bpm30"]
+length = 1.3333333333333333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [ExtResource("2_mire4")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:frame_coords:x")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8333333, 1, 1.1666666, 1.3333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mire4"]
+_data = {
+&"idle": SubResource("Animation_s7rf6"),
+&"walk": SubResource("Animation_bpm30")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mire4"]
+animation = &"payne/idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bpm30"]
+animation = &"payne/walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8tad7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mev2m"]
+advance_mode = 2
+advance_expression = "is_moving == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6qx7l"]
+advance_mode = 2
+advance_expression = "is_moving == false"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mire4"]
+states/End/position = Vector2(946, 201)
+states/Idle/node = SubResource("AnimationNodeAnimation_mire4")
+states/Idle/position = Vector2(625, 201)
+states/Start/position = Vector2(524, 201)
+states/Walk/node = SubResource("AnimationNodeAnimation_bpm30")
+states/Walk/position = Vector2(757, 201)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8tad7"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_mev2m"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6qx7l")]
+
+[node name="Enemy" unique_id=167650114 instance=ExtResource("1_dwaah")]
+
+[node name="SpriteZD" parent="." index="0" unique_id=1775536629]
+animation_name = &"walk"
+library_name = &"payne"
+fps = 6.0
+
+[node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
+texture = ExtResource("2_s7rf6")
+hframes = 16
+frame = 10
+
+[node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
+libraries/payne = SubResource("AnimationLibrary_mire4")
+
+[node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
+active = true
+tree_root = SubResource("AnimationNodeStateMachine_mire4")
+
+[editable path="SpriteZD"]

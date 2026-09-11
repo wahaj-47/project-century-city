@@ -28,7 +28,9 @@ initial_state = NodePath("StateMachine/WaitingForTurn")
 
 [node name="SpriteZD" parent="." index="0" unique_id=1775536629]
 library_name = &"Global"
-property = NodePath("")
+
+[node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
+texture = null
 
 [node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
 tree_root = SubResource("AnimationNodeStateMachine_tlrvp")

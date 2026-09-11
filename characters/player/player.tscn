@@ -142,16 +142,14 @@ far = 100.0
 
 [node name="SpriteZD" parent="." index="1" unique_id=1775536629]
 animation_name = &"idle"
-library_name = &"jack"
+library_name = &"character"
 fps = 6.0
-
-[node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
-texture = ExtResource("5_rpf03")
 
 [node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
 libraries/jack = SubResource("AnimationLibrary_rpf03")
 
 [node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
+active = true
 tree_root = SubResource("AnimationNodeStateMachine_dirf7")
 
 [node name="WaitingForTurn" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="0" unique_id=80667339]
@@ -168,8 +166,5 @@ script = ExtResource("5_c6leb")
 
 [node name="Interacting" type="LimboState" parent="StateMachine/TakingTurn" index="2" unique_id=782402771]
 script = ExtResource("7_dirf7")
-
-[node name="CharacterMovementComponent" parent="." index="4" unique_id=137649720]
-move_duration = 1.33
 
 [editable path="SpriteZD"]
