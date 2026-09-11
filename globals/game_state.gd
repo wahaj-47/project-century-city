@@ -1,6 +1,6 @@
 extends Node
 
-enum ActorType {PLAYER, ENEMY}
+enum ActorType {NONE, PLAYER, ENEMY}
 
 var player: Character
 var map: AStarGridMap

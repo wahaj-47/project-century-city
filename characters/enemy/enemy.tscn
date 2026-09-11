@@ -7,6 +7,10 @@
 [ext_resource type="Script" uid="uid://mfax56qgtash" path="res://characters/enemy/detect_character.gd" id="6_tlrvp"]
 [ext_resource type="Script" uid="uid://de1ukf75fw1s7" path="res://characters/enemy/kill_zone.gd" id="7_03nx6"]
 
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tlrvp"]
+states/End/position = Vector2(946, 201)
+states/Start/position = Vector2(524, 201)
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_427j3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2uyj2"]
@@ -19,14 +23,18 @@ size = Vector3(24, 2, 24)
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("2_c6xed")
+actor_type = 2
 initial_state = NodePath("StateMachine/WaitingForTurn")
 
-[node name="SpriteZD" parent="." index="0" unique_id=138765691]
+[node name="SpriteZD" parent="." index="0" unique_id=1775536629]
 library_name = &"Global"
 property = NodePath("")
 
+[node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
+tree_root = SubResource("AnimationNodeStateMachine_tlrvp")
+
 [node name="WaitingForTurn" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="0" unique_id=80667339]
-waiting_for = 1
+waiting_for = 2
 
 [node name="TakingTurn" type="BTState" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="1" unique_id=1952471274]
 behavior_tree = ExtResource("4_fxr07")
@@ -55,3 +63,5 @@ shape = SubResource("BoxShape3D_dhrd0")
 [connection signal="body_exited" from="PerceptionZone" to="." method="_on_area_3d_body_exited"]
 [connection signal="body_exited" from="PerceptionZone" to="PerceptionZone" method="_on_body_exited"]
 [connection signal="body_entered" from="KillZone" to="KillZone" method="_on_body_entered"]
+
+[editable path="SpriteZD"]

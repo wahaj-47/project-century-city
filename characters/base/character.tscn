@@ -6,17 +6,29 @@
 [ext_resource type="BehaviorTree" uid="uid://3j804ti4whao" path="res://ai/trees/waiting_for_turn.tres" id="2_xg31s"]
 [ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://components/character_movement_component/character_movement_component.tscn" id="2_yo2jm"]
 [ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://components/interaction_ability_component/interaction_ability_component.tscn" id="3_bh43n"]
+[ext_resource type="Texture2D" uid="uid://j4nidtp0ifj4" path="res://art/characters/jack/walk.png" id="5_e8jvm"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xg31s"]
+states/End/position = Vector2(946, 201)
+states/Start/position = Vector2(524, 201)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
-height = 3.25
+margin = 0.0
+height = 2.5
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_o6sry"]
 
 [node name="Character" type="CharacterBody3D" unique_id=167650114]
 script = ExtResource("1_dwr5h")
 
-[node name="SpriteZD" parent="." unique_id=138765691 instance=ExtResource("2_nvf7k")]
-library_name = &"global"
+[node name="SpriteZD" parent="." unique_id=1775536629 instance=ExtResource("2_nvf7k")]
+
+[node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
+texture = ExtResource("5_e8jvm")
+
+[node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
+tree_root = SubResource("AnimationNodeStateMachine_xg31s")
+advance_expression_base_node = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1607071947]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28808594, 0)
@@ -34,3 +46,5 @@ move_duration = 0.32
 rotate_duration = 0.16
 
 [node name="InteractionAbilityComponent" parent="." unique_id=1540746576 instance=ExtResource("3_bh43n")]
+
+[editable path="SpriteZD"]

@@ -11,6 +11,11 @@ extends CharacterBody3D
 @onready var character_movement_component: CharacterMovementComponent = $CharacterMovementComponent
 @onready var interaction_ability_component: InteractionAbilityComponent = $InteractionAbilityComponent
 
+# Animation variables
+var is_moving: bool:
+	get:
+		return character_movement_component.is_moving
+
 func _ready() -> void:
 	# Initial state
 	state_machine.initial_state = initial_state

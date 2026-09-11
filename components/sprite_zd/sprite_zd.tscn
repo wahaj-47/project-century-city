@@ -1,13 +1,10 @@
 [gd_scene format=3 uid="uid://clym27i3foxy7"]
 
-[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://art/characters/jack/idle.png" id="1_vw5ij"]
 [ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://components/sprite_zd/sprite_zd.gd" id="2_r328t"]
 [ext_resource type="Script" uid="uid://b7nj7ccdan4gw" path="res://components/sprite_zd/animation_generator.gd" id="3_3naib"]
-[ext_resource type="Texture2D" uid="uid://j4nidtp0ifj4" path="res://art/characters/jack/walk.png" id="4_8vloo"]
 
-[sub_resource type="Animation" id="Animation_3naib"]
-length = 1.6666666666666663
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_8vloo"]
+resource_name = "RESET"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -17,100 +14,40 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [11]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [ExtResource("1_vw5ij")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite3D:frame_coords:x")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8333333, 1, 1.1666666, 1.3333334, 1.5, 1.6666666),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+"update": 1,
+"values": [1]
 }
 
-[sub_resource type="Animation" id="Animation_im1pr"]
-length = 1.3333333333333333
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:hframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [9]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [ExtResource("4_8vloo")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite3D:frame_coords:x")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8333333, 1, 1.1666666, 1.3333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_8vloo"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_im1pr"]
 _data = {
-&"idle": SubResource("Animation_3naib"),
-&"walk": SubResource("Animation_im1pr")
+&"RESET": SubResource("Animation_8vloo")
 }
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8vloo"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_g4v7s"]
+states/Start/position = Vector2(603, 100)
+transitions = ["Start", "End", SubResource("AnimationNodeStateMachineTransition_8vloo")]
 
 [node name="SpriteZD" type="Node3D" unique_id=1775536629 node_paths=PackedStringArray("sprite3d", "animation_player")]
 script = ExtResource("3_3naib")
 sprite3d = NodePath("Sprite3D")
 animation_player = NodePath("AnimationPlayer")
-animation_name = &"walk"
-library_name = &"jack"
-fps = 6.0
 property = NodePath("Sprite3D:frame_coords:x")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=797554499]
 pixel_size = 0.04
-billboard = 2
+billboard = 1
 shaded = true
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("1_vw5ij")
-hframes = 11
 vframes = 8
-frame = 1
 script = ExtResource("2_r328t")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1595835398]
-libraries/jack = SubResource("AnimationLibrary_8vloo")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=438609835]
+libraries/ = SubResource("AnimationLibrary_im1pr")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1748858576]
+tree_root = SubResource("AnimationNodeStateMachine_g4v7s")
+anim_player = NodePath("../AnimationPlayer")
