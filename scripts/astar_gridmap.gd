@@ -83,6 +83,12 @@ func build_astar_grid() -> void:
 		if astar_grid.region.has_point(cell):
 			astar_grid.set_point_solid(cell, true)
 
+func distance_to(from: Vector3, to: Vector3) -> int:
+	if astar_grid == null:
+		return 0
+
+	var path: Array[Vector2i] = get_id_path(from, to)
+	return path.size()
 
 func set_point_solid(point: Vector3, solid: bool) -> void:
 	if astar_grid == null:

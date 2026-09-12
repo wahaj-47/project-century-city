@@ -8,7 +8,7 @@ extends _BASE_
 
 # Display a customized name (requires @tool).
 func _generate_name() -> String:
-_TS_return "_CLASS_"
+_TS_return"_CLASS_"
 
 
 # Called once during initialization.
@@ -28,10 +28,10 @@ _TS_pass
 
 # Called each time this task is ticked (aka executed).
 func _tick(delta: float) -> Status:
-_TS_return SUCCESS
+_TS_returnSUCCESS
 
 
 # Strings returned from this method are displayed as warnings in the behavior tree editor (requires @tool).
 func _get_configuration_warnings() -> PackedStringArray:
-_TS_var warnings := PackedStringArray()
-_TS_return warnings
+_TS_varwarnings:= PackedStringArray()
+_TS_returnwarnings

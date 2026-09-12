@@ -1,18 +1,14 @@
 extends BTState
 
-@export var waiting_for: GameState.ActorType
+var character: Character
 
 func _setup() -> void:
+	character = agent as Character
 	GameState.turn_ended.connect(_on_turn_ended)
 
-func _enter() -> void:
-	#print(agent.name, ": WaitingForTurn")
-	pass
-
 func _exit() -> void:
-	var character = agent as Character
 	GameState.start_turn(character.actor_type)
 	
-func _on_turn_ended(actor_type: GameState.ActorType) -> void:
-	if actor_type == waiting_for:
-		dispatch(&'turn_started')
+func _on_turn_ended(next_turn: GameState.ActorType) -> void:
+	if next_turn == character.actor_type:
+		dispatch(&"turn_started")

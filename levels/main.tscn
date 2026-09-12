@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://scripts/astar_gridmap.gd" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://actors/door/door.tscn" id="3_l8qe7"]
 [ext_resource type="PackedScene" uid="uid://ciir5ixa4ol2w" path="res://characters/enemy/variants/payne.tscn" id="6_5k4jt"]
+[ext_resource type="PackedScene" uid="uid://ccsow67t2vdmc" path="res://characters/enemy/variants/alice.tscn" id="7_qy63d"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
 tonemap_mode = 3
@@ -50,3 +51,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.4322245, 4)
 
 [node name="Enemy" parent="." unique_id=183289259 instance=ExtResource("6_5k4jt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 1.738, -28)
+
+[node name="Enemy2" parent="." unique_id=1479617644 instance=ExtResource("7_qy63d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.738, -36)

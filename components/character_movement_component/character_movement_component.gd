@@ -1,8 +1,7 @@
 # A movement component that makes a CharacterBody3D move on the grid.
-
 @tool
 class_name CharacterMovementComponent
-extends Node3D
+extends Node
 
 @export var tile_size := 8.0
 @export var move_duration := 0.16
@@ -57,10 +56,7 @@ func is_blocked(direction: Vector3i) -> bool:
 	return not result.is_empty()
 
 
-func move(direction: Vector3i) -> bool:
-	if is_moving:
-		return false
-
+func rotate(direction: Vector3i) -> void:
 	# I don't understand this part. 
 	var target_rotation: float = atan2(-direction.x, -direction.z)
 	var current_rotation: float = owner.rotation.y
@@ -79,6 +75,14 @@ func move(direction: Vector3i) -> bool:
 		rotate_duration
 	)
 
+
+func move(direction: Vector3i) -> bool:
+	if is_moving:
+		return false
+
+	if rotate_to_face_movement:
+		rotate(direction)
+	
 	if is_blocked(direction):
 		return false
 	

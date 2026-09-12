@@ -3,14 +3,8 @@
 [ext_resource type="Script" uid="uid://cufbmhrar5qv1" path="res://ai/tasks/player_distance.gd" id="1_xq0um"]
 [ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://ai/tasks/move_to_player.gd" id="2_bk8ns"]
 [ext_resource type="Script" uid="uid://buddwnpihnqhd" path="res://ai/tasks/wait_signal.gd" id="2_r04dg"]
-[ext_resource type="Script" uid="uid://dgdscu44bbpk0" path="res://ai/tasks/kill_player.gd" id="3_bk8ns"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_7a1ea"]
-var/var/name = &"var"
-var/var/type = 3
-var/var/value = 0.0
-var/var/hint = 0
-var/var/hint_string = ""
 
 [sub_resource type="BBVariant" id="BBVariant_dcnia"]
 type = 2
@@ -21,19 +15,40 @@ resource_name = "1"
 property = &"num_enemies_detected"
 check_type = 4
 value = SubResource("BBVariant_dcnia")
+custom_name = "Is blocking door?"
 
 [sub_resource type="BTSequence" id="BTSequence_14qlb"]
-custom_name = "Move out of Door"
+custom_name = "Stuck in a doorway"
 children = [SubResource("BTCheckAgentProperty_d01sq")]
 
-[sub_resource type="BBVariant" id="BBVariant_r04dg"]
+[sub_resource type="BBVariant" id="BBVariant_d01sq"]
 type = 2
 saved_value = 0
-resource_name = "0"
+resource_name = "<null>"
 
-[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_bk8ns"]
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_14qlb"]
 property = &"num_enemies_detected"
-value = SubResource("BBVariant_r04dg")
+check_type = 3
+value = SubResource("BBVariant_d01sq")
+
+[sub_resource type="BBVariant" id="BBVariant_r5v5v"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_i0pjc"]
+property = &"player_detected"
+value = SubResource("BBVariant_r5v5v")
+
+[sub_resource type="BTComment" id="BTComment_xq0um"]
+custom_name = "Set BB target = enemy"
+
+[sub_resource type="BTComment" id="BTComment_dcnia"]
+custom_name = "Move towards target"
+
+[sub_resource type="BTSequence" id="BTSequence_d01sq"]
+custom_name = "Another enemy nearby"
+children = [SubResource("BTCheckAgentProperty_14qlb"), SubResource("BTCheckAgentProperty_i0pjc"), SubResource("BTComment_xq0um"), SubResource("BTComment_dcnia")]
 
 [sub_resource type="BBVariant" id="BBVariant_bk8ns"]
 type = 1
@@ -44,26 +59,18 @@ resource_name = "true"
 property = &"player_detected"
 value = SubResource("BBVariant_bk8ns")
 
-[sub_resource type="BBVariant" id="BBVariant_xq0um"]
-type = 1
-saved_value = true
-resource_name = "true"
+[sub_resource type="BTComment" id="BTComment_d01sq"]
+custom_name = "Check if player moving away"
 
-[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_dcnia"]
-property = &"kill_player"
-value = SubResource("BBVariant_xq0um")
-
-[sub_resource type="BTAction" id="BTAction_xq0um"]
-custom_name = "Kill the player"
-script = ExtResource("3_bk8ns")
-
-[sub_resource type="BTSequence" id="BTSequence_xq0um"]
-custom_name = "Enemy kills player"
-children = [SubResource("BTCheckAgentProperty_dcnia"), SubResource("BTAction_xq0um")]
+[sub_resource type="BTComment" id="BTComment_14qlb"]
+custom_name = "Set BB target = player"
 
 [sub_resource type="BTAction" id="BTAction_dcnia"]
 custom_name = "Find distance to player"
 script = ExtResource("1_xq0um")
+
+[sub_resource type="BTComment" id="BTComment_r5v5v"]
+custom_name = "Move towards target"
 
 [sub_resource type="BTAction" id="BTAction_agtu2"]
 custom_name = "Find path to player and take one step towards player"
@@ -75,23 +82,32 @@ script = ExtResource("2_r04dg")
 signal_source = NodePath("CharacterMovementComponent")
 signal_name = "movement_ended"
 
-[sub_resource type="BTSequence" id="BTSequence_dcnia"]
-custom_name = "Enemy moves towards player"
-children = [SubResource("BTAction_dcnia"), SubResource("BTAction_agtu2"), SubResource("BTAction_bk8ns")]
+[sub_resource type="BBNode" id="BBNode_bk8ns"]
+saved_value = NodePath("StateMachine/TakingTurn")
+resource_name = "StateMachine/TakingTurn"
 
-[sub_resource type="BTSelector" id="BTSelector_d01sq"]
-children = [SubResource("BTSequence_xq0um"), SubResource("BTSequence_dcnia")]
+[sub_resource type="BTCallMethod" id="BTCallMethod_xq0um"]
+node = SubResource("BBNode_bk8ns")
+method = &"end_turn"
+custom_name = "End turn"
 
 [sub_resource type="BTSequence" id="BTSequence_r5v5v"]
-custom_name = "Chasing Player"
-children = [SubResource("BTCheckAgentProperty_bk8ns"), SubResource("BTCheckAgentProperty_xq0um"), SubResource("BTSelector_d01sq")]
+custom_name = "Player running away"
+children = [SubResource("BTCheckAgentProperty_xq0um"), SubResource("BTComment_d01sq"), SubResource("BTComment_14qlb"), SubResource("BTAction_dcnia"), SubResource("BTComment_r5v5v"), SubResource("BTAction_agtu2"), SubResource("BTAction_bk8ns"), SubResource("BTCallMethod_xq0um")]
+
+[sub_resource type="BBNode" id="BBNode_xq0um"]
+saved_value = NodePath("StateMachine/TakingTurn")
+resource_name = "StateMachine/TakingTurn"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_dcnia"]
+node = SubResource("BBNode_xq0um")
+method = &"end_turn"
+custom_name = "No action possible, end turn"
 
 [sub_resource type="BTSelector" id="BTSelector_i0pjc"]
-children = [SubResource("BTSequence_14qlb"), SubResource("BTSequence_r5v5v")]
-
-[sub_resource type="BTSequence" id="BTSequence_ol8kc"]
-children = [SubResource("BTSelector_i0pjc")]
+custom_name = "Select a case"
+children = [SubResource("BTSequence_14qlb"), SubResource("BTSequence_d01sq"), SubResource("BTSequence_r5v5v"), SubResource("BTCallMethod_dcnia")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_7a1ea")
-root_task = SubResource("BTSequence_ol8kc")
+root_task = SubResource("BTSelector_i0pjc")

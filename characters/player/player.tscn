@@ -145,6 +145,9 @@ animation_name = &"idle"
 library_name = &"character"
 fps = 6.0
 
+[node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
+frame = 6
+
 [node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
 libraries/jack = SubResource("AnimationLibrary_rpf03")
 

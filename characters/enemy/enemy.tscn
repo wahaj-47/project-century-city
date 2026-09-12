@@ -4,8 +4,6 @@
 [ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://characters/enemy/enemy.gd" id="2_c6xed"]
 [ext_resource type="Script" uid="uid://b3h3o2x0wfw6" path="res://characters/base/states/taking_turn.gd" id="4_427j3"]
 [ext_resource type="BehaviorTree" uid="uid://dolikxcfvpjdp" path="res://ai/trees/enemy_turn.tres" id="4_fxr07"]
-[ext_resource type="Script" uid="uid://mfax56qgtash" path="res://characters/enemy/detect_character.gd" id="6_tlrvp"]
-[ext_resource type="Script" uid="uid://de1ukf75fw1s7" path="res://characters/enemy/kill_zone.gd" id="7_03nx6"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tlrvp"]
 states/End/position = Vector2(946, 201)
@@ -15,9 +13,6 @@ states/Start/position = Vector2(524, 201)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2uyj2"]
 size = Vector3(40, 2, 40)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_dhrd0"]
-size = Vector3(24, 2, 24)
 
 [node name="Enemy" unique_id=167650114 node_paths=PackedStringArray("initial_state") groups=["Enemy"] instance=ExtResource("1_ho334")]
 collision_layer = 2
@@ -40,30 +35,18 @@ waiting_for = 2
 
 [node name="TakingTurn" type="BTState" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="1" unique_id=1952471274]
 behavior_tree = ExtResource("4_fxr07")
-success_event = &"turn_ended"
-failure_event = &"turn_ended"
 blackboard_plan = SubResource("BlackboardPlan_427j3")
 script = ExtResource("4_427j3")
 
-[node name="PerceptionZone" type="Area3D" parent="." index="4" unique_id=1729931889]
+[node name="AIPerceptionComponent" type="Area3D" parent="." index="4" unique_id=1729931889]
 collision_layer = 2
 collision_mask = 6
-script = ExtResource("6_tlrvp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PerceptionZone" index="0" unique_id=1738836844]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AIPerceptionComponent" index="0" unique_id=1738836844]
 shape = SubResource("BoxShape3D_2uyj2")
 
-[node name="KillZone" type="Area3D" parent="." index="5" unique_id=281035766]
-collision_layer = 2
-collision_mask = 4
-script = ExtResource("7_03nx6")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="KillZone" index="0" unique_id=1324343553]
-shape = SubResource("BoxShape3D_dhrd0")
-
-[connection signal="body_entered" from="PerceptionZone" to="PerceptionZone" method="_on_body_entered"]
-[connection signal="body_exited" from="PerceptionZone" to="." method="_on_area_3d_body_exited"]
-[connection signal="body_exited" from="PerceptionZone" to="PerceptionZone" method="_on_body_exited"]
-[connection signal="body_entered" from="KillZone" to="KillZone" method="_on_body_entered"]
+[connection signal="body_entered" from="AIPerceptionComponent" to="AIPerceptionComponent" method="_on_body_entered"]
+[connection signal="body_exited" from="AIPerceptionComponent" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_exited" from="AIPerceptionComponent" to="AIPerceptionComponent" method="_on_body_exited"]
 
 [editable path="SpriteZD"]
