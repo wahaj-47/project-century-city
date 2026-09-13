@@ -50,7 +50,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.4322245, 4)
 
 [node name="Enemy" parent="." unique_id=183289259 instance=ExtResource("6_5k4jt")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 36, 2.0503283, -28)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 44, 2.05, -36)
 
 [node name="Enemy2" parent="." unique_id=1479617644 instance=ExtResource("7_qy63d")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 1.738, -36)

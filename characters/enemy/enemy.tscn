@@ -15,6 +15,7 @@ states/Start/position = Vector2(524, 201)
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_tlrvp"]
 mapping/target = &"target"
 mapping/candidate_target = &"candidate_target"
+mapping/distance_to_target = &"distance_to_target"
 mapping/player_perceived_previous_turn = &"player_perceived_previous_turn"
 mapping/previous_distance_to_player = &"previous_distance_to_player"
 mapping/current_distance_to_player = &"current_distance_to_player"

@@ -88,7 +88,7 @@ func distance_to(from: Vector3, to: Vector3) -> int:
 		return 0
 
 	var path: Array[Vector2i] = get_id_path(from, to)
-	return path.size()
+	return path.size() - 2
 
 func set_point_solid(point: Vector3, solid: bool) -> void:
 	if astar_grid == null:

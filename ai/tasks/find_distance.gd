@@ -4,7 +4,6 @@ extends BTAction
 
 @export var to_var: StringName
 @export var output_var: StringName
-@export var target_type: Script
 
 var map: AStarGridMap
 var character: Enemy
@@ -27,6 +26,7 @@ func _tick(_delta: float) -> Status:
 		return FAILURE
 		
 	var distance = map.distance_to(agent.global_position, entity.global_position)
+
 	blackboard.set_var(output_var, distance)
 	return SUCCESS
 
