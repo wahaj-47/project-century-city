@@ -2,17 +2,25 @@
 
 [ext_resource type="PackedScene" uid="uid://cfwvtk7xp87g2" path="res://characters/base/character.tscn" id="1_ho334"]
 [ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://characters/enemy/enemy.gd" id="2_c6xed"]
+[ext_resource type="BlackboardPlan" uid="uid://un4hu5q2ygcn" path="res://ai/blackboards/bb_enemy.tres" id="3_vwt86"]
 [ext_resource type="Script" uid="uid://b3h3o2x0wfw6" path="res://characters/base/states/taking_turn.gd" id="4_427j3"]
 [ext_resource type="BehaviorTree" uid="uid://dolikxcfvpjdp" path="res://ai/trees/enemy_turn.tres" id="4_fxr07"]
+[ext_resource type="PackedScene" uid="uid://cddyxwojr5ffc" path="res://components/ai_perception_component/ai_perception_component.tscn" id="5_tlrvp"]
+[ext_resource type="PackedScene" uid="uid://djaclpj1iufus" path="res://components/ai_perception_component/sensors/proximity_sensor/ai_proximity_sensor.tscn" id="6_03nx6"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tlrvp"]
 states/End/position = Vector2(946, 201)
 states/Start/position = Vector2(524, 201)
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_427j3"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_tlrvp"]
+mapping/target = &"target"
+mapping/candidate_target = &"candidate_target"
+mapping/player_perceived_previous_turn = &"player_perceived_previous_turn"
+mapping/previous_distance_to_player = &"previous_distance_to_player"
+mapping/current_distance_to_player = &"current_distance_to_player"
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2uyj2"]
-size = Vector3(40, 2, 40)
+[sub_resource type="BoxShape3D" id="BoxShape3D_tlrvp"]
+size = Vector3(40, 2.5, 40)
 
 [node name="Enemy" unique_id=167650114 node_paths=PackedStringArray("initial_state") groups=["Enemy"] instance=ExtResource("1_ho334")]
 collision_layer = 2
@@ -30,23 +38,20 @@ texture = null
 [node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
 tree_root = SubResource("AnimationNodeStateMachine_tlrvp")
 
-[node name="WaitingForTurn" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="0" unique_id=80667339]
-waiting_for = 2
+[node name="StateMachine" parent="." index="2" unique_id=1717741298]
+blackboard_plan = ExtResource("3_vwt86")
 
-[node name="TakingTurn" type="BTState" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="1" unique_id=1952471274]
+[node name="TakingTurn" type="BTState" parent="StateMachine" index="1" unique_id=1952471274]
 behavior_tree = ExtResource("4_fxr07")
-blackboard_plan = SubResource("BlackboardPlan_427j3")
+blackboard_plan = SubResource("BlackboardPlan_tlrvp")
 script = ExtResource("4_427j3")
 
-[node name="AIPerceptionComponent" type="Area3D" parent="." index="4" unique_id=1729931889]
-collision_layer = 2
-collision_mask = 6
+[node name="AIPerceptionComponent" parent="." index="4" unique_id=1019477935 instance=ExtResource("5_tlrvp")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AIPerceptionComponent" index="0" unique_id=1738836844]
-shape = SubResource("BoxShape3D_2uyj2")
+[node name="AIProximitySensor" parent="AIPerceptionComponent" index="0" unique_id=1626784826 instance=ExtResource("6_03nx6")]
 
-[connection signal="body_entered" from="AIPerceptionComponent" to="AIPerceptionComponent" method="_on_body_entered"]
-[connection signal="body_exited" from="AIPerceptionComponent" to="." method="_on_area_3d_body_exited"]
-[connection signal="body_exited" from="AIPerceptionComponent" to="AIPerceptionComponent" method="_on_body_exited"]
+[node name="CollisionShape3D" parent="AIPerceptionComponent/AIProximitySensor" index="0" unique_id=1775654595]
+shape = SubResource("BoxShape3D_tlrvp")
 
 [editable path="SpriteZD"]
+[editable path="AIPerceptionComponent/AIProximitySensor"]

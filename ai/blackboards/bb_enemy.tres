@@ -1,0 +1,26 @@
+[gd_resource type="BlackboardPlan" format=3 uid="uid://un4hu5q2ygcn"]
+
+[resource]
+var/target/name = &"target"
+var/target/type = 24
+var/target/hint = 17
+var/target/hint_string = "Current target of this agent"
+var/candidate_target/name = &"candidate_target"
+var/candidate_target/type = 24
+var/candidate_target/hint = 0
+var/candidate_target/hint_string = ""
+var/player_perceived_previous_turn/name = &"player_perceived_previous_turn"
+var/player_perceived_previous_turn/type = 1
+var/player_perceived_previous_turn/value = false
+var/player_perceived_previous_turn/hint = 0
+var/player_perceived_previous_turn/hint_string = ""
+var/previous_distance_to_player/name = &"previous_distance_to_player"
+var/previous_distance_to_player/type = 2
+var/previous_distance_to_player/value = 1000000000000000
+var/previous_distance_to_player/hint = 0
+var/previous_distance_to_player/hint_string = ""
+var/current_distance_to_player/name = &"current_distance_to_player"
+var/current_distance_to_player/type = 2
+var/current_distance_to_player/value = 1000000000000000
+var/current_distance_to_player/hint = 0
+var/current_distance_to_player/hint_string = ""

@@ -23,8 +23,8 @@ func _on_signal_received() -> void:
 	signal_received = true
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _tick(delta: float) -> Status:
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _tick(_delta: float) -> Status:
 	if signal_received:
 		return SUCCESS
 

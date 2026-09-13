@@ -1,9 +1,9 @@
 # meta-name: Custom Task
 # meta-description: Custom task to be used in a BehaviorTree
 # meta-default: true
+## _CLASS_
 @tool
 extends _BASE_
-## _CLASS_
 
 
 # Display a customized name (requires @tool).
@@ -27,9 +27,8 @@ _TS_pass
 
 
 # Called each time this task is ticked (aka executed).
-func _tick(delta: float) -> Status:
+func _tick(_delta: float) -> Status:
 _TS_returnSUCCESS
-
 
 # Strings returned from this method are displayed as warnings in the behavior tree editor (requires @tool).
 func _get_configuration_warnings() -> PackedStringArray:

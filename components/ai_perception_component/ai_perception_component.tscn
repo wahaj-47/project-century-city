@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cddyxwojr5ffc"]
+
+[ext_resource type="Script" uid="uid://be4d4icse7thx" path="res://components/ai_perception_component/ai_perception_component.gd" id="1_ykvn1"]
+
+[node name="AIPerceptionComponent" type="Node3D" unique_id=633262666]
+script = ExtResource("1_ykvn1")

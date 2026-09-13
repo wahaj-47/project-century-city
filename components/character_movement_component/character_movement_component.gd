@@ -19,12 +19,12 @@ func _ready() -> void:
 	assert(owner is CharacterBody3D, "CharacterMovementComponent must be attached to a CharacterBody3D.")
 
 		
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
 	if not owner.is_on_floor() and enable_gravity:
-		owner.velocity += owner.get_gravity() * delta
+		owner.velocity += owner.get_gravity() * _delta
 	else:
 		owner.velocity.y = 0.0
 
@@ -61,7 +61,7 @@ func rotate(direction: Vector3i) -> void:
 	var target_rotation: float = atan2(-direction.x, -direction.z)
 	var current_rotation: float = owner.rotation.y
 
-	var delta_rotation := wrapf(
+	var _delta_rotation := wrapf(
 		target_rotation - current_rotation,
 		- PI,
 		PI
@@ -71,7 +71,7 @@ func rotate(direction: Vector3i) -> void:
 	rotation_tween.tween_property(
 		owner,
 		"rotation:y",
-		current_rotation + delta_rotation,
+		current_rotation + _delta_rotation,
 		rotate_duration
 	)
 

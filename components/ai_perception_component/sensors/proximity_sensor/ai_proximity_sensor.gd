@@ -1,0 +1,4 @@
+class_name AIProximitySensor
+extends Area3D
+
+var sensor_type: AIPerceptionComponent.AIPerceptionSensorType = AIPerceptionComponent.AIPerceptionSensorType.PROXIMITY

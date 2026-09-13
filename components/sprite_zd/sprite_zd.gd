@@ -20,8 +20,8 @@ func _ready() -> void:
 	camera = get_viewport().get_camera_3d()
 
 
-# # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+# # Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
 	var camera_forward = camera.global_transform.basis.z
 	
 	var forward = global_transform.basis.z
