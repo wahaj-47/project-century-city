@@ -6,11 +6,10 @@
 [ext_resource type="Script" uid="uid://b3h3o2x0wfw6" path="res://characters/base/states/taking_turn.gd" id="4_427j3"]
 [ext_resource type="BehaviorTree" uid="uid://dolikxcfvpjdp" path="res://ai/trees/enemy_turn.tres" id="4_fxr07"]
 [ext_resource type="PackedScene" uid="uid://cddyxwojr5ffc" path="res://components/ai_perception_component/ai_perception_component.tscn" id="5_tlrvp"]
+[ext_resource type="Texture2D" uid="uid://35idheau3lt8" path="res://art/characters/alice/animations/idle.png" id="5_vwt86"]
+[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://art/characters/alice/alice.res" id="6_2e6xf"]
 [ext_resource type="PackedScene" uid="uid://djaclpj1iufus" path="res://components/ai_perception_component/sensors/proximity_sensor/ai_proximity_sensor.tscn" id="6_03nx6"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tlrvp"]
-states/End/position = Vector2(946, 201)
-states/Start/position = Vector2(524, 201)
+[ext_resource type="PackedScene" uid="uid://bphepj1ut6qyu" path="res://components/interaction_handler/interaction_handler.tscn" id="8_yeuqv"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_tlrvp"]
 mapping/target = &"target"
@@ -31,13 +30,15 @@ actor_type = 2
 initial_state = NodePath("StateMachine/WaitingForTurn")
 
 [node name="SpriteZD" parent="." index="0" unique_id=1775536629]
-library_name = &"Global"
+animation_name = &"walk"
 
 [node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
-texture = null
+texture = ExtResource("5_vwt86")
+hframes = 16
+frame = 13
 
-[node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
-tree_root = SubResource("AnimationNodeStateMachine_tlrvp")
+[node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
+libraries/ = ExtResource("6_2e6xf")
 
 [node name="StateMachine" parent="." index="2" unique_id=1717741298]
 blackboard_plan = ExtResource("3_vwt86")
@@ -53,6 +54,8 @@ script = ExtResource("4_427j3")
 
 [node name="CollisionShape3D" parent="AIPerceptionComponent/AIProximitySensor" index="0" unique_id=1775654595]
 shape = SubResource("BoxShape3D_tlrvp")
+
+[node name="InteractionHandler" parent="." index="5" unique_id=659341144 instance=ExtResource("8_yeuqv")]
 
 [editable path="SpriteZD"]
 [editable path="AIPerceptionComponent/AIProximitySensor"]

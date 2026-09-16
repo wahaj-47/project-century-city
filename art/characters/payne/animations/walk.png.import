@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j4nidtp0ifj4"
-path.s3tc="res://.godot/imported/walk.png-7ea08f35b6203f283433e35016d383a6.s3tc.ctex"
+uid="uid://bvjrgpgxpyq7x"
+path.s3tc="res://.godot/imported/walk.png-6db4cb0170ef5488ff553d3e897bc447.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://art/characters/jack/walk.png"
-dest_files=["res://.godot/imported/walk.png-7ea08f35b6203f283433e35016d383a6.s3tc.ctex"]
+source_file="res://art/characters/payne/animations/walk.png"
+dest_files=["res://.godot/imported/walk.png-6db4cb0170ef5488ff553d3e897bc447.s3tc.ctex"]
 
 [params]
 

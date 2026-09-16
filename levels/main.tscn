@@ -5,8 +5,7 @@
 [ext_resource type="MeshLibrary" uid="uid://du2t3lmoi7ogu" path="res://art/ml_building_blocks.tres" id="2_wdj6m"]
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://scripts/astar_gridmap.gd" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://actors/door/door.tscn" id="3_l8qe7"]
-[ext_resource type="PackedScene" uid="uid://ciir5ixa4ol2w" path="res://characters/enemy/variants/payne.tscn" id="6_5k4jt"]
-[ext_resource type="PackedScene" uid="uid://ccsow67t2vdmc" path="res://characters/enemy/variants/alice.tscn" id="7_qy63d"]
+[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://art/characters/jack/jack.res" id="6_5k4jt"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
 tonemap_mode = 3
@@ -47,10 +46,5 @@ metadata/_custom_type_script = "uid://yeacy85cb1cj"
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Player" parent="." unique_id=167650114 instance=ExtResource("1_qy63d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.4322245, 4)
-
-[node name="Enemy" parent="." unique_id=183289259 instance=ExtResource("6_5k4jt")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 44, 2.05, -36)
-
-[node name="Enemy2" parent="." unique_id=1479617644 instance=ExtResource("7_qy63d")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 1.738, -36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.738086, 4)
+animation_library = ExtResource("6_5k4jt")

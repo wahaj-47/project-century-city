@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3lfft43yf0v3"
-path.s3tc="res://.godot/imported/idle.png-625394466f12db3bfbbfce6d51e8a4ce.s3tc.ctex"
+uid="uid://bv6sd666e3qjk"
+path.s3tc="res://.godot/imported/walk.png-8b80b8f7b53660835ea136b1cf651335.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://art/characters/payne/idle.png"
-dest_files=["res://.godot/imported/idle.png-625394466f12db3bfbbfce6d51e8a4ce.s3tc.ctex"]
+source_file="res://art/characters/alice/animations/walk.png"
+dest_files=["res://.godot/imported/walk.png-8b80b8f7b53660835ea136b1cf651335.s3tc.ctex"]
 
 [params]
 

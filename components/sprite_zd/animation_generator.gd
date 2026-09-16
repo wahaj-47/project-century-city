@@ -19,6 +19,7 @@ var pick_property_action = pick_property
 @export_tool_button("Generate Animation", "Animation")
 var generate_animation_action = generate_animation
 
+
 func pick_property() -> void:
 	EditorInterface.popup_property_selector(
 		sprite3d,

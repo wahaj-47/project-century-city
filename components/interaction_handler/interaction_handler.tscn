@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bphepj1ut6qyu"]
+
+[ext_resource type="Script" uid="uid://f74kx6rvy8sj" path="res://components/interaction_handler/interaction_handler.gd" id="1_o3jly"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jbm3e"]
+
+[node name="InteractionHandler" type="Area3D" unique_id=659341144]
+script = ExtResource("1_o3jly")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=89542627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.335, 2.4, 0)
+shape = SubResource("BoxShape3D_jbm3e")

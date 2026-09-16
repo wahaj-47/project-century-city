@@ -6,11 +6,34 @@
 [ext_resource type="BehaviorTree" uid="uid://3j804ti4whao" path="res://ai/trees/waiting_for_turn.tres" id="2_xg31s"]
 [ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://components/character_movement_component/character_movement_component.tscn" id="2_yo2jm"]
 [ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://components/interaction_ability_component/interaction_ability_component.tscn" id="3_bh43n"]
-[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://art/characters/jack/idle.png" id="3_nvf7k"]
+[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://art/characters/jack/animations/idle.png" id="3_nvf7k"]
+[ext_resource type="AnimationLibrary" uid="uid://cci7v7dtxg2h8" path="res://defaults/animation_library.res" id="4_0hoxr"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvf7k"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0hoxr"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n55mo"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sn1g0"]
+advance_mode = 2
+advance_expression = "is_moving == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_osgrd"]
+advance_mode = 2
+advance_expression = "is_moving == false"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xg31s"]
 states/End/position = Vector2(946, 201)
-states/Start/position = Vector2(524, 201)
+states/Start/position = Vector2(511, 96)
+states/idle/node = SubResource("AnimationNodeAnimation_nvf7k")
+states/idle/position = Vector2(637, 96)
+states/walk/node = SubResource("AnimationNodeAnimation_0hoxr")
+states/walk/position = Vector2(761, 96)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_n55mo"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_sn1g0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_osgrd")]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
 margin = 0.0
@@ -18,16 +41,25 @@ height = 2.5
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_o6sry"]
 
-[node name="Character" type="CharacterBody3D" unique_id=167650114]
+[node name="Character" type="CharacterBody3D" unique_id=167650114 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_dwr5h")
+initial_state = NodePath("StateMachine/WaitingForTurn")
 
 [node name="SpriteZD" parent="." unique_id=1775536629 instance=ExtResource("2_nvf7k")]
+animation_name = &"idle"
+library_name = &""
+fps = 6.0
 
 [node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
 texture = ExtResource("3_nvf7k")
 hframes = 11
+frame = 10
+
+[node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
+libraries/ = ExtResource("4_0hoxr")
 
 [node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
+active = true
 tree_root = SubResource("AnimationNodeStateMachine_xg31s")
 advance_expression_base_node = NodePath("../..")
 

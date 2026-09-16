@@ -10,6 +10,3 @@ func _exit() -> void:
 
 func end_turn() -> void:
 	dispatch(&"turn_ended")
-
-func try_kill() -> void:
-	dispatch(&"try_kill")
