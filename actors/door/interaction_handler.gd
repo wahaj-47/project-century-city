@@ -3,12 +3,15 @@ extends InteractionHandler
 
 @export var mesh: Node3D
 @export var obstruction_check: RayCast3D
-@export var interaction_handler: InteractionHandler
 
 @export var animation_duration := 0.2
 
 var open = false
 var moving = false
+
+func _ready() -> void:
+	assert(mesh != null, "InteractionHandler must have a Mesh.")
+	assert(obstruction_check != null, "InteractionHandler must have an ObstructionCheck.")
 
 func interact(instigator: Node3D) -> void:
 	super.interact(instigator)

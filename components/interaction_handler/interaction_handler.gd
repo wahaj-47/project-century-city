@@ -1,6 +1,6 @@
 @tool
 class_name InteractionHandler
-extends Node3D
+extends Area3D
 
 @export var enabled := true
 

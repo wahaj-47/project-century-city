@@ -9,10 +9,16 @@ extends Node
 signal interaction_started
 signal interaction_ended
 
+var current_interaction_target: InteractionHandler
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	assert(owner is CharacterBody3D, "InteractionAbilityComponent must be attached to a CharacterBody3D.")
 	raycast_interaction.target_position = Vector3.FORWARD * interaction_distance
+	raycast_interaction.force_raycast_update()
+
+func _physics_process(delta: float) -> void:
+	current_interaction_target = get_interaction_target()
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
@@ -25,28 +31,28 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 	return warnings
 
-func try_interact() -> void:
-	raycast_interaction.force_raycast_update()
-
+func get_interaction_target() -> InteractionHandler:
 	if not raycast_interaction.is_colliding():
-		interaction_ended.emit()
-		return
+		return null
 
 	var collider := raycast_interaction.get_collider()
 
 	if collider == null:
-		interaction_ended.emit()
-		return
+		return null
 
 	if collider is not InteractionHandler:
+		return null
+
+	return collider as InteractionHandler
+
+func try_interact() -> void:
+	if current_interaction_target == null:
 		interaction_ended.emit()
 		return
 
-	var interaction_handler: InteractionHandler = collider
-	
-	interaction_handler.interaction_started.connect(_on_interaction_started, CONNECT_ONE_SHOT)
-	interaction_handler.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
-	interaction_handler.interact(owner)
+	current_interaction_target.interaction_started.connect(_on_interaction_started, CONNECT_ONE_SHOT)
+	current_interaction_target.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
+	current_interaction_target.interact(owner)
 
 func _on_interaction_started() -> void:
 	interaction_started.emit()

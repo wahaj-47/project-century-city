@@ -59,8 +59,9 @@ script = ExtResource("4_427j3")
 [node name="CollisionShape3D" parent="AIPerceptionComponent/AIProximitySensor" index="0" unique_id=1775654595]
 shape = SubResource("BoxShape3D_tlrvp")
 
-[node name="InteractionHandler" parent="." index="5" unique_id=659341144 instance=ExtResource("8_yeuqv")]
+[node name="InteractionHandler" parent="." index="5" unique_id=659341144 node_paths=PackedStringArray("character_movement_component") instance=ExtResource("8_yeuqv")]
 script = ExtResource("11_k40fn")
+character_movement_component = NodePath("../CharacterMovementComponent")
 
 [node name="CollisionShape3D" parent="InteractionHandler" index="0" unique_id=89542627]
 shape = SubResource("CapsuleShape3D_4smru")
