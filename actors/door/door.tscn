@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cigjuhyfie4qn"]
 
-[ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://actors/door/door.gd" id="1_t7gc3"]
+[ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://actors/door/interaction_handler.gd" id="1_t7gc3"]
 [ext_resource type="PackedScene" uid="uid://bbjl8tjmqu3w5" path="res://art/door/door.glb" id="2_qfphl"]
 [ext_resource type="PackedScene" uid="uid://bphepj1ut6qyu" path="res://components/interaction_handler/interaction_handler.tscn" id="3_qfphl"]
 
@@ -8,7 +8,6 @@
 size = Vector3(2.67, 4.8, 0.2)
 
 [node name="Door" type="Node3D" unique_id=1456591762 groups=["Solid"]]
-script = ExtResource("1_t7gc3")
 
 [node name="Mesh" parent="." unique_id=15829244 instance=ExtResource("2_qfphl")]
 
@@ -17,9 +16,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 enabled = false
 target_position = Vector3(-2.6, 0, 0)
 
-[node name="InteractionHandler" parent="." unique_id=659341144 instance=ExtResource("3_qfphl")]
+[node name="InteractionHandler" parent="." unique_id=659341144 node_paths=PackedStringArray("mesh", "obstruction_check", "interaction_handler") instance=ExtResource("3_qfphl")]
+script = ExtResource("1_t7gc3")
+mesh = NodePath("../Mesh")
+obstruction_check = NodePath("../ObstructionCheck")
+interaction_handler = NodePath(".")
+animation_duration = 0.2
 
 [node name="CollisionShape3D" parent="InteractionHandler" index="0" unique_id=89542627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.335, 2.4, 0)
 shape = SubResource("BoxShape3D_m6hqj")
 
 [editable path="InteractionHandler"]

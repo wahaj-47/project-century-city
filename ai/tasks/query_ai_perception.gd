@@ -14,11 +14,14 @@ func _generate_name() -> String:
 # Called once during initialization.
 func _setup() -> void:
 	var character = agent as Character
-	ai_perception_component = character.get_ai_perception_component()
+	ai_perception_component = character.get_ai_perception_component() if character.has_method("get_ai_perception_component") else null
 
 
 # Called each time this task is ticked (aka executed).
 func _tick(__delta: float) -> Status:
+	if ai_perception_component == null:
+		return FAILURE
+
 	var query_result = ai_perception_component.has_filtered_entities(
 		func(entity) -> bool:
 			return is_instance_of(entity, target_type)

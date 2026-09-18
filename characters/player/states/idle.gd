@@ -1,10 +1,9 @@
 extends LimboState
 
-var character_movement_component: CharacterMovementComponent
+@export var character_movement_component: CharacterMovementComponent
 
 func _setup() -> void:
-	var character: Character = get_agent()
-	character_movement_component = character.get_character_movement_component()
+	assert(character_movement_component != null)
 	add_event_handler(&'movement_requested', _on_movement_requested)
 
 func _unhandled_input(event: InputEvent) -> void:

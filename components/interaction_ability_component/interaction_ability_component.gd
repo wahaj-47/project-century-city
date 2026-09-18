@@ -38,15 +38,15 @@ func try_interact() -> void:
 		interaction_ended.emit()
 		return
 
-	var item = collider
-
-	if not item.has_method("interact"):
+	if collider is not InteractionHandler:
 		interaction_ended.emit()
 		return
 
-	item.interaction_started.connect(_on_interaction_started, CONNECT_ONE_SHOT)
-	item.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
-	item.interact(owner)
+	var interaction_handler: InteractionHandler = collider
+	
+	interaction_handler.interaction_started.connect(_on_interaction_started, CONNECT_ONE_SHOT)
+	interaction_handler.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
+	interaction_handler.interact(owner)
 
 func _on_interaction_started() -> void:
 	interaction_started.emit()

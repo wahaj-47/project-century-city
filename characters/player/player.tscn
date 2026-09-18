@@ -34,13 +34,16 @@ frame = 16
 [node name="TakingTurn" type="LimboHSM" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="1" unique_id=1906634445]
 script = ExtResource("4_5dc8e")
 
-[node name="Idle" type="LimboState" parent="StateMachine/TakingTurn" index="0" unique_id=1787902812]
+[node name="Idle" type="LimboState" parent="StateMachine/TakingTurn" index="0" unique_id=1787902812 node_paths=PackedStringArray("character_movement_component")]
 script = ExtResource("5_ixbpm")
+character_movement_component = NodePath("../../../CharacterMovementComponent")
 
-[node name="Moving" type="LimboState" parent="StateMachine/TakingTurn" index="1" unique_id=1210772350]
+[node name="Moving" type="LimboState" parent="StateMachine/TakingTurn" index="1" unique_id=1210772350 node_paths=PackedStringArray("character_movement_component")]
 script = ExtResource("5_c6leb")
+character_movement_component = NodePath("../../../CharacterMovementComponent")
 
-[node name="Interacting" type="LimboState" parent="StateMachine/TakingTurn" index="2" unique_id=782402771]
+[node name="Interacting" type="LimboState" parent="StateMachine/TakingTurn" index="2" unique_id=782402771 node_paths=PackedStringArray("interaction_ability_component")]
 script = ExtResource("7_dirf7")
+interaction_ability_component = NodePath("../../../InteractionAbilityComponent")
 
 [editable path="SpriteZD"]

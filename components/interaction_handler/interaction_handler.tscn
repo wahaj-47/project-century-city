@@ -8,5 +8,4 @@
 script = ExtResource("1_o3jly")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=89542627]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.335, 2.4, 0)
 shape = SubResource("BoxShape3D_jbm3e")

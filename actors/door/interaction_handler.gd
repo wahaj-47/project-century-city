@@ -1,31 +1,31 @@
-extends Node3D
+@tool
+extends InteractionHandler
 
-@onready var mesh: Node3D = $Mesh
-@onready var obstruction_check: RayCast3D = $ObstructionCheck
-@onready var interaction_handler: InteractionHandler = $InteractionHandler
+@export var mesh: Node3D
+@export var obstruction_check: RayCast3D
+@export var interaction_handler: InteractionHandler
 
 @export var animation_duration := 0.2
 
 var open = false
 var moving = false
 
-func on_interaction(instigator: Node3D) -> void:
+func interact(instigator: Node3D) -> void:
+	super.interact(instigator)
+
 	if obstruction_check.is_colliding():
-		interaction_handler.interaction_ended.emit()
 		return
 
 	if moving:
-		interaction_handler.interaction_ended.emit()
 		return
 
-	interaction_handler.interaction_started.emit()
+	interaction_started.emit()
 	moving = true
 
 	if open:
 		_close_door()
 	else:
 		_open_door(instigator)
-	
 
 func _open_door(instigator: Node3D) -> void:
 	var to_instigator: Vector3 = instigator.global_position - global_position
@@ -41,7 +41,7 @@ func _open_door(instigator: Node3D) -> void:
 		open = not open
 		moving = false
 		obstruction_check.enabled = true
-		interaction_handler.interaction_ended.emit()
+		interaction_ended.emit()
 	)
 	GameState.map.set_point_solid(global_position, false)
 	
@@ -54,6 +54,6 @@ func _close_door() -> void:
 		open = false
 		moving = false
 		obstruction_check.enabled = false
-		interaction_handler.interaction_ended.emit()
+		interaction_ended.emit()
 	)
 	GameState.map.set_point_solid(global_position, true)

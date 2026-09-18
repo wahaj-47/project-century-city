@@ -2,15 +2,16 @@
 class_name InteractionHandler
 extends Node3D
 
+@export var enabled := true
+
 signal interaction_started
 signal interaction_ended
 
-func _ready() -> void:
-	assert(owner.has_method('on_interaction'))
 
-
-func interact(_instigator: Node3D) -> void:
-	owner.on_interaction(_instigator)
+## Actual interaction logic should be implemented in the subclass
+func interact(instigator: Node3D) -> void:
+	if not enabled:
+		return
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -18,8 +19,5 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 	if Engine.is_editor_hint() and owner == null:
 		return warnings
-
-	if not owner.has_method('on_interaction'):
-		warnings.append('Owner does not have a on_interaction method')
 
 	return warnings

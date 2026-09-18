@@ -1,13 +1,13 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://dolikxcfvpjdp"]
 
-[ext_resource type="BlackboardPlan" uid="uid://un4hu5q2ygcn" path="res://ai/blackboards/bb_enemy.tres" id="1_dcnia"]
-[ext_resource type="Script" uid="uid://bxfpm3wglq63r" path="res://ai/tasks/find_target.gd" id="2_d01sq"]
-[ext_resource type="Script" uid="uid://buddwnpihnqhd" path="res://ai/tasks/wait_signal.gd" id="2_r04dg"]
-[ext_resource type="Script" uid="uid://bxojf8sc8x1hc" path="res://ai/tasks/query_ai_perception.gd" id="2_r5v5v"]
-[ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://characters/enemy/enemy.gd" id="3_14qlb"]
-[ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://ai/tasks/move_to.gd" id="3_xq0um"]
-[ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://characters/player/player.gd" id="6_14qlb"]
-[ext_resource type="Script" uid="uid://cufbmhrar5qv1" path="res://ai/tasks/find_distance.gd" id="9_i0pjc"]
+[ext_resource type="BlackboardPlan" uid="uid://un4hu5q2ygcn" path="res://ai/blackboards/bb_enemy.tres" id="1_i207s"]
+[ext_resource type="Script" uid="uid://cufbmhrar5qv1" path="res://ai/tasks/find_distance.gd" id="2_56fcs"]
+[ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://ai/tasks/move_to.gd" id="3_0tkc4"]
+[ext_resource type="Script" uid="uid://buddwnpihnqhd" path="res://ai/tasks/wait_signal.gd" id="4_klf24"]
+[ext_resource type="Script" uid="uid://bxojf8sc8x1hc" path="res://ai/tasks/query_ai_perception.gd" id="5_qj5uk"]
+[ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://characters/enemy/enemy.gd" id="6_mt5mc"]
+[ext_resource type="Script" uid="uid://bxfpm3wglq63r" path="res://ai/tasks/find_target.gd" id="7_o0tjg"]
+[ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://characters/player/player.gd" id="8_xbp6v"]
 
 [sub_resource type="BTComment" id="BTComment_i0pjc"]
 custom_name = "Is blocking door?"
@@ -29,7 +29,7 @@ value = SubResource("BBVariant_7ba52")
 
 [sub_resource type="BTAction" id="BTAction_r5v5v"]
 custom_name = "Find distance to current target"
-script = ExtResource("9_i0pjc")
+script = ExtResource("2_56fcs")
 to_var = &"target"
 output_var = &"distance_to_target"
 
@@ -45,11 +45,11 @@ value = SubResource("BBVariant_r5v5v")
 
 [sub_resource type="BTAction" id="BTAction_oooq5"]
 custom_name = "Move to target"
-script = ExtResource("3_xq0um")
+script = ExtResource("3_0tkc4")
 
 [sub_resource type="BTAction" id="BTAction_bk8ns"]
 custom_name = "Wait for movement to end"
-script = ExtResource("2_r04dg")
+script = ExtResource("4_klf24")
 signal_source = NodePath("CharacterMovementComponent")
 signal_name = "movement_ended"
 
@@ -68,18 +68,18 @@ children = [SubResource("BTCheckVar_oooq5"), SubResource("BTAction_r5v5v"), SubR
 
 [sub_resource type="BTCondition" id="BTCondition_kxsal"]
 custom_name = "Is another enemy being perceived?"
-script = ExtResource("2_r5v5v")
-target_type = ExtResource("3_14qlb")
+script = ExtResource("5_qj5uk")
+target_type = ExtResource("6_mt5mc")
 
 [sub_resource type="BTAction" id="BTAction_38stn"]
 custom_name = "Set BB candidate_target = perceived_enemy"
-script = ExtResource("2_d01sq")
+script = ExtResource("7_o0tjg")
 output_var = &"candidate_target"
-target_type = ExtResource("3_14qlb")
+target_type = ExtResource("6_mt5mc")
 
 [sub_resource type="BTAction" id="BTAction_i0pjc"]
 custom_name = "Find distance to candidate target"
-script = ExtResource("9_i0pjc")
+script = ExtResource("2_56fcs")
 to_var = &"candidate_target"
 output_var = &"distance_to_target"
 
@@ -116,8 +116,8 @@ value = SubResource("BBVariant_pd318")
 
 [sub_resource type="BTCondition" id="BTCondition_r5v5v"]
 custom_name = "Is player being perceived?"
-script = ExtResource("2_r5v5v")
-target_type = ExtResource("6_14qlb")
+script = ExtResource("5_qj5uk")
+target_type = ExtResource("8_xbp6v")
 
 [sub_resource type="BTCheckTrigger" id="BTCheckTrigger_hy7nk"]
 variable = &"player_perceived_previous_turn"
@@ -129,9 +129,9 @@ children = [SubResource("BTCondition_r5v5v"), SubResource("BTCheckTrigger_hy7nk"
 
 [sub_resource type="BTAction" id="BTAction_hy7nk"]
 custom_name = "Set BB candidate_target = perceived_player"
-script = ExtResource("2_d01sq")
+script = ExtResource("7_o0tjg")
 output_var = &"candidate_target"
-target_type = ExtResource("6_14qlb")
+target_type = ExtResource("8_xbp6v")
 
 [sub_resource type="BBVariant" id="BBVariant_a2bvn"]
 saved_value = null
@@ -166,7 +166,7 @@ value = SubResource("BBVariant_kxsal")
 
 [sub_resource type="BTAction" id="BTAction_dcnia"]
 custom_name = "Find current distance to player"
-script = ExtResource("9_i0pjc")
+script = ExtResource("2_56fcs")
 to_var = &"candidate_target"
 output_var = &"current_distance_to_player"
 
@@ -228,5 +228,5 @@ custom_name = "Select a case"
 children = [SubResource("BTSequence_14qlb"), SubResource("BTSequence_a2bvn"), SubResource("BTSequence_7ba52"), SubResource("BTSequence_r5v5v"), SubResource("BTSequence_l3nnb")]
 
 [resource]
-blackboard_plan = ExtResource("1_dcnia")
+blackboard_plan = ExtResource("1_i207s")
 root_task = SubResource("BTSelector_i0pjc")

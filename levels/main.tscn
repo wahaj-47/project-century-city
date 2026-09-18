@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://scripts/astar_gridmap.gd" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://actors/door/door.tscn" id="3_l8qe7"]
 [ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://art/characters/jack/jack.res" id="6_5k4jt"]
+[ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://characters/enemy/enemy.tscn" id="7_qy63d"]
+[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://art/characters/alice/alice.res" id="8_6et1j"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
 tonemap_mode = 3
@@ -46,5 +48,9 @@ metadata/_custom_type_script = "uid://yeacy85cb1cj"
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Player" parent="." unique_id=167650114 instance=ExtResource("1_qy63d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.738086, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.45, 4)
 animation_library = ExtResource("6_5k4jt")
+
+[node name="Enemy" parent="." unique_id=441057014 instance=ExtResource("7_qy63d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.747, 1.45, -12)
+animation_library = ExtResource("8_6et1j")
