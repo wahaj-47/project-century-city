@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cic2ltvf3lthd"]
+
+[ext_resource type="Script" uid="uid://dgsq20jkch7eo" path="res://addons/widget_component/widget_component.gd" id="1_vnwjc"]
+
+[node name="WidgetComponent" type="Node3D" unique_id=1398507753]
+script = ExtResource("1_vnwjc")
+pivot = Vector2(0.5, 0.5)
+metadata/_custom_type_script = "uid://dgsq20jkch7eo"

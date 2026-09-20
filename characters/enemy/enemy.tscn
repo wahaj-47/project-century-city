@@ -67,6 +67,10 @@ character_movement_component = NodePath("../CharacterMovementComponent")
 shape = SubResource("CapsuleShape3D_4smru")
 debug_color = Color(0.9732602, 0.0040636794, 0.43585104, 0.41960785)
 
+[node name="WidgetComponent" parent="InteractionHandler" index="1" unique_id=1398507753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
 [editable path="SpriteZD"]
 [editable path="AIPerceptionComponent/AIProximitySensor"]
 [editable path="InteractionHandler"]
+[editable path="InteractionHandler/WidgetComponent"]

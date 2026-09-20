@@ -13,6 +13,9 @@ var current_interaction_target: InteractionHandler
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	assert(owner is CharacterBody3D, "InteractionAbilityComponent must be attached to a CharacterBody3D.")
 	raycast_interaction.target_position = Vector3.FORWARD * interaction_distance
 	raycast_interaction.force_raycast_update()

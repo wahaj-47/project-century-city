@@ -15,6 +15,9 @@ signal movement_ended
 var is_moving := false
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	# Make sure the owner is a CharacterBody3D.
 	assert(owner is CharacterBody3D, "CharacterMovementComponent must be attached to a CharacterBody3D.")
 

@@ -3,6 +3,7 @@ class_name InteractionHandler
 extends Area3D
 
 @export var enabled := true
+@export var input_action: ControllerIconTexture
 
 signal interaction_started
 signal interaction_ended
