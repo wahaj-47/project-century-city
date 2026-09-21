@@ -6,6 +6,7 @@
 [sub_resource type="Resource" id="Resource_g4v7s"]
 script = ExtResource("2_46iag")
 target_position = Vector3(0, 0, -8)
+offset = Vector3(0, 2, 0)
 collide_with_bodies = false
 collide_with_areas = true
 metadata/_custom_type_script = "uid://d0hfki4nhfrjc"

@@ -1,6 +1,6 @@
 @tool
 class_name InteractionAbilityComponent
-extends Node
+extends Node3D
 
 @export var target_query: TargetQuery
 
@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	if target_query == null:
 		return
 
-	var query_result := target_query.find_target(owner)
+	var query_result := target_query.find_target(self)
 	current_interaction_target = query_result.get("collider") as InteractionHandler
 
 

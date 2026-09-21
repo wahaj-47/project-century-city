@@ -22,9 +22,9 @@ func find_target(origin: Node3D) -> Dictionary:
 	var space_state := origin.get_world_3d().direct_space_state
 	var from := origin.global_position
 	var to := origin.to_global(target_position)
-
 	var exclude := [origin] if exclude_self else []
 	var query = PhysicsRayQueryParameters3D.create(from, to, collision_mask, exclude)
+	
 	query.collide_with_bodies = collide_with_bodies
 	query.collide_with_areas = collide_with_areas
 		
