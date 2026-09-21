@@ -3,15 +3,15 @@
 [ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://actors/door/interaction_handler.gd" id="1_t7gc3"]
 [ext_resource type="PackedScene" uid="uid://bbjl8tjmqu3w5" path="res://art/door/door.glb" id="2_qfphl"]
 [ext_resource type="PackedScene" uid="uid://bphepj1ut6qyu" path="res://components/interaction_handler/interaction_handler.tscn" id="3_qfphl"]
-[ext_resource type="Texture2D" uid="uid://dqbdrypwktxva" path="res://ui/input_action/actions/jump.tres" id="4_7tdgq"]
+[ext_resource type="Texture2D" uid="uid://bomk3a33y4apg" path="res://ui/input_action/actions/interact.tres" id="4_7tdgq"]
+[ext_resource type="Script" uid="uid://cablgyp7f1wi8" path="res://addons/widget_component/widget.gd" id="4_mtvx5"]
 [ext_resource type="PackedScene" uid="uid://i54fney8bra1" path="res://ui/input_action/input_action.tscn" id="5_o6y3j"]
-[ext_resource type="Script" uid="uid://cablgyp7f1wi8" path="res://addons/widget_component/widget.gd" id="6_d46e0"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_m6hqj"]
-size = Vector3(2.67, 4.8, 0.2)
+[sub_resource type="BoxShape3D" id="BoxShape3D_qfphl"]
+size = Vector3(2.7, 4.8, 0.2)
 
-[sub_resource type="Resource" id="Resource_4smru"]
-script = ExtResource("6_d46e0")
+[sub_resource type="Resource" id="Resource_gkgc3"]
+script = ExtResource("4_mtvx5")
 scene = ExtResource("5_o6y3j")
 data = ExtResource("4_7tdgq")
 metadata/_custom_type_script = "uid://cablgyp7f1wi8"
@@ -26,19 +26,18 @@ enabled = false
 target_position = Vector3(-2.6, 0, 0)
 
 [node name="InteractionHandler" parent="." unique_id=659341144 node_paths=PackedStringArray("mesh", "obstruction_check") instance=ExtResource("3_qfphl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 2.4, 0)
 script = ExtResource("1_t7gc3")
 mesh = NodePath("../Mesh")
 obstruction_check = NodePath("../ObstructionCheck")
 animation_duration = 0.2
-input_action = null
 
 [node name="CollisionShape3D" parent="InteractionHandler" index="0" unique_id=89542627]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.335, 2.4, 0)
-shape = SubResource("BoxShape3D_m6hqj")
+shape = SubResource("BoxShape3D_qfphl")
 
 [node name="WidgetComponent" parent="InteractionHandler" index="1" unique_id=1398507753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.335, 2.4, 0)
-widget = SubResource("Resource_4smru")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+widget = SubResource("Resource_gkgc3")
 
 [editable path="InteractionHandler"]
 [editable path="InteractionHandler/WidgetComponent"]

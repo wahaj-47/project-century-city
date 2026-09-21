@@ -9,7 +9,19 @@ extends Node
 signal interaction_started
 signal interaction_ended
 
-var current_interaction_target: InteractionHandler
+var current_interaction_target: InteractionHandler:
+	set(value):
+		if current_interaction_target == value:
+			return
+
+		if current_interaction_target != null:
+			current_interaction_target.set_prompt_visible(false)
+		
+		if value != null:
+			value.set_prompt_visible(true)
+		
+		current_interaction_target = value
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,8 +32,10 @@ func _ready() -> void:
 	raycast_interaction.target_position = Vector3.FORWARD * interaction_distance
 	raycast_interaction.force_raycast_update()
 
+
 func _physics_process(delta: float) -> void:
 	current_interaction_target = get_interaction_target()
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
@@ -33,6 +47,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("The InteractionAbilityComponent must be a child of the CharacterBody3D.")
 
 	return warnings
+
 
 func get_interaction_target() -> InteractionHandler:
 	if not raycast_interaction.is_colliding():
@@ -48,6 +63,7 @@ func get_interaction_target() -> InteractionHandler:
 
 	return collider as InteractionHandler
 
+
 func try_interact() -> void:
 	if current_interaction_target == null:
 		interaction_ended.emit()
@@ -57,8 +73,10 @@ func try_interact() -> void:
 	current_interaction_target.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
 	current_interaction_target.interact(owner)
 
+
 func _on_interaction_started() -> void:
 	interaction_started.emit()
+
 
 func _on_interaction_ended() -> void:
 	interaction_ended.emit()

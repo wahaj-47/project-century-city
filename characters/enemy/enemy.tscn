@@ -11,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://djaclpj1iufus" path="res://components/ai_perception_component/sensors/proximity_sensor/ai_proximity_sensor.tscn" id="6_03nx6"]
 [ext_resource type="PackedScene" uid="uid://bphepj1ut6qyu" path="res://components/interaction_handler/interaction_handler.tscn" id="8_yeuqv"]
 [ext_resource type="Script" uid="uid://cdooidmeswp4q" path="res://characters/enemy/interaction_handler.gd" id="11_k40fn"]
+[ext_resource type="Texture2D" uid="uid://bomk3a33y4apg" path="res://ui/input_action/actions/interact.tres" id="12_2e6xf"]
+[ext_resource type="PackedScene" uid="uid://i54fney8bra1" path="res://ui/input_action/input_action.tscn" id="13_xmf1p"]
+[ext_resource type="Script" uid="uid://cablgyp7f1wi8" path="res://addons/widget_component/widget.gd" id="14_0sx34"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_tlrvp"]
 mapping/target = &"target"
@@ -23,8 +26,15 @@ mapping/current_distance_to_player = &"current_distance_to_player"
 [sub_resource type="BoxShape3D" id="BoxShape3D_tlrvp"]
 size = Vector3(40, 2.5, 40)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4smru"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
+margin = 0.0
 height = 2.5
+
+[sub_resource type="Resource" id="Resource_4smru"]
+script = ExtResource("14_0sx34")
+scene = ExtResource("13_xmf1p")
+data = ExtResource("12_2e6xf")
+metadata/_custom_type_script = "uid://cablgyp7f1wi8"
 
 [node name="Enemy" unique_id=167650114 groups=["Enemy"] instance=ExtResource("1_ho334")]
 collision_layer = 2
@@ -64,11 +74,11 @@ script = ExtResource("11_k40fn")
 character_movement_component = NodePath("../CharacterMovementComponent")
 
 [node name="CollisionShape3D" parent="InteractionHandler" index="0" unique_id=89542627]
-shape = SubResource("CapsuleShape3D_4smru")
-debug_color = Color(0.9732602, 0.0040636794, 0.43585104, 0.41960785)
+shape = SubResource("CapsuleShape3D_yo2jm")
 
 [node name="WidgetComponent" parent="InteractionHandler" index="1" unique_id=1398507753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+widget = SubResource("Resource_4smru")
 
 [editable path="SpriteZD"]
 [editable path="AIPerceptionComponent/AIProximitySensor"]

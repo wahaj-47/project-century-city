@@ -48,7 +48,7 @@ func _forward_3d_draw_over_viewport(viewport_control: Control) -> void:
 	if _instantiated_widget == null:
 		return
 
-	var screen_position: Vector2 = _camera.unproject_position(_widget_component.position)
+	var screen_position: Vector2 = _camera.unproject_position(_widget_component.global_position)
 	_instantiated_widget.position = screen_position - (_instantiated_widget.get_combined_minimum_size() * _widget_component.pivot)
 
 

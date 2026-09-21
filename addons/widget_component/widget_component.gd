@@ -23,30 +23,33 @@ enum Display {
 ## Should the Widget wait to be told to redraw to actually draw or not.
 @export var manually_redraw: bool = false
 
-var instantiated_widget: Control
+var _instantiated_widget: Control
+var _camera: Camera3D
+
 
 func _ready() -> void:
 	if widget == null:
 		return
+	
+	_camera = get_viewport().get_camera_3d()
 
-	instantiated_widget = widget.instantiate()
-	add_child(instantiated_widget)
-	instantiated_widget.owner = self
+	_instantiated_widget = widget.instantiate()
+	add_child(_instantiated_widget)
+	_instantiated_widget.owner = self
+	
 
 func _process(delta: float) -> void:
-	if instantiated_widget == null:
+	if _instantiated_widget == null:
+		return
+	
+	if _camera == null:
 		return
 
-	var camera: Camera3D = get_viewport().get_camera_3d()
-
-	if camera == null:
-		return
-
-	if camera.is_position_behind(global_position):
+	if _camera.is_position_behind(global_position) or not visible:
 		# Hide the widget
-		instantiated_widget.hide()
+		_instantiated_widget.hide()
 		return
 
-	var screen_position: Vector2 = camera.unproject_position(global_position)
-	instantiated_widget.position = screen_position - (instantiated_widget.size * pivot)
-	instantiated_widget.show()
+	var screen_position: Vector2 = _camera.unproject_position(global_position)
+	_instantiated_widget.position = screen_position - (_instantiated_widget.size * pivot)
+	_instantiated_widget.show()
