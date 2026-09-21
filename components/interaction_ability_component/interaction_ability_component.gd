@@ -2,9 +2,7 @@
 class_name InteractionAbilityComponent
 extends Node
 
-@export var interaction_distance := 8.0
-
-@onready var raycast_interaction: RayCast3D = $RayCast3D_Interaction
+@export var target_query: TargetQuery
 
 signal interaction_started
 signal interaction_ended
@@ -29,12 +27,17 @@ func _ready() -> void:
 		return
 
 	assert(owner is CharacterBody3D, "InteractionAbilityComponent must be attached to a CharacterBody3D.")
-	raycast_interaction.target_position = Vector3.FORWARD * interaction_distance
-	raycast_interaction.force_raycast_update()
 
 
 func _physics_process(delta: float) -> void:
-	current_interaction_target = get_interaction_target()
+	if Engine.is_editor_hint():
+		return
+
+	if target_query == null:
+		return
+
+	var query_result := target_query.find_target(owner)
+	current_interaction_target = query_result.get("collider") as InteractionHandler
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -47,21 +50,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("The InteractionAbilityComponent must be a child of the CharacterBody3D.")
 
 	return warnings
-
-
-func get_interaction_target() -> InteractionHandler:
-	if not raycast_interaction.is_colliding():
-		return null
-
-	var collider := raycast_interaction.get_collider()
-
-	if collider == null:
-		return null
-
-	if collider is not InteractionHandler:
-		return null
-
-	return collider as InteractionHandler
 
 
 func try_interact() -> void:
