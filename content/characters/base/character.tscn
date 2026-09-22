@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://cfwvtk7xp87g2"]
+
+[ext_resource type="Script" uid="uid://bch5a2bgcfig7" path="res://content/characters/base/character.gd" id="1_hdr8e"]
+[ext_resource type="AnimationLibrary" uid="uid://cci7v7dtxg2h8" path="res://content/defaults/animation_library.res" id="2_pl3v1"]
+[ext_resource type="PackedScene" uid="uid://clym27i3foxy7" path="res://addons/sprite_zd/sprite_zd.tscn" id="3_0lccp"]
+[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="4_hdr8e"]
+[ext_resource type="BehaviorTree" uid="uid://3j804ti4whao" path="res://content/ai/trees/player/waiting_for_turn.tres" id="5_02cod"]
+[ext_resource type="Script" uid="uid://lflc54byo7n6" path="res://content/characters/base/states/waiting_for_turn.gd" id="6_ywe0l"]
+[ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://systems/character_movement_component/character_movement_component.tscn" id="7_wgs5b"]
+[ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://systems/interaction_ability_component/interaction_ability_component.tscn" id="8_2n0q0"]
+[ext_resource type="Script" uid="uid://cxblh1yorteta" path="res://addons/target_query/shape_query.gd" id="9_6kbpk"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nvf7k"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0hoxr"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n55mo"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sn1g0"]
+advance_mode = 2
+advance_expression = "is_moving == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_osgrd"]
+advance_mode = 2
+advance_expression = "is_moving == false"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xg31s"]
+states/End/position = Vector2(946, 201)
+states/Start/position = Vector2(511, 96)
+states/idle/node = SubResource("AnimationNodeAnimation_nvf7k")
+states/idle/position = Vector2(637, 96)
+states/walk/node = SubResource("AnimationNodeAnimation_0hoxr")
+states/walk/position = Vector2(761, 96)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_n55mo"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_sn1g0"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_osgrd")]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
+margin = 0.0
+height = 2.5
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_o6sry"]
+
+[sub_resource type="Resource" id="Resource_g4v7s"]
+script = ExtResource("9_6kbpk")
+
+[node name="Character" type="CharacterBody3D" unique_id=167650114 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_hdr8e")
+initial_state = NodePath("StateMachine/WaitingForTurn")
+animation_library = ExtResource("2_pl3v1")
+
+[node name="SpriteZD" parent="." unique_id=1775536629 instance=ExtResource("3_0lccp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+animation_name = &"idle"
+library_name = &""
+fps = 6.0
+
+[node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
+texture = ExtResource("4_hdr8e")
+hframes = 11
+frame = 10
+
+[node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
+libraries/ = ExtResource("2_pl3v1")
+
+[node name="AnimationTree" parent="SpriteZD" index="2" unique_id=1748858576]
+active = true
+tree_root = SubResource("AnimationNodeStateMachine_xg31s")
+advance_expression_base_node = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1607071947]
+shape = SubResource("CapsuleShape3D_yo2jm")
+
+[node name="StateMachine" type="LimboHSM" parent="." unique_id=1717741298]
+
+[node name="WaitingForTurn" type="BTState" parent="StateMachine" unique_id=80667339]
+behavior_tree = ExtResource("5_02cod")
+blackboard_plan = SubResource("BlackboardPlan_o6sry")
+script = ExtResource("6_ywe0l")
+
+[node name="CharacterMovementComponent" parent="." unique_id=137649720 instance=ExtResource("7_wgs5b")]
+move_duration = 1.33
+rotate_duration = 0.16
+
+[node name="InteractionAbilityComponent" parent="." unique_id=1540746576 instance=ExtResource("8_2n0q0")]
+
+[node name="PickupAbilityComponent" parent="." unique_id=1454045157 instance=ExtResource("8_2n0q0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+target_query = SubResource("Resource_g4v7s")
+
+[editable path="SpriteZD"]

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://b18pk6e2j3oxo"]
+
+[ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://content/characters/player/player.gd" id="1_508ok"]
+[ext_resource type="PackedScene" uid="uid://cfwvtk7xp87g2" path="res://content/characters/base/character.tscn" id="1_e425n"]
+[ext_resource type="PackedScene" uid="uid://7map1u43mhuc" path="res://addons/camera_boom/camera_boom.tscn" id="3_ixbpm"]
+[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/jack.res" id="3_sa3aw"]
+[ext_resource type="Script" uid="uid://b3h3o2x0wfw6" path="res://content/characters/base/states/taking_turn.gd" id="4_5dc8e"]
+[ext_resource type="Script" uid="uid://bsu1nnrm0lr4u" path="res://content/characters/player/states/moving.gd" id="5_c6leb"]
+[ext_resource type="Script" uid="uid://cpp3x4qgicuak" path="res://content/characters/player/states/idle.gd" id="5_ixbpm"]
+[ext_resource type="Script" uid="uid://1vdrn56o5e7c" path="res://content/characters/player/states/interacting.gd" id="7_dirf7"]
+
+[node name="Player" unique_id=167650114 node_paths=PackedStringArray("initial_state") groups=["Player"] instance=ExtResource("1_e425n")]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_508ok")
+actor_type = 1
+initial_state = NodePath("StateMachine/TakingTurn")
+animation_library = ExtResource("3_sa3aw")
+
+[node name="CameraBoom" parent="." index="0" unique_id=361584401 instance=ExtResource("3_ixbpm")]
+transform = Transform3D(0.98480767, 0.11161887, -0.1330222, 0, 0.7660443, 0.6427875, 0.17364816, -0.63302207, 0.7544064, 0, 0, 0)
+top_level = true
+
+[node name="Camera" type="Camera3D" parent="CameraBoom" index="0" unique_id=1406908645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+projection = 1
+size = 30.0
+far = 100.0
+
+[node name="SpriteZD" parent="." index="1" unique_id=1775536629]
+animation_name = &"walk"
+
+[node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
+frame = 21
+
+[node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
+libraries/ = ExtResource("3_sa3aw")
+
+[node name="TakingTurn" type="LimboHSM" parent="StateMachine" parent_id_path=PackedInt32Array(1717741298) index="1" unique_id=1906634445]
+script = ExtResource("4_5dc8e")
+
+[node name="Idle" type="LimboState" parent="StateMachine/TakingTurn" index="0" unique_id=1787902812 node_paths=PackedStringArray("character_movement_component")]
+script = ExtResource("5_ixbpm")
+character_movement_component = NodePath("../../../CharacterMovementComponent")
+
+[node name="Moving" type="LimboState" parent="StateMachine/TakingTurn" index="1" unique_id=1210772350 node_paths=PackedStringArray("character_movement_component")]
+script = ExtResource("5_c6leb")
+character_movement_component = NodePath("../../../CharacterMovementComponent")
+
+[node name="Interacting" type="LimboState" parent="StateMachine/TakingTurn" index="2" unique_id=782402771 node_paths=PackedStringArray("interaction_ability_component")]
+script = ExtResource("7_dirf7")
+interaction_ability_component = NodePath("../../../InteractionAbilityComponent")
+
+[editable path="SpriteZD"]

@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://d4gf5vgmmo1ag"]
+
+[ext_resource type="PackedScene" uid="uid://cfwvtk7xp87g2" path="res://content/characters/base/character.tscn" id="1_ho334"]
+[ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://content/characters/enemy/enemy.gd" id="2_c6xed"]
+[ext_resource type="BlackboardPlan" uid="uid://un4hu5q2ygcn" path="res://content/ai/blackboards/bb_enemy.tres" id="3_vwt86"]
+[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/alice.res" id="3_xmf1p"]
+[ext_resource type="Script" uid="uid://b3h3o2x0wfw6" path="res://content/characters/base/states/taking_turn.gd" id="4_427j3"]
+[ext_resource type="BehaviorTree" uid="uid://dolikxcfvpjdp" path="res://content/ai/trees/enemy/taking_turn.tres" id="4_fxr07"]
+[ext_resource type="BehaviorTree" uid="uid://dggre5yudqb0" path="res://content/ai/trees/enemy/waiting_for_turn.tres" id="5_iavur"]
+[ext_resource type="PackedScene" uid="uid://cddyxwojr5ffc" path="res://addons/ai_perception_component/ai_perception_component.tscn" id="5_tlrvp"]
+[ext_resource type="Texture2D" uid="uid://35idheau3lt8" path="res://content/assets/characters/alice/animations/idle.png" id="5_vwt86"]
+[ext_resource type="PackedScene" uid="uid://djaclpj1iufus" path="res://addons/ai_perception_component/sensors/proximity_sensor/ai_proximity_sensor.tscn" id="6_03nx6"]
+[ext_resource type="PackedScene" uid="uid://bphepj1ut6qyu" path="res://systems/interaction_handler/interaction_handler.tscn" id="8_yeuqv"]
+[ext_resource type="Script" uid="uid://cdooidmeswp4q" path="res://content/characters/enemy/interaction_handler.gd" id="11_k40fn"]
+[ext_resource type="Texture2D" uid="uid://bomk3a33y4apg" path="res://ui/input_action/actions/interact.tres" id="12_2e6xf"]
+[ext_resource type="PackedScene" uid="uid://i54fney8bra1" path="res://ui/input_action/input_action.tscn" id="13_xmf1p"]
+[ext_resource type="Script" uid="uid://cablgyp7f1wi8" path="res://addons/widget_component/widget.gd" id="14_0sx34"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_tlrvp"]
+mapping/target = &"target"
+mapping/candidate_target = &"candidate_target"
+mapping/distance_to_target = &"distance_to_target"
+mapping/player_perceived_previous_turn = &"player_perceived_previous_turn"
+mapping/previous_distance_to_player = &"previous_distance_to_player"
+mapping/current_distance_to_player = &"current_distance_to_player"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tlrvp"]
+size = Vector3(40, 2.5, 40)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
+margin = 0.0
+height = 2.5
+
+[sub_resource type="Resource" id="Resource_4smru"]
+script = ExtResource("14_0sx34")
+scene = ExtResource("13_xmf1p")
+data = ExtResource("12_2e6xf")
+metadata/_custom_type_script = "uid://cablgyp7f1wi8"
+
+[node name="Enemy" unique_id=167650114 groups=["Enemy"] instance=ExtResource("1_ho334")]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("2_c6xed")
+actor_type = 2
+animation_library = ExtResource("3_xmf1p")
+
+[node name="SpriteZD" parent="." index="0" unique_id=1775536629]
+animation_name = &"walk"
+
+[node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
+texture = ExtResource("5_vwt86")
+hframes = 16
+frame = 3
+
+[node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
+libraries/ = ExtResource("3_xmf1p")
+
+[node name="StateMachine" parent="." index="2" unique_id=1717741298]
+blackboard_plan = ExtResource("3_vwt86")
+
+[node name="WaitingForTurn" parent="StateMachine" index="0" unique_id=80667339 node_paths=PackedStringArray("interaction_handler")]
+behavior_tree = ExtResource("5_iavur")
+interaction_handler = NodePath("../../InteractionHandler")
+
+[node name="TakingTurn" type="BTState" parent="StateMachine" index="1" unique_id=1952471274]
+behavior_tree = ExtResource("4_fxr07")
+blackboard_plan = SubResource("BlackboardPlan_tlrvp")
+script = ExtResource("4_427j3")
+
+[node name="AIPerceptionComponent" parent="." index="4" unique_id=1019477935 instance=ExtResource("5_tlrvp")]
+
+[node name="AIProximitySensor" parent="AIPerceptionComponent" index="0" unique_id=1626784826 instance=ExtResource("6_03nx6")]
+
+[node name="CollisionShape3D" parent="AIPerceptionComponent/AIProximitySensor" index="0" unique_id=1775654595]
+shape = SubResource("BoxShape3D_tlrvp")
+
+[node name="InteractionHandler" parent="." index="5" unique_id=659341144 node_paths=PackedStringArray("character_movement_component") instance=ExtResource("8_yeuqv")]
+script = ExtResource("11_k40fn")
+character_movement_component = NodePath("../CharacterMovementComponent")
+
+[node name="CollisionShape3D" parent="InteractionHandler" index="0" unique_id=89542627]
+shape = SubResource("CapsuleShape3D_yo2jm")
+
+[node name="WidgetComponent" parent="InteractionHandler" index="1" unique_id=1398507753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+widget = SubResource("Resource_4smru")
+
+[editable path="SpriteZD"]
+[editable path="AIPerceptionComponent/AIProximitySensor"]
+[editable path="InteractionHandler"]
+[editable path="InteractionHandler/WidgetComponent"]

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://djaclpj1iufus"]
+
+[ext_resource type="Script" uid="uid://chmpfupa2qsje" path="res://addons/ai_perception_component/sensors/proximity_sensor/ai_proximity_sensor.gd" id="1_g0oh1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xq0um"]
+
+[node name="AIProximitySensor" type="Area3D" unique_id=1626784826]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_g0oh1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1775654595]
+shape = SubResource("BoxShape3D_xq0um")
