@@ -31,7 +31,7 @@ far = 100.0
 animation_name = &"walk"
 
 [node name="Sprite3D" parent="SpriteZD" index="0" unique_id=797554499]
-frame = 21
+frame = 11
 
 [node name="AnimationPlayer" parent="SpriteZD" index="1" unique_id=438609835]
 libraries/ = ExtResource("3_sa3aw")

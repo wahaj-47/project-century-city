@@ -1,4 +1,3 @@
-@tool
 class_name Character
 extends CharacterBody3D
 
@@ -33,6 +32,14 @@ func _ready() -> void:
 
 func _setup_state_transitions() -> void:
 	pass
+
+
+func get_character_forward() -> Vector3i:
+	return -global_transform.basis.z.normalized()
+
+
+func get_character_right() -> Vector3i:
+	return global_transform.basis.x.normalized()
 
 
 func get_character_movement_component() -> CharacterMovementComponent:
