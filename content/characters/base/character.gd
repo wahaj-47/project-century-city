@@ -1,3 +1,4 @@
+@tool
 class_name Character
 extends CharacterBody3D
 
@@ -18,6 +19,8 @@ extends CharacterBody3D
 # Animation variables
 var is_moving: bool:
 	get:
+		if character_movement_component == null:
+			return false
 		return character_movement_component.is_moving
 
 func _ready() -> void:

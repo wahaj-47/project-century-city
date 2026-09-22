@@ -46,6 +46,10 @@ Enemy=""
 Map=""
 Solid=""
 
+[gui]
+
+theme/custom="uid://cyxkqxwywuxtl"
+
 [input]
 
 move_left={
