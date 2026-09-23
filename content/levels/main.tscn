@@ -5,7 +5,7 @@
 [ext_resource type="MeshLibrary" uid="uid://du2t3lmoi7ogu" path="res://content/mesh_libraries/building_blocks/building_blocks.tres" id="2_wdj6m"]
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://addons/astar_gridmap/astar_gridmap.gd" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://content/interactables/door/door.tscn" id="3_l8qe7"]
-[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/alice.res" id="7_2tg64"]
+[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/payne.res" id="7_2tg64"]
 [ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://content/characters/enemy/enemy.tscn" id="7_qy63d"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
@@ -50,5 +50,8 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.45, 4)
 
 [node name="Enemy" parent="." unique_id=441057014 instance=ExtResource("7_qy63d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.747, 1.45, -12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.45, -12)
+
+[node name="Enemy2" parent="." unique_id=854357314 instance=ExtResource("7_qy63d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 1.45, -36)
 animation_library = ExtResource("7_2tg64")

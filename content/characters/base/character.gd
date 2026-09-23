@@ -4,6 +4,7 @@ extends CharacterBody3D
 
 @onready var state_machine: LimboHSM = $StateMachine
 @onready var waiting_for_turn_state: LimboState = $StateMachine/WaitingForTurn
+@onready var dead_state: LimboState = $StateMachine/Dead
 
 @onready var character_movement_component: CharacterMovementComponent = $CharacterMovementComponent
 @onready var interaction_ability_component: InteractionAbilityComponent = $InteractionAbilityComponent
@@ -19,11 +20,20 @@ extends CharacterBody3D
 # Animation variables
 var is_moving: bool:
 	get:
-		if character_movement_component == null:
-			return false
+		if Engine.is_editor_hint(): return false
+		if character_movement_component == null: return false
 		return character_movement_component.is_moving
 
+var pending_kill: bool = false:
+	set(value):
+		if pending_kill == value: return
+		pending_kill = value
+		if pending_kill: state_machine.dispatch(&"destroyed")
+			
+
 func _ready() -> void:
+	state_machine.add_transition(state_machine.ANYSTATE, dead_state, &"destroyed")
+	
 	# Initial state
 	state_machine.initial_state = initial_state
 	
@@ -33,8 +43,9 @@ func _ready() -> void:
 	_update_animation_player()
 
 
-func _setup_state_transitions() -> void:
-	pass
+func destroy() -> void:
+	print("Destroying ", name)
+	pending_kill = true
 
 
 func get_character_forward() -> Vector3i:

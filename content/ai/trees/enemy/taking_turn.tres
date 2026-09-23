@@ -5,66 +5,92 @@
 [ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://content/ai/tasks/move_to.gd" id="3_u3iaj"]
 [ext_resource type="Script" uid="uid://buddwnpihnqhd" path="res://content/ai/tasks/wait_signal.gd" id="4_lcnse"]
 [ext_resource type="Script" uid="uid://bxojf8sc8x1hc" path="res://content/ai/tasks/query_ai_perception.gd" id="5_aei7y"]
+[ext_resource type="Script" uid="uid://duvs0rpij3tg5" path="res://content/ai/tasks/get_nearby_count.gd" id="5_u3iaj"]
 [ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://content/characters/enemy/enemy.gd" id="6_51fsn"]
+[ext_resource type="Script" uid="uid://bch5a2bgcfig7" path="res://content/characters/base/character.gd" id="6_lcnse"]
 [ext_resource type="Script" uid="uid://bxfpm3wglq63r" path="res://content/ai/tasks/find_target.gd" id="7_xcj56"]
 [ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://content/characters/player/player.gd" id="8_wvqa1"]
 
-[sub_resource type="BTComment" id="BTComment_i0pjc"]
-custom_name = "Is blocking door?"
-
-[sub_resource type="BTFail" id="BTFail_i0pjc"]
-
-[sub_resource type="BTSequence" id="BTSequence_14qlb"]
-custom_name = "Stuck in a doorway"
-children = [SubResource("BTComment_i0pjc"), SubResource("BTFail_i0pjc")]
-
-[sub_resource type="BBVariant" id="BBVariant_7ba52"]
+[sub_resource type="BBVariant" id="BBVariant_51fsn"]
 saved_value = null
 resource_name = "<null>"
 
-[sub_resource type="BTCheckVar" id="BTCheckVar_oooq5"]
+[sub_resource type="BTCheckVar" id="BTCheckVar_wvqa1"]
 variable = &"target"
 check_type = 5
-value = SubResource("BBVariant_7ba52")
+value = SubResource("BBVariant_51fsn")
 
-[sub_resource type="BTAction" id="BTAction_r5v5v"]
+[sub_resource type="BTAction" id="BTAction_u3iaj"]
 custom_name = "Find distance to current target"
 script = ExtResource("2_wvqa1")
 to_var = &"target"
 output_var = &"distance_to_target"
 
-[sub_resource type="BBVariant" id="BBVariant_r5v5v"]
+[sub_resource type="BBVariant" id="BBVariant_lcnse"]
 type = 2
 saved_value = 1
 resource_name = "1"
 
-[sub_resource type="BTCheckVar" id="BTCheckVar_i0pjc"]
+[sub_resource type="BTCheckVar" id="BTCheckVar_aei7y"]
 variable = &"distance_to_target"
-check_type = 3
-value = SubResource("BBVariant_r5v5v")
+check_type = 1
+value = SubResource("BBVariant_lcnse")
 
-[sub_resource type="BTAction" id="BTAction_oooq5"]
-custom_name = "Move to target"
-script = ExtResource("3_u3iaj")
+[sub_resource type="BTAction" id="BTAction_aei7y"]
+custom_name = "Count characters nearby"
+script = ExtResource("5_u3iaj")
+output_var = &"nearby_character_count"
+target_type = ExtResource("6_lcnse")
 
-[sub_resource type="BTAction" id="BTAction_bk8ns"]
-custom_name = "Wait for movement to end"
-script = ExtResource("4_lcnse")
-signal_source = NodePath("CharacterMovementComponent")
-signal_name = "movement_ended"
+[sub_resource type="BBVariant" id="BBVariant_u3iaj"]
+type = 2
+saved_value = 1
+resource_name = "1"
 
-[sub_resource type="BBNode" id="BBNode_bk8ns"]
+[sub_resource type="BTCheckVar" id="BTCheckVar_lcnse"]
+variable = &"nearby_character_count"
+value = SubResource("BBVariant_u3iaj")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_u3iaj"]
+min_duration = 0.0
+max_duration = 0.5
+
+[sub_resource type="BBNode" id="BBNode_51fsn"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_wvqa1"]
+node = SubResource("BBNode_51fsn")
+method = &"destroy"
+custom_name = "Mark target destroyed"
+
+[sub_resource type="BTComment" id="BTComment_51fsn"]
+custom_name = "Play kill animation"
+
+[sub_resource type="BTComment" id="BTComment_wvqa1"]
+custom_name = "Wait for animation to finish"
+
+[sub_resource type="BBVariant" id="BBVariant_xcj56"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTSetVar" id="BTSetVar_l88cl"]
+variable = &"target"
+value = SubResource("BBVariant_xcj56")
+
+[sub_resource type="BBNode" id="BBNode_u3iaj"]
 saved_value = NodePath("StateMachine/TakingTurn")
 resource_name = "StateMachine/TakingTurn"
 
-[sub_resource type="BTCallMethod" id="BTCallMethod_xq0um"]
-node = SubResource("BBNode_bk8ns")
+[sub_resource type="BTCallMethod" id="BTCallMethod_lcnse"]
+node = SubResource("BBNode_u3iaj")
 method = &"end_turn"
 custom_name = "End turn"
 
-[sub_resource type="BTSequence" id="BTSequence_a2bvn"]
-custom_name = "Has target"
-children = [SubResource("BTCheckVar_oooq5"), SubResource("BTAction_r5v5v"), SubResource("BTCheckVar_i0pjc"), SubResource("BTAction_oooq5"), SubResource("BTAction_bk8ns"), SubResource("BTCallMethod_xq0um")]
+[sub_resource type="BTSequence" id="BTSequence_bfd7x"]
+custom_name = "Kill target"
+children = [SubResource("BTCheckVar_wvqa1"), SubResource("BTAction_u3iaj"), SubResource("BTCheckVar_aei7y"), SubResource("BTAction_aei7y"), SubResource("BTCheckVar_lcnse"), SubResource("BTRandomWait_u3iaj"), SubResource("BTCallMethod_wvqa1"), SubResource("BTComment_51fsn"), SubResource("BTComment_wvqa1"), SubResource("BTSetVar_l88cl"), SubResource("BTCallMethod_lcnse")]
 
 [sub_resource type="BTCondition" id="BTCondition_kxsal"]
 custom_name = "Is another enemy being perceived?"
@@ -90,8 +116,19 @@ resource_name = "1"
 
 [sub_resource type="BTCheckVar" id="BTCheckVar_yng6a"]
 variable = &"distance_to_target"
-check_type = 3
+check_type = 4
 value = SubResource("BBVariant_iif4q")
+custom_name = "Is distance to candidate target >= 1?"
+
+[sub_resource type="BBVariant" id="BBVariant_aei7y"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_bfd7x"]
+variable = &"candidate_target"
+check_type = 5
+value = SubResource("BBVariant_aei7y")
 
 [sub_resource type="BBVariant" id="BBVariant_yng6a"]
 value_source = 1
@@ -104,7 +141,55 @@ value = SubResource("BBVariant_yng6a")
 
 [sub_resource type="BTSequence" id="BTSequence_7ba52"]
 custom_name = "Another enemy nearby"
-children = [SubResource("BTCondition_kxsal"), SubResource("BTAction_38stn"), SubResource("BTAction_i0pjc"), SubResource("BTCheckVar_yng6a"), SubResource("BTSetVar_pd318")]
+children = [SubResource("BTCondition_kxsal"), SubResource("BTAction_38stn"), SubResource("BTAction_i0pjc"), SubResource("BTCheckVar_yng6a"), SubResource("BTCheckVar_bfd7x"), SubResource("BTSetVar_pd318")]
+
+[sub_resource type="BBVariant" id="BBVariant_7ba52"]
+saved_value = null
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_oooq5"]
+variable = &"target"
+check_type = 5
+value = SubResource("BBVariant_7ba52")
+
+[sub_resource type="BTAction" id="BTAction_r5v5v"]
+custom_name = "Find distance to current target"
+script = ExtResource("2_wvqa1")
+to_var = &"target"
+output_var = &"distance_to_target"
+
+[sub_resource type="BBVariant" id="BBVariant_r5v5v"]
+type = 2
+saved_value = 1
+resource_name = "1"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_i0pjc"]
+variable = &"distance_to_target"
+check_type = 4
+value = SubResource("BBVariant_r5v5v")
+
+[sub_resource type="BTAction" id="BTAction_oooq5"]
+custom_name = "Move to target"
+script = ExtResource("3_u3iaj")
+
+[sub_resource type="BTAction" id="BTAction_bk8ns"]
+custom_name = "Wait for movement to end"
+script = ExtResource("4_lcnse")
+signal_source = NodePath("CharacterMovementComponent")
+signal_name = "movement_ended"
+
+[sub_resource type="BBNode" id="BBNode_bk8ns"]
+saved_value = NodePath("StateMachine/TakingTurn")
+resource_name = "StateMachine/TakingTurn"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_xq0um"]
+node = SubResource("BBNode_bk8ns")
+method = &"end_turn"
+custom_name = "End turn"
+
+[sub_resource type="BTSequence" id="BTSequence_a2bvn"]
+custom_name = "Chase target"
+children = [SubResource("BTCheckVar_oooq5"), SubResource("BTAction_r5v5v"), SubResource("BTCheckVar_i0pjc"), SubResource("BTAction_oooq5"), SubResource("BTAction_bk8ns"), SubResource("BTCallMethod_xq0um")]
 
 [sub_resource type="BBVariant" id="BBVariant_pd318"]
 saved_value = null
@@ -202,14 +287,6 @@ value = SubResource("BBVariant_oooq5")
 custom_name = "Player running away"
 children = [SubResource("BTCheckVar_0eefj"), SubResource("BTParallel_i0pjc"), SubResource("BTParallel_yng6a"), SubResource("BTSetVar_kxsal"), SubResource("BTSetVar_38stn"), SubResource("BTAction_dcnia"), SubResource("BTCheckVar_hy7nk"), SubResource("BTSetVar_7ba52"), SubResource("BTSetVar_a2bvn")]
 
-[sub_resource type="BBVariant" id="BBVariant_0eefj"]
-saved_value = null
-resource_name = "<null>"
-
-[sub_resource type="BTSetVar" id="BTSetVar_cmkw7"]
-variable = &"target"
-value = SubResource("BBVariant_0eefj")
-
 [sub_resource type="BBNode" id="BBNode_xq0um"]
 saved_value = NodePath("StateMachine/TakingTurn")
 resource_name = "StateMachine/TakingTurn"
@@ -221,11 +298,11 @@ custom_name = "End turn"
 
 [sub_resource type="BTSequence" id="BTSequence_l3nnb"]
 custom_name = "No action possible"
-children = [SubResource("BTSetVar_cmkw7"), SubResource("BTCallMethod_dcnia")]
+children = [SubResource("BTCallMethod_dcnia")]
 
 [sub_resource type="BTSelector" id="BTSelector_i0pjc"]
 custom_name = "Select a case"
-children = [SubResource("BTSequence_14qlb"), SubResource("BTSequence_a2bvn"), SubResource("BTSequence_7ba52"), SubResource("BTSequence_r5v5v"), SubResource("BTSequence_l3nnb")]
+children = [SubResource("BTSequence_bfd7x"), SubResource("BTSequence_7ba52"), SubResource("BTSequence_a2bvn"), SubResource("BTSequence_r5v5v"), SubResource("BTSequence_l3nnb")]
 
 [resource]
 blackboard_plan = ExtResource("1_51fsn")

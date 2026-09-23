@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="4_hdr8e"]
 [ext_resource type="BehaviorTree" uid="uid://3j804ti4whao" path="res://content/ai/trees/player/waiting_for_turn.tres" id="5_02cod"]
 [ext_resource type="Script" uid="uid://lflc54byo7n6" path="res://content/characters/base/states/waiting_for_turn.gd" id="6_ywe0l"]
+[ext_resource type="Script" uid="uid://ija8f7imerwt" path="res://content/characters/base/states/dead.gd" id="7_pl3v1"]
 [ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://systems/character_movement_component/character_movement_component.tscn" id="7_wgs5b"]
 [ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://systems/interaction_ability_component/interaction_ability_component.tscn" id="8_2n0q0"]
 [ext_resource type="Script" uid="uid://cxblh1yorteta" path="res://addons/target_query/shape_query.gd" id="9_6kbpk"]
@@ -78,6 +79,9 @@ shape = SubResource("CapsuleShape3D_yo2jm")
 behavior_tree = ExtResource("5_02cod")
 blackboard_plan = SubResource("BlackboardPlan_o6sry")
 script = ExtResource("6_ywe0l")
+
+[node name="Dead" type="LimboState" parent="StateMachine" unique_id=1110315631]
+script = ExtResource("7_pl3v1")
 
 [node name="CharacterMovementComponent" parent="." unique_id=137649720 instance=ExtResource("7_wgs5b")]
 move_duration = 1.33
