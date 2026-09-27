@@ -1,34 +1,45 @@
+@tool
 class_name SpriteZD
 extends Sprite3D
 
-var camera: Camera3D
-
-enum Direction {
-	DOWN,
-	DOWN_LEFT,
-	LEFT,
-	UP_LEFT,
-	UP,
-	UP_RIGHT,
-	RIGHT,
-	DOWN_RIGHT,
+## The dimension on your spritesheet that represents the directionality of the sprite.
+enum DirectionDimension {
+	X,
+	Y,
 }
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	frame_coords.y = Direction.RIGHT
-	camera = get_viewport().get_camera_3d()
+@export var direction_dimension: DirectionDimension = DirectionDimension.Y
+@export_range(4, 8, 4) var directions: int = 8:
+	set(value):
+		directions = value
+		direction_mapping.clear()
 
+		for i in range(directions):
+			var angle := TAU * float(i) / directions
 
-# # Called every frame. '_delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	var camera_forward = camera.global_transform.basis.z
+			var direction := Vector2i(
+				- roundi(sin(angle)),
+				- roundi(cos(angle))
+			)
+
+			direction_mapping[direction] = i
+
+## A mapping of directions to their corresponding frames.
+@export var direction_mapping: Dictionary[Vector2i, int] = {
+	Vector2i(0, -1): 0,
+	Vector2i(-1, -1): 1,
+	Vector2i(-1, 0): 2,
+	Vector2i(-1, 1): 3,
+	Vector2i(0, 1): 4,
+	Vector2i(1, 1): 5,
+	Vector2i(1, 0): 6,
+	Vector2i(1, -1): 7,
+}
+
 	
-	var forward = global_transform.basis.z
-	var right = global_transform.basis.x
-
-	var forward_dot = forward.dot(camera_forward)
-	var right_dot = right.dot(camera_forward)
-
-	var angle: float = atan2(right_dot, forward_dot)
-	frame_coords.y = posmod(roundi((angle + PI) / (PI / 4.0)), 8)
+func set_directionality(direction: Vector2i) -> void:
+	if not direction_mapping.has(direction): return
+	
+	match direction_dimension:
+		DirectionDimension.X: frame_coords.x = direction_mapping[direction]
+		DirectionDimension.Y: frame_coords.y = direction_mapping[direction]

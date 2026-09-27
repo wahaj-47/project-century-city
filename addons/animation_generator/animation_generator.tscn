@@ -1,9 +1,8 @@
-[gd_scene format=3 uid="uid://clym27i3foxy7"]
+[gd_scene format=3 uid="uid://b6cjvjh0p6ykq"]
 
-[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="2_3naib"]
-[ext_resource type="Texture2D" uid="uid://j4nidtp0ifj4" path="res://content/assets/characters/jack/animations/walk.png" id="2_8vloo"]
-[ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://addons/sprite_zd/sprite_zd.gd" id="2_r328t"]
-[ext_resource type="Script" uid="uid://b7nj7ccdan4gw" path="res://addons/sprite_zd/animation_generator.gd" id="3_3naib"]
+[ext_resource type="Script" uid="uid://dggoq28pp317" path="res://addons/animation_generator/animation_generator.gd" id="1_mo78t"]
+[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="3_gt2at"]
+[ext_resource type="Texture2D" uid="uid://j4nidtp0ifj4" path="res://content/assets/characters/jack/animations/walk.png" id="4_grtb2"]
 
 [sub_resource type="Animation" id="Animation_8vloo"]
 resource_name = "RESET"
@@ -33,7 +32,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ExtResource("2_3naib")]
+"values": [ExtResource("3_gt2at")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -73,7 +72,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ExtResource("2_8vloo")]
+"values": [ExtResource("4_grtb2")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -102,11 +101,8 @@ advance_mode = 2
 states/Start/position = Vector2(603, 100)
 transitions = ["Start", "End", SubResource("AnimationNodeStateMachineTransition_8vloo")]
 
-[node name="SpriteZD" type="Node3D" unique_id=1775536629 node_paths=PackedStringArray("sprite3d", "animation_player")]
-script = ExtResource("3_3naib")
-sprite3d = NodePath("Sprite3D")
-animation_player = NodePath("AnimationPlayer")
-property = NodePath("Sprite3D:frame_coords:x")
+[node name="AnimationGenerator" type="Node3D" unique_id=1775536629]
+script = ExtResource("1_mo78t")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=797554499]
 pixel_size = 0.04
@@ -116,7 +112,6 @@ alpha_cut = 1
 texture_filter = 0
 hframes = 9
 vframes = 8
-script = ExtResource("2_r328t")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=438609835]
 libraries/ = SubResource("AnimationLibrary_im1pr")

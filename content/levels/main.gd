@@ -1,7 +1,7 @@
 ## Initializes the game state
 extends Node
 
-@onready var map: AStarGridMap = $Map
+@export var map: AStarGridMap
 
 func _ready() -> void:
 	assert(map != null, "AStarGridMap not found.")

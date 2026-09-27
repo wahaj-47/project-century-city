@@ -15,7 +15,7 @@ var current_interaction_target: InteractionHandler:
 		if current_interaction_target != null:
 			current_interaction_target.set_prompt_visible(false)
 		
-		if value != null:
+		if value != null and owner is Player:
 			value.set_prompt_visible(true)
 		
 		current_interaction_target = value

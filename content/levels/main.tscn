@@ -5,8 +5,8 @@
 [ext_resource type="MeshLibrary" uid="uid://du2t3lmoi7ogu" path="res://content/mesh_libraries/building_blocks/building_blocks.tres" id="2_wdj6m"]
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://addons/astar_gridmap/astar_gridmap.gd" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://content/interactables/door/door.tscn" id="3_l8qe7"]
-[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/payne.res" id="7_2tg64"]
-[ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://content/characters/enemy/enemy.tscn" id="7_qy63d"]
+[ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://content/characters/enemy/enemy.tscn" id="6_6eitg"]
+[ext_resource type="PackedScene" uid="uid://7map1u43mhuc" path="res://addons/camera_boom/camera_boom.tscn" id="7_a8xkr"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
 tonemap_mode = 3
@@ -15,24 +15,35 @@ fog_light_energy = 0.35
 fog_height = -0.01
 fog_height_density = 3.6174
 
-[node name="Main" type="Node" unique_id=1474689114]
+[node name="Main" type="Node" unique_id=1474689114 node_paths=PackedStringArray("map")]
 script = ExtResource("1_5k4jt")
+map = NodePath("SubViewportContainer/SubViewport/Map")
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1946412389]
-transform = Transform3D(0.59018826, -0.2432302, -0.76975113, 0.80670714, 0.14224428, 0.57357645, -0.030018415, -0.95948184, 0.2801665, 0, 7.6293945e-06, 0)
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1760026700]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1373434296]
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Sun" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=314506535]
+transform = Transform3D(0.92198956, -0.21890733, -0.31939775, 0.38693687, 0.5521116, 0.7385477, 0.01466971, -0.80451995, 0.59374446, 0, -69.57422, -76.66135)
 shadow_enabled = true
-shadow_opacity = 0.7
 
-[node name="Door-001" parent="." unique_id=1884502191 instance=ExtResource("3_l8qe7")]
+[node name="Door-001" parent="SubViewportContainer/SubViewport" unique_id=1456591762 instance=ExtResource("3_l8qe7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12, 0.2, -29.35)
 
-[node name="Door-002" parent="." unique_id=1050975347 instance=ExtResource("3_l8qe7")]
+[node name="Door-002" parent="SubViewportContainer/SubViewport" unique_id=1915333535 instance=ExtResource("3_l8qe7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 20, 0.2, -29.35)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1807349354]
-environment = SubResource("Environment_r7qdr")
-
-[node name="Map" type="GridMap" parent="." unique_id=1543279110 groups=["Map"]]
+[node name="Map" type="GridMap" parent="SubViewportContainer/SubViewport" unique_id=972541063 groups=["Map"]]
 mesh_library = ExtResource("2_wdj6m")
 cell_size = Vector3(8, 6.6, 8)
 cell_center_y = false
@@ -46,12 +57,22 @@ solid_cells = Array[Vector2i]([Vector2i(-2, -3), Vector2i(-2, -5), Vector2i(2, -
 metadata/_custom_type_script = "uid://yeacy85cb1cj"
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Player" parent="." unique_id=167650114 instance=ExtResource("1_qy63d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.45, 4)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=2049891949]
+environment = SubResource("Environment_r7qdr")
 
-[node name="Enemy" parent="." unique_id=441057014 instance=ExtResource("7_qy63d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.45, -12)
+[node name="Player" parent="SubViewportContainer/SubViewport" unique_id=167650114 instance=ExtResource("1_qy63d")]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 4, 1.45, 4)
 
-[node name="Enemy2" parent="." unique_id=854357314 instance=ExtResource("7_qy63d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 1.45, -36)
-animation_library = ExtResource("7_2tg64")
+[node name="Enemy" parent="SubViewportContainer/SubViewport" unique_id=200790331 instance=ExtResource("6_6eitg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.45, -36)
+
+[node name="CameraBoom" parent="SubViewportContainer/SubViewport" unique_id=92780663 node_paths=PackedStringArray("follow_target") instance=ExtResource("7_a8xkr")]
+transform = Transform3D(0.7071067, 0.4545193, -0.5416751, 0, 0.76604414, 0.6427874, 0.7071067, -0.4545193, 0.5416751, 4, 1.45, 4)
+top_level = true
+follow_target = NodePath("../Player")
+
+[node name="Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraBoom" unique_id=2035857824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+projection = 1
+size = 25.0
+far = 100.0

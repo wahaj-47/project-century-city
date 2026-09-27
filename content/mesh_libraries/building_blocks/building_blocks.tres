@@ -1,15 +1,18 @@
 [gd_resource type="MeshLibrary" format=4 uid="uid://du2t3lmoi7ogu"]
 
 [ext_resource type="Material" uid="uid://bkyce4nupnj6p" path="res://content/materials/floor.tres" id="2_ugg0a"]
+[ext_resource type="Material" uid="uid://btubkjvuc1m67" path="res://content/materials/pixelate.tres" id="2_vi8cx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puroo"]
 resource_name = "Inside"
+next_pass = ExtResource("2_vi8cx")
 cull_mode = 2
 albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
 roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kqlc"]
 resource_name = "Outside"
+next_pass = ExtResource("2_vi8cx")
 cull_mode = 2
 albedo_color = Color(0, 0, 0, 1)
 metallic_specular = 0.0
@@ -109,6 +112,7 @@ data = PackedVector3Array(4, 0.1, -4, 4, 0.2, -0.22500001, 4, 0.2, -4, 4, 0.1, -
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ihny"]
 resource_name = "Handle"
+next_pass = ExtResource("2_vi8cx")
 cull_mode = 2
 albedo_color = Color(0.2531595, 0.2531595, 0.2531595, 1)
 metallic = 1.0

@@ -8,13 +8,13 @@ func _setup() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("move_forward"):
-		dispatch(&'movement_requested', Vector3i.FORWARD)
-	elif event.is_action_pressed("move_backward"):
-		dispatch(&'movement_requested', Vector3i.BACK)
-	elif event.is_action_pressed("move_left"):
-		dispatch(&'movement_requested', Vector3i.LEFT)
-	elif event.is_action_pressed("move_right"):
 		dispatch(&'movement_requested', Vector3i.RIGHT)
+	elif event.is_action_pressed("move_backward"):
+		dispatch(&'movement_requested', Vector3i.LEFT)
+	elif event.is_action_pressed("move_left"):
+		dispatch(&'movement_requested', Vector3i.FORWARD)
+	elif event.is_action_pressed("move_right"):
+		dispatch(&'movement_requested', Vector3i.BACK)
 	elif event.is_action_pressed("interact"):
 		dispatch(&'interaction_started')
 

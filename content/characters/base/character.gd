@@ -8,7 +8,8 @@ extends CharacterBody3D
 
 @onready var character_movement_component: CharacterMovementComponent = $CharacterMovementComponent
 @onready var interaction_ability_component: InteractionAbilityComponent = $InteractionAbilityComponent
-@onready var animation_player: AnimationPlayer = $SpriteZD/AnimationPlayer
+@onready var sprite_zd: SpriteZD = $Sprite3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var actor_type: GameState.ActorType
 @export var initial_state: LimboState
@@ -29,7 +30,9 @@ var pending_kill: bool = false:
 		if pending_kill == value: return
 		pending_kill = value
 		if pending_kill: state_machine.dispatch(&"destroyed")
-			
+
+var camera: Camera3D
+
 
 func _ready() -> void:
 	state_machine.add_transition(state_machine.ANYSTATE, dead_state, &"destroyed")
@@ -42,6 +45,22 @@ func _ready() -> void:
 
 	_update_animation_player()
 
+	camera = get_viewport().get_camera_3d()
+
+
+# # Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint(): return
+
+	var forward := get_character_forward()
+	# Project forward onto camera's right and forward axes to get view-space direction
+	var camera_basis := camera.global_transform.basis
+	var v := camera_basis.transposed() * Vector3(forward)
+	var direction := Vector2(v.x, -v.z).round()
+
+	## The Z axis is inverted because positive Z is down in Godot.
+	sprite_zd.set_directionality(Vector2(direction.x, direction.y))
+
 
 func destroy() -> void:
 	print("Destroying ", name)
@@ -49,11 +68,11 @@ func destroy() -> void:
 
 
 func get_character_forward() -> Vector3i:
-	return -global_transform.basis.z.normalized()
+	return -global_transform.basis.z.round()
 
 
 func get_character_right() -> Vector3i:
-	return global_transform.basis.x.normalized()
+	return global_transform.basis.x.round()
 
 
 func get_character_movement_component() -> CharacterMovementComponent:
@@ -71,6 +90,8 @@ func apply_movement(direction: Vector3i) -> bool:
 func _update_animation_player() -> void:
 	if animation_player == null:
 			return
+
+	print("Updating animation player")
 		
 	if animation_player.has_animation_library(""):
 		animation_player.remove_animation_library("")
