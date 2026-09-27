@@ -55,11 +55,10 @@ func _process(_delta: float) -> void:
 	var forward := get_character_forward()
 	# Project forward onto camera's right and forward axes to get view-space direction
 	var camera_basis := camera.global_transform.basis
-	var v := camera_basis.transposed() * Vector3(forward)
-	var direction := Vector2(v.x, -v.z).round()
+	var v := camera_basis.transposed() * forward
+	var direction := Vector2(v.x, v.z)
 
-	## The Z axis is inverted because positive Z is down in Godot.
-	sprite_zd.set_directionality(Vector2(direction.x, direction.y))
+	sprite_zd.set_directionality(direction)
 
 
 func destroy() -> void:
@@ -67,12 +66,12 @@ func destroy() -> void:
 	pending_kill = true
 
 
-func get_character_forward() -> Vector3i:
-	return -global_transform.basis.z.round()
+func get_character_forward() -> Vector3:
+	return -global_transform.basis.z
 
 
-func get_character_right() -> Vector3i:
-	return global_transform.basis.x.round()
+func get_character_right() -> Vector3:
+	return global_transform.basis.x
 
 
 func get_character_movement_component() -> CharacterMovementComponent:

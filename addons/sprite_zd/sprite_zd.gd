@@ -12,34 +12,44 @@ enum DirectionDimension {
 @export_range(4, 8, 4) var directions: int = 8:
 	set(value):
 		directions = value
-		direction_mapping.clear()
-
-		for i in range(directions):
-			var angle := TAU * float(i) / directions
-
-			var direction := Vector2i(
-				- roundi(sin(angle)),
-				- roundi(cos(angle))
-			)
-
-			direction_mapping[direction] = i
+		_update_direction_mapping()
+		
 
 ## A mapping of directions to their corresponding frames.
-@export var direction_mapping: Dictionary[Vector2i, int] = {
-	Vector2i(0, -1): 0,
-	Vector2i(-1, -1): 1,
-	Vector2i(-1, 0): 2,
-	Vector2i(-1, 1): 3,
-	Vector2i(0, 1): 4,
-	Vector2i(1, 1): 5,
-	Vector2i(1, 0): 6,
-	Vector2i(1, -1): 7,
-}
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_READ_ONLY)
+var direction_mapping: Dictionary[Vector2, int]
+
+
+func _ready() -> void:
+	_update_direction_mapping()
 
 	
-func set_directionality(direction: Vector2i) -> void:
-	if not direction_mapping.has(direction): return
-	
+func set_directionality(direction: Vector2) -> void:
+	if direction.is_zero_approx(): return
+
+	# angle() returns radians, 0 = pointing right (+X), increasing clockwise in screen space
+	var angle := direction.angle()
+
+	# offset so index 0 (up, i.e. angle -PI/2) lands on a bucket center,
+	# and wrap into [0, TAU)
+	var adjusted := wrapf(angle - (PI / 2.0) + (TAU / directions) / 2.0, 0.0, TAU)
+
+	var index := int(adjusted / (TAU / directions))
+
 	match direction_dimension:
-		DirectionDimension.X: frame_coords.x = direction_mapping[direction]
-		DirectionDimension.Y: frame_coords.y = direction_mapping[direction]
+		DirectionDimension.X: frame_coords.x = index
+		DirectionDimension.Y: frame_coords.y = index
+
+
+func _update_direction_mapping() -> void:
+	direction_mapping.clear()
+
+	for i in range(directions):
+		var angle := TAU * float(i) / directions
+
+		var direction := Vector2(
+			- sin(angle),
+			cos(angle)
+		)
+
+		direction_mapping[direction] = i

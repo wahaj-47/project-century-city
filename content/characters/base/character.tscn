@@ -60,8 +60,18 @@ texture_filter = 0
 texture = ExtResource("3_pl3v1")
 hframes = 11
 vframes = 8
-frame = 5
+frame = 2
 script = ExtResource("3_hdr8e")
+direction_mapping = Dictionary[Vector2, int]({
+Vector2(-1, 6.123032e-17): 2,
+Vector2(-0.70710677, -0.70710677): 3,
+Vector2(-0.70710677, 0.70710677): 1,
+Vector2(-1.2246064e-16, -1): 4,
+Vector2(0, 1): 0,
+Vector2(0.70710677, -0.70710677): 5,
+Vector2(0.70710677, 0.70710677): 7,
+Vector2(1, -1.8369095e-16): 6
+})
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1851674912]
 libraries/ = ExtResource("2_0lccp")

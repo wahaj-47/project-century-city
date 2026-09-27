@@ -61,18 +61,18 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 environment = SubResource("Environment_r7qdr")
 
 [node name="Player" parent="SubViewportContainer/SubViewport" unique_id=167650114 instance=ExtResource("1_qy63d")]
-transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 4, 1.45, 4)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 4, 1.45, 4)
 
 [node name="Enemy" parent="SubViewportContainer/SubViewport" unique_id=200790331 instance=ExtResource("6_6eitg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.45, -36)
 
 [node name="CameraBoom" parent="SubViewportContainer/SubViewport" unique_id=92780663 node_paths=PackedStringArray("follow_target") instance=ExtResource("7_a8xkr")]
-transform = Transform3D(0.7071067, 0.4545193, -0.5416751, 0, 0.76604414, 0.6427874, 0.7071067, -0.4545193, 0.5416751, 4, 1.45, 4)
+transform = Transform3D(0.7071067, -0.49999976, 0.49999982, 0, 0.7071065, 0.70710653, -0.7071067, -0.49999976, 0.49999982, 4, 1.45, 4)
 top_level = true
 follow_target = NodePath("../Player")
 
 [node name="Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraBoom" unique_id=2035857824]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
 projection = 1
-size = 25.0
+size = 30.0
 far = 100.0
