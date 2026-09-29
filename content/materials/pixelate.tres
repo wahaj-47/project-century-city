@@ -1,13 +1,7 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://btubkjvuc1m67"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cwnys57xlvcd3"]
 
-[ext_resource type="Shader" uid="uid://b7084m3uvv4nc" path="res://addons/shaders/outline.gdshader" id="1_yjcog"]
+[ext_resource type="Shader" uid="uid://dct1r0ht5avqy" path="res://addons/shaders/pixelate.gdshader" id="2_urq5m"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_yjcog")
-shader_parameter/shadows_enabled = true
-shader_parameter/highlights_enabled = true
-shader_parameter/shadow_strength = 0.4
-shader_parameter/highlight_strength = 0.1
-shader_parameter/highlight_color = Color(1, 1, 1, 1)
-shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader = ExtResource("2_urq5m")

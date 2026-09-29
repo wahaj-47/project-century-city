@@ -14,6 +14,7 @@ uniform float shadow_strength : hint_range(0.0, 1.0, 0.01) = 0.4;
 uniform float highlight_strength : hint_range(0.0, 1.0, 0.01) = 0.1;
 uniform vec3 highlight_color : source_color = vec3(1.);
 uniform vec3 shadow_color : source_color = vec3(0.0);
+global uniform vec2 target_resolution;
 
 varying mat4 model_view_matrix;
 
@@ -27,6 +28,12 @@ float getDepth(vec2 screen_uv, sampler2D depth_texture, mat4 inv_projection_matr
 	return -view_space.z;
 }
 
+vec3 getPos(float depth, mat4 mvm, mat4 ipm, vec2 suv, mat4 wm, mat4 icm){
+  vec4 pos = inverse(mvm) * ipm * vec4((suv * 2.0 - 1.0), depth * 2.0 - 1.0, 1.0);
+  pos.xyz /= (pos.w+0.0001*(1.-abs(sign(pos.w))));
+  return (pos*icm).xyz+wm[3].xyz;
+}
+
 float normalIndicator(vec3 normalEdgeBias, vec3 baseNormal, vec3 newNormal, float depth_diff){
 	// Credit: https://threejs.org/examples/webgl_postprocessing_pixel.html
 	float normalDiff = dot(baseNormal - newNormal, normalEdgeBias);
@@ -37,20 +44,22 @@ float normalIndicator(vec3 normalEdgeBias, vec3 baseNormal, vec3 newNormal, floa
 
 void vertex(){
     model_view_matrix = VIEW_MATRIX * mat4(INV_VIEW_MATRIX[0], INV_VIEW_MATRIX[1], INV_VIEW_MATRIX[2], MODEL_MATRIX[3]);
+	POSITION = vec4(VERTEX.xy, 1.0, 1.0);
 }
 
 void fragment() {
+	vec2 uv = floor(SCREEN_UV * target_resolution) / target_resolution;
 	vec2 e = vec2(1./VIEWPORT_SIZE.xy);
 	
 //	Shadows
 	float depth_diff = 0.0;
 	float neg_depth_diff = .5;
 	if (shadows_enabled) {
-		float depth = getDepth(SCREEN_UV, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
-		float du = getDepth(SCREEN_UV+vec2(0., -1.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
-		float dr = getDepth(SCREEN_UV+vec2(1., 0.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
-		float dd = getDepth(SCREEN_UV+vec2(0., 1.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
-		float dl = getDepth(SCREEN_UV+vec2(-1., 0.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float depth = getDepth(uv, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float du = getDepth(uv+vec2(0., -1.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float dr = getDepth(uv+vec2(1., 0.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float dd = getDepth(uv+vec2(0., 1.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
+		float dl = getDepth(uv+vec2(-1., 0.)*e, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
 		depth_diff += clamp(du - depth, 0., 1.);
 		depth_diff += clamp(dd - depth, 0., 1.);
 		depth_diff += clamp(dr - depth, 0., 1.);
@@ -68,11 +77,11 @@ void fragment() {
 //	Highlights
 	float normal_diff = 0.;
 	if (highlights_enabled) {
-		vec3 normal = texture(NORMAL_TEXTURE, SCREEN_UV).rgb * 2.0 - 1.0;
-		vec3 nu = texture(NORMAL_TEXTURE, SCREEN_UV+vec2(0., -1.)*e).rgb * 2.0 - 1.0;
-		vec3 nr = texture(NORMAL_TEXTURE, SCREEN_UV+vec2(1., 0.)*e).rgb * 2.0 - 1.0;
-		vec3 nd = texture(NORMAL_TEXTURE, SCREEN_UV+vec2(0., 1.)*e).rgb * 2.0 - 1.0;
-		vec3 nl = texture(NORMAL_TEXTURE, SCREEN_UV+vec2(-1., 0.)*e).rgb * 2.0 - 1.0;
+		vec3 normal = texture(NORMAL_TEXTURE, uv).rgb * 2.0 - 1.0;
+		vec3 nu = texture(NORMAL_TEXTURE, uv+vec2(0., -1.)*e).rgb * 2.0 - 1.0;
+		vec3 nr = texture(NORMAL_TEXTURE, uv+vec2(1., 0.)*e).rgb * 2.0 - 1.0;
+		vec3 nd = texture(NORMAL_TEXTURE, uv+vec2(0., 1.)*e).rgb * 2.0 - 1.0;
+		vec3 nl = texture(NORMAL_TEXTURE, uv+vec2(-1., 0.)*e).rgb * 2.0 - 1.0;
 		vec3 normal_edge_bias = (vec3(1., 1., 1.));
 		normal_diff += normalIndicator(normal_edge_bias, normal, nu, depth_diff);
 		normal_diff += normalIndicator(normal_edge_bias, normal, nr, depth_diff);
@@ -83,8 +92,7 @@ void fragment() {
 //		ALBEDO = vec3(normal_diff);
 	}
 	
-
-	vec3 original_color = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+	vec3 original_color = texture(SCREEN_TEXTURE, uv).rgb;
 	vec3 final_highlight_color = mix(original_color, highlight_color, highlight_strength);
 	vec3 final_shadow_color = mix(original_color, shadow_color, shadow_strength);
 	vec3 final = original_color;
