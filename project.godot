@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 ControllerIcons="*uid://bjxviqoil0hkw"
 GameState="*uid://c021lnpkanwdr"
+PhantomCameraManager="*uid://duq6jhf6unyis"
 
 [debug_draw_3d]
 
@@ -38,7 +39,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/sprite_zd/plugin.cfg", "res://addons/widget_component/plugin.cfg")
+enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sprite_zd/plugin.cfg", "res://addons/widget_component/plugin.cfg")
 
 [global_group]
 
