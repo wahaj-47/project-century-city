@@ -51,16 +51,15 @@ script = ExtResource("1_hdr8e")
 initial_state = NodePath("StateMachine/WaitingForTurn")
 animation_library = ExtResource("2_0lccp")
 
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=464599280]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=464599280 groups=["Snapped"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 pixel_size = 0.04
 billboard = 1
-alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("3_pl3v1")
 hframes = 11
 vframes = 8
-frame = 2
+frame = 19
 script = ExtResource("3_hdr8e")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,

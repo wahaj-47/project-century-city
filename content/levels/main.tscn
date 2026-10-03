@@ -5,9 +5,10 @@
 [ext_resource type="MeshLibrary" uid="uid://du2t3lmoi7ogu" path="res://content/mesh_libraries/building_blocks/building_blocks.tres" id="2_wdj6m"]
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://addons/astar_gridmap/astar_gridmap.gd" id="3_ifaiv"]
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://content/interactables/door/door.tscn" id="3_l8qe7"]
-[ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://content/characters/enemy/enemy.tscn" id="6_6eitg"]
 [ext_resource type="PackedScene" uid="uid://7map1u43mhuc" path="res://addons/camera_boom/camera_boom.tscn" id="7_a8xkr"]
-[ext_resource type="Material" uid="uid://btubkjvuc1m67" path="res://content/materials/outline.tres" id="8_5wxk5"]
+[ext_resource type="Script" uid="uid://ds0g6y4i4tnpp" path="res://systems/texel_snapped/texel_snapped_camera.gd" id="8_a8xkr"]
+[ext_resource type="Script" uid="uid://bxhk2pqjsis5f" path="res://systems/texel_snapped/texel_snapped_display.gd" id="9_tnpcc"]
+[ext_resource type="Shader" uid="uid://b7oui2psui32s" path="res://addons/shaders/pixel_art_upscale.gdshader" id="11_keess"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
 tonemap_mode = 3
@@ -16,25 +17,31 @@ fog_light_energy = 0.35
 fog_height = -0.01
 fog_height_density = 3.6174
 
-[sub_resource type="QuadMesh" id="QuadMesh_u3iaj"]
-flip_faces = true
-size = Vector2(2, 2)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g1uoa"]
+shader = ExtResource("11_keess")
 
-[node name="Main" type="Node" unique_id=1474689114 node_paths=PackedStringArray("map")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_tnpcc"]
+viewport_path = NodePath("Game")
+
+[node name="Main" type="Node" unique_id=1474689114 node_paths=PackedStringArray("map", "game")]
 script = ExtResource("1_5k4jt")
-map = NodePath("Map")
+map = NodePath("Game/Map")
+game = NodePath("Game")
 
-[node name="Sun" type="DirectionalLight3D" parent="." unique_id=314506535]
+[node name="Game" type="SubViewport" parent="." unique_id=1083538627]
+size = Vector2i(642, 362)
+
+[node name="Sun" type="DirectionalLight3D" parent="Game" unique_id=314506535]
 transform = Transform3D(0.92198956, -0.21890733, -0.31939775, 0.38693687, 0.5521116, 0.7385477, 0.01466971, -0.80451995, 0.59374446, 0, -69.57422, -76.66135)
 shadow_enabled = true
 
-[node name="Door-001" parent="." unique_id=1456591762 instance=ExtResource("3_l8qe7")]
+[node name="Door-001" parent="Game" unique_id=1456591762 instance=ExtResource("3_l8qe7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -12, 0.2, -29.35)
 
-[node name="Door-002" parent="." unique_id=1915333535 instance=ExtResource("3_l8qe7")]
+[node name="Door-002" parent="Game" unique_id=1915333535 instance=ExtResource("3_l8qe7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 20, 0.2, -29.35)
 
-[node name="Map" type="GridMap" parent="." unique_id=972541063 groups=["Map"]]
+[node name="Map" type="GridMap" parent="Game" unique_id=972541063 groups=["Map"]]
 mesh_library = ExtResource("2_wdj6m")
 cell_size = Vector3(8, 6.6, 8)
 cell_center_y = false
@@ -48,27 +55,35 @@ solid_cells = Array[Vector2i]([Vector2i(-2, -3), Vector2i(-2, -5), Vector2i(2, -
 metadata/_custom_type_script = "uid://yeacy85cb1cj"
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2049891949]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Game" unique_id=2049891949]
 environment = SubResource("Environment_r7qdr")
 
-[node name="Player" parent="." unique_id=167650114 instance=ExtResource("1_qy63d")]
+[node name="Player" parent="Game" unique_id=167650114 instance=ExtResource("1_qy63d")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 4, 1.45, 4)
 
-[node name="Enemy" parent="." unique_id=200790331 instance=ExtResource("6_6eitg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1.45, -36)
-
-[node name="CameraBoom" parent="." unique_id=92780663 node_paths=PackedStringArray("follow_target") instance=ExtResource("7_a8xkr")]
+[node name="CameraBoom" parent="Game" unique_id=92780663 node_paths=PackedStringArray("follow_target") instance=ExtResource("7_a8xkr")]
 transform = Transform3D(0.7071067, -0.49999973, 0.4999998, 0, 0.7071064, 0.70710653, -0.7071067, -0.49999973, 0.4999998, 4, 1.45, 4)
 top_level = true
 follow_target = NodePath("../Player")
 
-[node name="Camera" type="Camera3D" parent="CameraBoom" unique_id=2035857824]
+[node name="Camera" type="Camera3D" parent="Game/CameraBoom" unique_id=2035857824]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
 projection = 1
 size = 30.0
 far = 100.0
+script = ExtResource("8_a8xkr")
 
-[node name="PostProcessing" type="MeshInstance3D" parent="CameraBoom/Camera" unique_id=1374647071]
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_u3iaj")
-surface_material_override/0 = ExtResource("8_5wxk5")
+[node name="Display" type="Control" parent="." unique_id=88038175 node_paths=PackedStringArray("viewport")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+script = ExtResource("9_tnpcc")
+viewport = NodePath("../Game")
+
+[node name="Render" type="Sprite2D" parent="Display" unique_id=171051452]
+texture_filter = 2
+material = SubResource("ShaderMaterial_g1uoa")
+scale = Vector2(2, 2)
+texture = SubResource("ViewportTexture_tnpcc")
+centered = false

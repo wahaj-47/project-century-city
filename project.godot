@@ -46,6 +46,7 @@ Player=""
 Enemy=""
 Map=""
 Solid=""
+Snapped=""
 
 [gui]
 
