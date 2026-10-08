@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bch5a2bgcfig7" path="res://content/characters/base/character.gd" id="1_hdr8e"]
 [ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/jack.res" id="2_0lccp"]
-[ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://addons/sprite_zd/sprite_zd.gd" id="3_hdr8e"]
 [ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="3_pl3v1"]
+[ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://addons/sprite_zd/sprite_zd.gd" id="4_pl3v1"]
 [ext_resource type="BehaviorTree" uid="uid://3j804ti4whao" path="res://content/ai/trees/player/waiting_for_turn.tres" id="5_02cod"]
 [ext_resource type="Script" uid="uid://lflc54byo7n6" path="res://content/characters/base/states/waiting_for_turn.gd" id="6_ywe0l"]
 [ext_resource type="Script" uid="uid://ija8f7imerwt" path="res://content/characters/base/states/dead.gd" id="7_pl3v1"]
@@ -52,15 +52,16 @@ initial_state = NodePath("StateMachine/WaitingForTurn")
 animation_library = ExtResource("2_0lccp")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=464599280 groups=["Snapped"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-pixel_size = 0.04
+offset = Vector2(0, 8)
+pixel_size = 0.0416667
 billboard = 1
+alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("3_pl3v1")
 hframes = 11
 vframes = 8
-frame = 13
-script = ExtResource("3_hdr8e")
+frame = 18
+script = ExtResource("4_pl3v1")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,
 Vector2(-0.70710677, -0.70710677): 3,
