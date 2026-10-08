@@ -26,6 +26,7 @@ enum Display {
 var _instantiated_widget: Control
 var _camera: Camera3D
 var _window: Window
+var _scale_factor: Vector2
 
 
 func _ready() -> void:
@@ -33,10 +34,14 @@ func _ready() -> void:
 		return
 	
 	_camera = get_viewport().get_camera_3d()
+	_window = get_tree().root
+	_scale_factor = (
+		_window.get_visible_rect().size
+		/ get_viewport().get_visible_rect().size
+	)
 
 	_instantiated_widget = widget.instantiate()
 	# Add the widget to the root viewport
-	_window = get_tree().root
 	_window.add_child.call_deferred(_instantiated_widget)
 	
 
@@ -53,9 +58,5 @@ func _process(delta: float) -> void:
 		return
 
 	var screen_position: Vector2 = _camera.unproject_position(global_position)
-	var scale_factor = (
-		_window.get_visible_rect().size
-		/ get_viewport().get_visible_rect().size
-	)
-	_instantiated_widget.position = (screen_position * scale_factor) - (_instantiated_widget.size * pivot)
+	_instantiated_widget.position = (screen_position * _scale_factor) - (_instantiated_widget.size * pivot)
 	_instantiated_widget.show()
