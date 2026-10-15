@@ -123,3 +123,9 @@ func to_grid_coords(in_position: Vector3) -> Vector2i:
 	var local_position = to_local(in_position)
 	var cell_coords = local_to_map(local_position)
 	return Vector2i(cell_coords.x, cell_coords.z)
+
+
+func to_world_coords(in_position: Vector2i) -> Vector3:
+	var cell_coords := Vector3i(in_position.x, 0, in_position.y)
+	var local_position = map_to_local(cell_coords)
+	return to_global(local_position)

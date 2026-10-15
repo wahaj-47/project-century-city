@@ -7,6 +7,7 @@ extends Area3D
 signal interaction_started
 signal interaction_ended
 
+
 ## Actual interaction logic should be implemented in the subclass
 func interact(instigator: Node3D) -> void:
 	if not enabled:
@@ -23,4 +24,5 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func set_prompt_visible(value: bool) -> void:
+	if not enabled: return
 	$WidgetComponent.visible = value

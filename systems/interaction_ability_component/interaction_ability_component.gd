@@ -3,6 +3,7 @@ class_name InteractionAbilityComponent
 extends Node3D
 
 @export var target_query: TargetQuery
+@export var enabled := true		
 
 signal interaction_started
 signal interaction_ended
@@ -31,6 +32,9 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
+		return
+
+	if not enabled:
 		return
 
 	if target_query == null:

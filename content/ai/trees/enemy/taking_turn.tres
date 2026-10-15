@@ -2,14 +2,16 @@
 
 [ext_resource type="BlackboardPlan" uid="uid://un4hu5q2ygcn" path="res://content/ai/blackboards/bb_enemy.tres" id="1_51fsn"]
 [ext_resource type="Script" uid="uid://cufbmhrar5qv1" path="res://content/ai/tasks/find_distance.gd" id="2_wvqa1"]
-[ext_resource type="Script" uid="uid://bqswyb8n1vgu8" path="res://content/ai/tasks/move_to.gd" id="3_u3iaj"]
 [ext_resource type="Script" uid="uid://buddwnpihnqhd" path="res://content/ai/tasks/wait_signal.gd" id="4_lcnse"]
 [ext_resource type="Script" uid="uid://bxojf8sc8x1hc" path="res://content/ai/tasks/query_ai_perception.gd" id="5_aei7y"]
+[ext_resource type="Script" uid="uid://dcqrwlqm747kx" path="res://content/ai/tasks/play_anim_sequence_and_wait.gd" id="5_lcnse"]
 [ext_resource type="Script" uid="uid://duvs0rpij3tg5" path="res://content/ai/tasks/get_nearby_count.gd" id="5_u3iaj"]
 [ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://content/characters/enemy/enemy.gd" id="6_51fsn"]
+[ext_resource type="Script" uid="uid://c6j6o6kas3sjh" path="res://content/ai/tasks/look_at.gd" id="6_aei7y"]
 [ext_resource type="Script" uid="uid://bch5a2bgcfig7" path="res://content/characters/base/character.gd" id="6_lcnse"]
 [ext_resource type="Script" uid="uid://bxfpm3wglq63r" path="res://content/ai/tasks/find_target.gd" id="7_xcj56"]
 [ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://content/characters/player/player.gd" id="8_wvqa1"]
+[ext_resource type="Script" uid="uid://dohxomvk3bge4" path="res://content/ai/tasks/move_to_actor.gd" id="11_aei7y"]
 
 [sub_resource type="BBVariant" id="BBVariant_51fsn"]
 saved_value = null
@@ -68,6 +70,69 @@ custom_name = "Mark target destroyed"
 [sub_resource type="BTComment" id="BTComment_51fsn"]
 custom_name = "Play kill animation"
 
+[sub_resource type="BTComment" id="BTComment_lcnse"]
+custom_name = "Attacker: Move to victim"
+
+[sub_resource type="BBNode" id="BBNode_e0adi"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BBNode" id="BBNode_fmr5c"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTAction" id="BTAction_cojwa"]
+custom_name = "Victim: Look at attacker"
+script = ExtResource("6_aei7y")
+actor = SubResource("BBNode_e0adi")
+target = SubResource("BBNode_fmr5c")
+
+[sub_resource type="BTParallel" id="BTParallel_lcnse"]
+num_successes_required = 2
+custom_name = "And"
+children = [SubResource("BTComment_lcnse"), SubResource("BTAction_cojwa")]
+
+[sub_resource type="BTAction" id="BTAction_l88cl"]
+custom_name = "Wait for movement to end"
+script = ExtResource("4_lcnse")
+signal_source = NodePath("CharacterMovementComponent")
+signal_name = "movement_ended"
+
+[sub_resource type="BBNode" id="BBNode_lcnse"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTAction" id="BTAction_lcnse"]
+script = ExtResource("5_lcnse")
+actor = SubResource("BBNode_lcnse")
+animation_name = &"kill_v2"
+
+[sub_resource type="BBNode" id="BBNode_aei7y"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTAction" id="BTAction_bfd7x"]
+script = ExtResource("5_lcnse")
+actor = SubResource("BBNode_aei7y")
+animation_name = &"death_v2"
+hold_last_frame = true
+
+[sub_resource type="BTParallel" id="BTParallel_xcj56"]
+num_successes_required = 2
+custom_name = "And"
+children = [SubResource("BTAction_lcnse"), SubResource("BTAction_bfd7x")]
+
+[sub_resource type="BTRandomSelector" id="BTRandomSelector_u3iaj"]
+custom_name = "Play random animation"
+children = [SubResource("BTParallel_xcj56")]
+
+[sub_resource type="BTParallel" id="BTParallel_bfd7x"]
+num_successes_required = 2
+custom_name = "And"
+children = [SubResource("BTRandomSelector_u3iaj")]
+
 [sub_resource type="BTComment" id="BTComment_wvqa1"]
 custom_name = "Wait for animation to finish"
 
@@ -78,6 +143,15 @@ resource_name = "<null>"
 [sub_resource type="BTSetVar" id="BTSetVar_l88cl"]
 variable = &"target"
 value = SubResource("BBVariant_xcj56")
+
+[sub_resource type="BBVariant" id="BBVariant_l88cl"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_xvwg3"]
+variable = &"can_move"
+value = SubResource("BBVariant_l88cl")
 
 [sub_resource type="BBNode" id="BBNode_u3iaj"]
 saved_value = NodePath("StateMachine/TakingTurn")
@@ -90,7 +164,7 @@ custom_name = "End turn"
 
 [sub_resource type="BTSequence" id="BTSequence_bfd7x"]
 custom_name = "Kill target"
-children = [SubResource("BTCheckVar_wvqa1"), SubResource("BTAction_u3iaj"), SubResource("BTCheckVar_aei7y"), SubResource("BTAction_aei7y"), SubResource("BTCheckVar_lcnse"), SubResource("BTRandomWait_u3iaj"), SubResource("BTCallMethod_wvqa1"), SubResource("BTComment_51fsn"), SubResource("BTComment_wvqa1"), SubResource("BTSetVar_l88cl"), SubResource("BTCallMethod_lcnse")]
+children = [SubResource("BTCheckVar_wvqa1"), SubResource("BTAction_u3iaj"), SubResource("BTCheckVar_aei7y"), SubResource("BTAction_aei7y"), SubResource("BTCheckVar_lcnse"), SubResource("BTRandomWait_u3iaj"), SubResource("BTCallMethod_wvqa1"), SubResource("BTComment_51fsn"), SubResource("BTParallel_lcnse"), SubResource("BTAction_l88cl"), SubResource("BTParallel_bfd7x"), SubResource("BTComment_wvqa1"), SubResource("BTSetVar_l88cl"), SubResource("BTSetVar_xvwg3"), SubResource("BTCallMethod_lcnse")]
 
 [sub_resource type="BTCondition" id="BTCondition_kxsal"]
 custom_name = "Is another enemy being perceived?"
@@ -168,9 +242,22 @@ variable = &"distance_to_target"
 check_type = 4
 value = SubResource("BBVariant_r5v5v")
 
-[sub_resource type="BTAction" id="BTAction_oooq5"]
-custom_name = "Move to target"
-script = ExtResource("3_u3iaj")
+[sub_resource type="BTCheckTrigger" id="BTCheckTrigger_u3iaj"]
+variable = &"can_move"
+
+[sub_resource type="BBNode" id="BBNode_bfd7x"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BBNode" id="BBNode_l88cl"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BTAction" id="BTAction_xvwg3"]
+script = ExtResource("11_aei7y")
+actor = SubResource("BBNode_bfd7x")
+target_actor = SubResource("BBNode_l88cl")
 
 [sub_resource type="BTAction" id="BTAction_bk8ns"]
 custom_name = "Wait for movement to end"
@@ -178,18 +265,9 @@ script = ExtResource("4_lcnse")
 signal_source = NodePath("CharacterMovementComponent")
 signal_name = "movement_ended"
 
-[sub_resource type="BBNode" id="BBNode_bk8ns"]
-saved_value = NodePath("StateMachine/TakingTurn")
-resource_name = "StateMachine/TakingTurn"
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_xq0um"]
-node = SubResource("BBNode_bk8ns")
-method = &"end_turn"
-custom_name = "End turn"
-
 [sub_resource type="BTSequence" id="BTSequence_a2bvn"]
 custom_name = "Chase target"
-children = [SubResource("BTCheckVar_oooq5"), SubResource("BTAction_r5v5v"), SubResource("BTCheckVar_i0pjc"), SubResource("BTAction_oooq5"), SubResource("BTAction_bk8ns"), SubResource("BTCallMethod_xq0um")]
+children = [SubResource("BTCheckVar_oooq5"), SubResource("BTAction_r5v5v"), SubResource("BTCheckVar_i0pjc"), SubResource("BTCheckTrigger_u3iaj"), SubResource("BTAction_xvwg3"), SubResource("BTAction_bk8ns")]
 
 [sub_resource type="BBVariant" id="BBVariant_pd318"]
 saved_value = null
@@ -210,6 +288,7 @@ custom_name = "Was player perceived previous turn?"
 
 [sub_resource type="BTParallel" id="BTParallel_i0pjc"]
 num_failures_required = 2
+custom_name = "Or"
 children = [SubResource("BTCondition_r5v5v"), SubResource("BTCheckTrigger_hy7nk")]
 
 [sub_resource type="BTAction" id="BTAction_hy7nk"]
@@ -229,6 +308,7 @@ value = SubResource("BBVariant_a2bvn")
 
 [sub_resource type="BTParallel" id="BTParallel_yng6a"]
 num_failures_required = 2
+custom_name = "Or"
 children = [SubResource("BTAction_hy7nk"), SubResource("BTCheckVar_iif4q")]
 
 [sub_resource type="BBVariant" id="BBVariant_hy7nk"]
@@ -266,6 +346,22 @@ check_type = 3
 value = SubResource("BBVariant_i0pjc")
 custom_name = "Is player moving away?"
 
+[sub_resource type="BBVariant" id="BBVariant_xvwg3"]
+type = 2
+saved_value = 1
+resource_name = "1"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_e0adi"]
+variable = &"current_distance_to_player"
+check_type = 1
+value = SubResource("BBVariant_xvwg3")
+custom_name = "Is player within kill range?"
+
+[sub_resource type="BTParallel" id="BTParallel_fmr5c"]
+num_failures_required = 2
+custom_name = "Or"
+children = [SubResource("BTCheckVar_hy7nk"), SubResource("BTCheckVar_e0adi")]
+
 [sub_resource type="BBVariant" id="BBVariant_38stn"]
 value_source = 1
 variable = &"candidate_target"
@@ -285,7 +381,16 @@ value = SubResource("BBVariant_oooq5")
 
 [sub_resource type="BTSequence" id="BTSequence_r5v5v"]
 custom_name = "Player running away"
-children = [SubResource("BTCheckVar_0eefj"), SubResource("BTParallel_i0pjc"), SubResource("BTParallel_yng6a"), SubResource("BTSetVar_kxsal"), SubResource("BTSetVar_38stn"), SubResource("BTAction_dcnia"), SubResource("BTCheckVar_hy7nk"), SubResource("BTSetVar_7ba52"), SubResource("BTSetVar_a2bvn")]
+children = [SubResource("BTCheckVar_0eefj"), SubResource("BTParallel_i0pjc"), SubResource("BTParallel_yng6a"), SubResource("BTSetVar_kxsal"), SubResource("BTSetVar_38stn"), SubResource("BTAction_dcnia"), SubResource("BTParallel_fmr5c"), SubResource("BTSetVar_7ba52"), SubResource("BTSetVar_a2bvn")]
+
+[sub_resource type="BBVariant" id="BBVariant_bfd7x"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTSetVar" id="BTSetVar_xcj56"]
+variable = &"can_move"
+value = SubResource("BBVariant_bfd7x")
 
 [sub_resource type="BBNode" id="BBNode_xq0um"]
 saved_value = NodePath("StateMachine/TakingTurn")
@@ -298,7 +403,7 @@ custom_name = "End turn"
 
 [sub_resource type="BTSequence" id="BTSequence_l3nnb"]
 custom_name = "No action possible"
-children = [SubResource("BTCallMethod_dcnia")]
+children = [SubResource("BTSetVar_xcj56"), SubResource("BTCallMethod_dcnia")]
 
 [sub_resource type="BTSelector" id="BTSelector_i0pjc"]
 custom_name = "Select a case"

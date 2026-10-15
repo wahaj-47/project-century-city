@@ -11,31 +11,90 @@
 [ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://systems/interaction_ability_component/interaction_ability_component.tscn" id="8_2n0q0"]
 [ext_resource type="Script" uid="uid://cxblh1yorteta" path="res://addons/target_query/shape_query.gd" id="9_6kbpk"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hdr8e"]
-animation = &"idle"
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_0lccp"]
+input_0/name = "kill_v1"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "kill_v2"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "death_v1"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "death_v2"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_02cod"]
+animation = &"death_v1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ywe0l"]
+animation = &"death_v2"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pl3v1"]
+animation = &"kill_v1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hdr8e"]
+animation = &"kill_v2"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_poh6w"]
+graph_offset = Vector2(-671.323, 212.72278)
+nodes/output/position = Vector2(260, 340)
+nodes/Transition/node = SubResource("AnimationNodeTransition_0lccp")
+nodes/Transition/position = Vector2(60, 340)
+nodes/kill_v1/node = SubResource("AnimationNodeAnimation_pl3v1")
+nodes/kill_v1/position = Vector2(-160, 180)
+nodes/kill_v2/node = SubResource("AnimationNodeAnimation_hdr8e")
+nodes/kill_v2/position = Vector2(-160, 340)
+nodes/death_v1/node = SubResource("AnimationNodeAnimation_02cod")
+nodes/death_v1/position = Vector2(-160, 500)
+nodes/death_v2/node = SubResource("AnimationNodeAnimation_ywe0l")
+nodes/death_v2/position = Vector2(-160, 660)
+node_connections = [&"output", 0, &"Transition", &"Transition", 0, &"kill_v1", &"Transition", 1, &"kill_v2", &"Transition", 2, &"death_v1", &"Transition", 3, &"death_v2"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0lccp"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_poh6w"]
 animation = &"walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pl3v1"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0lccp"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ywe0l"]
 advance_mode = 2
 advance_expression = "is_moving == true"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_poh6w"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wgs5b"]
 advance_mode = 2
 advance_expression = "is_moving == false"
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_g4v7s"]
-states/Start/position = Vector2(233, 86)
-states/idle/node = SubResource("AnimationNodeAnimation_hdr8e")
-states/idle/position = Vector2(362, 86)
-states/walk/node = SubResource("AnimationNodeAnimation_pl3v1")
-states/walk/position = Vector2(484, 86)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_pl3v1"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_0lccp"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_poh6w")]
-graph_offset = Vector2(-210, -46)
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_02cod"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_02cod"]
+states/End/position = Vector2(597, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_0lccp")
+states/idle/position = Vector2(344, 100)
+states/walk/node = SubResource("AnimationNodeAnimation_poh6w")
+states/walk/position = Vector2(484, 100)
+transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_ywe0l"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_wgs5b"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_02cod")]
+graph_offset = Vector2(-77, -32)
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ywe0l"]
+break_loop_at_end = true
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_svoki"]
+graph_offset = Vector2(-202.73303, 73.20206)
+nodes/output/position = Vector2(480, 180)
+nodes/Locomotion/node = SubResource("AnimationNodeStateMachine_02cod")
+nodes/Locomotion/position = Vector2(20, 80)
+nodes/Slot/node = SubResource("AnimationNodeOneShot_ywe0l")
+nodes/Slot/position = Vector2(300, 140)
+nodes/AnimMontage/node = SubResource("AnimationNodeBlendTree_poh6w")
+nodes/AnimMontage/position = Vector2(80, 300)
+node_connections = [&"output", 0, &"Slot", &"Slot", 0, &"Locomotion", &"Slot", 1, &"AnimMontage"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
 margin = 0.0
@@ -47,6 +106,8 @@ height = 2.5
 script = ExtResource("9_6kbpk")
 
 [node name="Character" type="CharacterBody3D" unique_id=167650114 node_paths=PackedStringArray("initial_state")]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_hdr8e")
 initial_state = NodePath("StateMachine/WaitingForTurn")
 animation_library = ExtResource("2_0lccp")
@@ -60,7 +121,7 @@ texture_filter = 0
 texture = ExtResource("3_pl3v1")
 hframes = 11
 vframes = 8
-frame = 18
+frame = 7
 script = ExtResource("4_pl3v1")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,
@@ -77,26 +138,33 @@ Vector2(1, -1.8369095e-16): 6
 libraries/ = ExtResource("2_0lccp")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1142802512]
-tree_root = SubResource("AnimationNodeStateMachine_g4v7s")
+tree_root = SubResource("AnimationNodeBlendTree_svoki")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Slot/active = false
+parameters/Slot/internal_active = false
+parameters/Slot/request = 0
+parameters/AnimMontage/Transition/current_state = "kill_v1"
+parameters/AnimMontage/Transition/transition_request = "kill_v2"
+parameters/AnimMontage/Transition/current_index = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1607071947]
 shape = SubResource("CapsuleShape3D_yo2jm")
 
 [node name="StateMachine" type="LimboHSM" parent="." unique_id=1717741298]
 
-[node name="WaitingForTurn" type="BTState" parent="StateMachine" unique_id=80667339]
+[node name="WaitingForTurn" type="BTState" parent="StateMachine" unique_id=80667339 node_paths=PackedStringArray("interaction_ability_component")]
 behavior_tree = ExtResource("5_02cod")
 blackboard_plan = SubResource("BlackboardPlan_o6sry")
 script = ExtResource("6_ywe0l")
+interaction_ability_component = NodePath("../../InteractionAbilityComponent")
 
 [node name="Dead" type="LimboState" parent="StateMachine" unique_id=1110315631]
 script = ExtResource("7_pl3v1")
 
 [node name="CharacterMovementComponent" parent="." unique_id=137649720 instance=ExtResource("7_wgs5b")]
-move_duration = 1.33
-rotate_duration = 0.24
+move_speed = 6
+rotate_speed = 10
 
 [node name="InteractionAbilityComponent" parent="." unique_id=1540746576 instance=ExtResource("8_2n0q0")]
 

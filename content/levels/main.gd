@@ -4,12 +4,17 @@ extends Node
 @export var map: AStarGridMap
 @export var game: SubViewport
 
+
 func _ready() -> void:
 	assert(map != null, "AStarGridMap not found.")
-	GameState.map = map
+	Constants.tile_size = map.cell_size.x
+
+	for node in get_tree().get_nodes_in_group("Enemy"):
+		node.initialize(map)
 
 	for node in get_tree().get_nodes_in_group("Solid"):
 		map.set_point_solid(node.global_position, true)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	game.push_input(event)

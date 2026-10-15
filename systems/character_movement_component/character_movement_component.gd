@@ -3,9 +3,9 @@
 class_name CharacterMovementComponent
 extends Node
 
-@export var tile_size := 8.0
-@export var move_duration := 0.16
-@export var rotate_duration := 0.08
+@export var enabled = true
+@export var move_speed := 50
+@export var rotate_speed := 20
 @export var enable_gravity := true
 @export var rotate_to_face_movement := true
 
@@ -24,6 +24,9 @@ func _ready() -> void:
 		
 func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
+		return
+
+	if not enabled:
 		return
 
 	if not owner.is_on_floor() and enable_gravity:
@@ -46,11 +49,11 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-func is_blocked(direction: Vector3i) -> bool:
+func is_blocked(target_position: Vector3) -> bool:
 	var space_state: PhysicsDirectSpaceState3D = owner.get_world_3d().direct_space_state
 
 	var from: Vector3 = owner.global_position
-	var to: Vector3 = owner.global_position + (direction * tile_size)
+	var to: Vector3 = target_position
 
 	var query := PhysicsRayQueryParameters3D.create(from, to)
 
@@ -59,8 +62,9 @@ func is_blocked(direction: Vector3i) -> bool:
 	return not result.is_empty()
 
 
-func rotate(direction: Vector3i) -> void:
+func look_at(target_position: Vector3) -> void:
 	# I don't understand this part. 
+	var direction: Vector3 = target_position - owner.global_position
 	var target_rotation: float = atan2(-direction.x, -direction.z)
 	var current_rotation: float = owner.rotation.y
 
@@ -69,30 +73,34 @@ func rotate(direction: Vector3i) -> void:
 		- PI,
 		PI
 	)
+	var duration : float = abs(_delta_rotation) / rotate_speed
 
 	var rotation_tween := create_tween()
 	rotation_tween.tween_property(
 		owner,
 		"rotation:y",
 		current_rotation + _delta_rotation,
-		rotate_duration
+		duration
 	)
 
 
-func move(direction: Vector3i) -> bool:
+func move(target_position: Vector3, check_collision := true) -> bool:
 	if is_moving:
 		return false
 
 	if rotate_to_face_movement:
-		rotate(direction)
+		look_at(target_position)
 	
-	if is_blocked(direction):
+	if check_collision and is_blocked(target_position):
 		return false
 	
 	is_moving = true
 	movement_started.emit()
 
-	var target_position: Vector3 = owner.global_position + (direction * tile_size)
+
+	var distance : Vector3 = target_position - owner.global_position
+	var duration : float = distance.length() / move_speed
+
 	var movement_tween = create_tween()
 	movement_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	movement_tween.finished.connect(_on_movement_finished)
@@ -100,13 +108,13 @@ func move(direction: Vector3i) -> bool:
 		owner,
 		"global_position:x",
 		target_position.x,
-		move_duration
+		duration
 	)
 	movement_tween.parallel().tween_property(
 		owner,
 		"global_position:z",
 		target_position.z,
-		move_duration
+		duration
 	)
 
 	return true

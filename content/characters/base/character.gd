@@ -8,10 +8,12 @@ extends CharacterBody3D
 
 @onready var character_movement_component: CharacterMovementComponent = $CharacterMovementComponent
 @onready var interaction_ability_component: InteractionAbilityComponent = $InteractionAbilityComponent
+@onready var collision: CollisionShape3D = $CollisionShape3D
 @onready var sprite_zd: SpriteZD = $Sprite3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
 
-@export var actor_type: GameState.ActorType
+@export var actor_type: Constants.ActorType
 @export var initial_state: LimboState
 @export var animation_library: AnimationLibrary:
 	set(value):
@@ -62,7 +64,9 @@ func _process(_delta: float) -> void:
 
 
 func destroy() -> void:
-	print("Destroying ", name)
+	character_movement_component.enabled = false
+	interaction_ability_component.enabled = false
+	collision.disabled = true
 	pending_kill = true
 
 
@@ -82,13 +86,26 @@ func get_interaction_ability_component() -> InteractionAbilityComponent:
 	return interaction_ability_component
 
 
-func apply_movement(direction: Vector3i) -> bool:
-	return character_movement_component.move(direction)
+func play_anim_montage(animation_name: StringName) -> void:
+	animation_tree["parameters/AnimMontage/Transition/transition_request"] = animation_name
+	animation_tree["parameters/Slot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+
+
+func is_montage_playing() -> bool:
+	return animation_tree["parameters/Slot/active"]
+
+
+func apply_movement(target_position: Vector3, check_collision := true) -> bool:
+	return character_movement_component.move(target_position, check_collision)
+
+
+func apply_rotation(target_position: Vector3) -> void:
+	character_movement_component.look_at(target_position)
 
 
 func _update_animation_player() -> void:
 	if animation_player == null:
-			return
+		return
 
 	print("Updating animation player")
 		

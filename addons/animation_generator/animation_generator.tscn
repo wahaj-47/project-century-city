@@ -1,8 +1,12 @@
 [gd_scene format=3 uid="uid://b6cjvjh0p6ykq"]
 
-[ext_resource type="Script" uid="uid://dggoq28pp317" path="res://addons/animation_generator/animation_generator.gd" id="1_mo78t"]
+[ext_resource type="Script" uid="uid://bcg66gyli2pmt" path="res://addons/animation_generator/animation_generator.gd" id="1_mo78t"]
+[ext_resource type="Texture2D" uid="uid://dutf23ylykjgi" path="res://content/assets/characters/alice/animations/death-v2.png" id="2_grtb2"]
 [ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="3_gt2at"]
 [ext_resource type="Texture2D" uid="uid://j4nidtp0ifj4" path="res://content/assets/characters/jack/animations/walk.png" id="4_grtb2"]
+[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/alice.res" id="5_ncq3m"]
+[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/jack.res" id="6_grtb2"]
+[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/payne.res" id="7_84no2"]
 
 [sub_resource type="Animation" id="Animation_8vloo"]
 resource_name = "RESET"
@@ -101,8 +105,14 @@ advance_mode = 2
 states/Start/position = Vector2(603, 100)
 transitions = ["Start", "End", SubResource("AnimationNodeStateMachineTransition_8vloo")]
 
-[node name="AnimationGenerator" type="Node3D" unique_id=1775536629]
+[node name="AnimationGenerator" type="Node3D" unique_id=1775536629 node_paths=PackedStringArray("sprite3d", "animation_player")]
 script = ExtResource("1_mo78t")
+sprite3d = NodePath("Sprite3D")
+animation_player = NodePath("AnimationPlayer")
+animation_name = &"death_v2"
+library_name = &"alice"
+fps = 6.0
+property = NodePath("Sprite3D:frame_coords:x")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=797554499]
 pixel_size = 0.04
@@ -110,11 +120,16 @@ billboard = 1
 shaded = true
 alpha_cut = 1
 texture_filter = 0
-hframes = 9
+texture = ExtResource("2_grtb2")
+hframes = 42
 vframes = 8
+frame = 29
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=438609835]
 libraries/ = SubResource("AnimationLibrary_im1pr")
+libraries/alice = ExtResource("5_ncq3m")
+libraries/jack = ExtResource("6_grtb2")
+libraries/payne = ExtResource("7_84no2")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1748858576]
 active = false

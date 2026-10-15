@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 ControllerIcons="*uid://bjxviqoil0hkw"
 GameState="*uid://c021lnpkanwdr"
 PhantomCameraManager="*uid://duq6jhf6unyis"
+Constants="*uid://1alj84tcurmm"
 
 [debug_draw_3d]
 
@@ -103,9 +104,9 @@ crouch={
 
 [layer_names]
 
-3d_physics/layer_1="Interactable Object"
-3d_physics/layer_2="Enemy"
-3d_physics/layer_3="Player"
+3d_physics/layer_1="WorldStatic"
+3d_physics/layer_2="WorldDynamic"
+3d_physics/layer_3="Pawn"
 
 [limbo_ai]
 

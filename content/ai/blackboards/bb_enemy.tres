@@ -1,6 +1,10 @@
 [gd_resource type="BlackboardPlan" format=3 uid="uid://un4hu5q2ygcn"]
 
 [resource]
+var/map/name = &"map"
+var/map/type = 24
+var/map/hint = 0
+var/map/hint_string = ""
 var/target/name = &"target"
 var/target/type = 24
 var/target/hint = 17
@@ -34,3 +38,8 @@ var/nearby_character_count/type = 2
 var/nearby_character_count/value = 0
 var/nearby_character_count/hint = 0
 var/nearby_character_count/hint_string = ""
+var/can_move/name = &"can_move"
+var/can_move/type = 1
+var/can_move/value = true
+var/can_move/hint = 0
+var/can_move/hint_string = ""

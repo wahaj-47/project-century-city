@@ -24,9 +24,11 @@ metadata/_custom_type_script = "uid://cablgyp7f1wi8"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 enabled = false
 target_position = Vector3(-2.6, 0, 0)
+collision_mask = 4
 
 [node name="InteractionHandler" parent="." unique_id=659341144 node_paths=PackedStringArray("mesh", "obstruction_check") instance=ExtResource("3_qfphl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 2.4, 0)
+collision_layer = 2
 script = ExtResource("1_t7gc3")
 mesh = NodePath("../Mesh")
 obstruction_check = NodePath("../ObstructionCheck")
