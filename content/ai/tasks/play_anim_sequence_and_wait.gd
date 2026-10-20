@@ -32,9 +32,6 @@ func _tick(_delta: float) -> Status:
 	if _character.is_montage_playing(): 
 		return RUNNING
 	
-	if hold_last_frame:
-		_character.animation_tree.active = false
-
 	return SUCCESS
 
 

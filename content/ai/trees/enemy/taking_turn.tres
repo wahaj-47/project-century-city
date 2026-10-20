@@ -117,21 +117,25 @@ script = ExtResource("5_lcnse")
 actor = SubResource("BBNode_lcnse")
 animation_name = &"kill_v2"
 
-[sub_resource type="BBNode" id="BBNode_aei7y"]
+[sub_resource type="BBVariant" id="BBVariant_fmr5c"]
+type = 21
+saved_value = &"death_v2"
+resource_name = "death_v2"
+
+[sub_resource type="BBNode" id="BBNode_q7p6r"]
 value_source = 1
 variable = &"target"
 resource_name = "$target"
 
-[sub_resource type="BTAction" id="BTAction_bfd7x"]
-script = ExtResource("5_lcnse")
-actor = SubResource("BBNode_aei7y")
-animation_name = &"death_v2"
-hold_last_frame = true
+[sub_resource type="BTCallMethod" id="BTCallMethod_tcw1t"]
+node = SubResource("BBNode_q7p6r")
+method = &"die"
+args = Array[BBVariant]([SubResource("BBVariant_fmr5c")])
 
 [sub_resource type="BTParallel" id="BTParallel_xcj56"]
 num_successes_required = 2
 custom_name = "And"
-children = [SubResource("BTAction_lcnse"), SubResource("BTAction_bfd7x")]
+children = [SubResource("BTAction_lcnse"), SubResource("BTCallMethod_tcw1t")]
 
 [sub_resource type="BTRandomSelector" id="BTRandomSelector_u3iaj"]
 custom_name = "Play random animation"

@@ -33,6 +33,8 @@ var pending_kill: bool = false:
 		pending_kill = value
 		if pending_kill: state_machine.dispatch(&"destroyed")
 
+var dead: bool = false
+
 var camera: Camera3D
 
 
@@ -86,13 +88,18 @@ func get_interaction_ability_component() -> InteractionAbilityComponent:
 	return interaction_ability_component
 
 
+func die(animation_name: StringName) ->  void:
+	animation_tree["parameters/Locomotion/death/Transition/transition_request"] = animation_name
+	dead = true
+
+
 func play_anim_montage(animation_name: StringName) -> void:
 	animation_tree["parameters/AnimMontage/Transition/transition_request"] = animation_name
 	animation_tree["parameters/Slot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 
 func is_montage_playing() -> bool:
-	return animation_tree["parameters/Slot/active"]
+	return animation_tree.active && animation_tree["parameters/Slot/active"]
 
 
 func apply_movement(target_position: Vector3, check_collision := true) -> bool:

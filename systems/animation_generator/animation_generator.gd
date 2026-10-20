@@ -135,7 +135,7 @@ func generate_animation() -> void:
 				anim_frame * frame_duration,
 				Vector3(frame[0], frame[1], frame[2]) * sprite3d.pixel_size
 			)
-
+	
 	library.add_animation(animation_name, animation)
 	
 	print(
