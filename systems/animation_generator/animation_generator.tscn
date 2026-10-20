@@ -1,15 +1,27 @@
 [gd_scene format=3 uid="uid://b6cjvjh0p6ykq"]
 
-[ext_resource type="Script" uid="uid://bcg66gyli2pmt" path="res://addons/animation_generator/animation_generator.gd" id="1_mo78t"]
-[ext_resource type="Texture2D" uid="uid://dutf23ylykjgi" path="res://content/assets/characters/alice/animations/death-v2.png" id="2_grtb2"]
-[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="3_gt2at"]
-[ext_resource type="Texture2D" uid="uid://j4nidtp0ifj4" path="res://content/assets/characters/jack/animations/walk.png" id="4_grtb2"]
-[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/alice.res" id="5_ncq3m"]
-[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/jack.res" id="6_grtb2"]
-[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/payne.res" id="7_84no2"]
+[ext_resource type="Script" uid="uid://bcg66gyli2pmt" path="res://systems/animation_generator/animation_generator.gd" id="1_yn5jk"]
+[ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://addons/sprite_zd/sprite_zd.gd" id="3_0am16"]
+[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="3_e7mbx"]
+[ext_resource type="Texture2D" uid="uid://j4nidtp0ifj4" path="res://content/assets/characters/jack/animations/walk.png" id="4_ujupo"]
+[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/alice.res" id="5_smtnp"]
+[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/jack.res" id="6_m1pct"]
+[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/payne.res" id="7_8r1rb"]
 
 [sub_resource type="Animation" id="Animation_8vloo"]
 resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:rotation:z")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_im1pr"]
 length = 1.6666666666666663
@@ -36,7 +48,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ExtResource("3_gt2at")]
+"values": [ExtResource("3_e7mbx")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -76,7 +88,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ExtResource("4_grtb2")]
+"values": [ExtResource("4_ujupo")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -106,30 +118,45 @@ states/Start/position = Vector2(603, 100)
 transitions = ["Start", "End", SubResource("AnimationNodeStateMachineTransition_8vloo")]
 
 [node name="AnimationGenerator" type="Node3D" unique_id=1775536629 node_paths=PackedStringArray("sprite3d", "animation_player")]
-script = ExtResource("1_mo78t")
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+script = ExtResource("1_yn5jk")
 sprite3d = NodePath("Sprite3D")
 animation_player = NodePath("AnimationPlayer")
-animation_name = &"death_v2"
-library_name = &"alice"
+animation_name = &"idle"
+library_name = &"jack"
 fps = 6.0
-property = NodePath("Sprite3D:frame_coords:x")
+animation_driver = NodePath("Sprite3D:frame_coords:x")
+root_motion_json = "res://content/assets/characters/payne/animations/kill-v2.json"
+root_motion_driver = NodePath("Sprite3D:root_motion")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=797554499]
+transform = Transform3D(0.99935144, 0, 0, 0, 1, 0, 0, 0, 0.99935144, 0, 0, 0)
 pixel_size = 0.04
 billboard = 1
 shaded = true
 alpha_cut = 1
 texture_filter = 0
-texture = ExtResource("2_grtb2")
-hframes = 42
+texture = ExtResource("3_e7mbx")
+hframes = 16
 vframes = 8
-frame = 29
+frame = 64
+script = ExtResource("3_0am16")
+direction_mapping = Dictionary[Vector2, int]({
+Vector2(-1, 6.123032e-17): 2,
+Vector2(-0.70710677, -0.70710677): 3,
+Vector2(-0.70710677, 0.70710677): 1,
+Vector2(-1.2246064e-16, -1): 4,
+Vector2(0, 1): 0,
+Vector2(0.70710677, -0.70710677): 5,
+Vector2(0.70710677, 0.70710677): 7,
+Vector2(1, -1.8369095e-16): 6
+})
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=438609835]
 libraries/ = SubResource("AnimationLibrary_im1pr")
-libraries/alice = ExtResource("5_ncq3m")
-libraries/jack = ExtResource("6_grtb2")
-libraries/payne = ExtResource("7_84no2")
+libraries/alice = ExtResource("5_smtnp")
+libraries/jack = ExtResource("6_m1pct")
+libraries/payne = ExtResource("7_8r1rb")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1748858576]
 active = false

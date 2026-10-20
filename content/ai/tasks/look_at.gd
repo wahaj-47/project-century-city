@@ -10,7 +10,7 @@ var _target: Node3D
 
 # Display a customized name (requires @tool).
 func _generate_name() -> String:
-	return "LookAt"
+	return "Look At"
 
 
 # Called once during initialization.
@@ -21,8 +21,7 @@ func _enter() -> void:
 
 # Called each time this task is ticked (aka executed).
 func _tick(_delta: float) -> Status:
-	var direction: Vector3 = _target.global_position - _character.global_position
-	_character.apply_rotation(direction)
+	_character.apply_rotation(_target.global_position)
 	return SUCCESS
 
 # Strings returned from this method are displayed as warnings in the behavior tree editor (requires @tool).

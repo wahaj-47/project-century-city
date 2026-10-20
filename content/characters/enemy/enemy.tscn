@@ -47,8 +47,8 @@ animation_library = ExtResource("3_70i6h")
 
 [node name="Sprite3D" parent="." index="0" unique_id=464599280]
 texture = ExtResource("4_70i6h")
-hframes = 16
-frame = 4
+hframes = 12
+frame = 64
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_70i6h")
@@ -74,6 +74,7 @@ script = ExtResource("11_k40fn")
 character_movement_component = NodePath("../CharacterMovementComponent")
 
 [node name="CollisionShape3D" parent="InteractionHandler" index="0" unique_id=89542627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20947266, 0)
 shape = SubResource("CapsuleShape3D_yo2jm")
 
 [node name="WidgetComponent" parent="InteractionHandler" index="1" unique_id=1398507753]

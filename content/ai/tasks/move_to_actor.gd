@@ -4,7 +4,7 @@ extends BTAction
 
 @export var actor: BBNode
 @export var target_actor: BBNode
-
+@export var offset: Vector3
 @export var check_collision: bool = true
 @export var max_steps: int = 1
 
@@ -45,10 +45,13 @@ func _tick(_delta: float) -> Status:
 	if path.size() <= 1:
 		return FAILURE
 
-
 	var target_position = _map.to_world_coords(path[1])
 	target_position.y = _actor.global_position.y
-	if not _actor.apply_movement(target_position, check_collision):
+
+	var direction = target_position - _actor.global_position
+	var _offset = offset.rotated(Vector3.UP, atan2(direction.x, direction.z))
+
+	if not _actor.apply_movement(target_position + _offset, check_collision):
 		return FAILURE
 
 	_steps += 1

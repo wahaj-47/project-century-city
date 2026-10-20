@@ -67,37 +67,46 @@ node = SubResource("BBNode_51fsn")
 method = &"destroy"
 custom_name = "Mark target destroyed"
 
-[sub_resource type="BTComment" id="BTComment_51fsn"]
-custom_name = "Play kill animation"
+[sub_resource type="BBNode" id="BBNode_xcj56"]
+saved_value = NodePath(".")
+resource_name = "."
 
-[sub_resource type="BTComment" id="BTComment_lcnse"]
-custom_name = "Attacker: Move to victim"
-
-[sub_resource type="BBNode" id="BBNode_e0adi"]
+[sub_resource type="BBNode" id="BBNode_xvwg3"]
 value_source = 1
 variable = &"target"
 resource_name = "$target"
 
-[sub_resource type="BBNode" id="BBNode_fmr5c"]
+[sub_resource type="BTAction" id="BTAction_e0adi"]
+script = ExtResource("11_aei7y")
+actor = SubResource("BBNode_xcj56")
+target_actor = SubResource("BBNode_xvwg3")
+offset = Vector3(0, 0, -1.42)
+check_collision = false
+
+[sub_resource type="BBNode" id="BBNode_cojwa"]
+value_source = 1
+variable = &"target"
+resource_name = "$target"
+
+[sub_resource type="BBNode" id="BBNode_eeu4g"]
 saved_value = NodePath(".")
 resource_name = "."
 
-[sub_resource type="BTAction" id="BTAction_cojwa"]
-custom_name = "Victim: Look at attacker"
+[sub_resource type="BTAction" id="BTAction_q7p6r"]
 script = ExtResource("6_aei7y")
-actor = SubResource("BBNode_e0adi")
-target = SubResource("BBNode_fmr5c")
-
-[sub_resource type="BTParallel" id="BTParallel_lcnse"]
-num_successes_required = 2
-custom_name = "And"
-children = [SubResource("BTComment_lcnse"), SubResource("BTAction_cojwa")]
+actor = SubResource("BBNode_cojwa")
+target = SubResource("BBNode_eeu4g")
 
 [sub_resource type="BTAction" id="BTAction_l88cl"]
 custom_name = "Wait for movement to end"
 script = ExtResource("4_lcnse")
 signal_source = NodePath("CharacterMovementComponent")
 signal_name = "movement_ended"
+
+[sub_resource type="BTParallel" id="BTParallel_lcnse"]
+num_successes_required = 3
+custom_name = "And: Move into position"
+children = [SubResource("BTAction_e0adi"), SubResource("BTAction_q7p6r"), SubResource("BTAction_l88cl")]
 
 [sub_resource type="BBNode" id="BBNode_lcnse"]
 saved_value = NodePath(".")
@@ -128,14 +137,6 @@ children = [SubResource("BTAction_lcnse"), SubResource("BTAction_bfd7x")]
 custom_name = "Play random animation"
 children = [SubResource("BTParallel_xcj56")]
 
-[sub_resource type="BTParallel" id="BTParallel_bfd7x"]
-num_successes_required = 2
-custom_name = "And"
-children = [SubResource("BTRandomSelector_u3iaj")]
-
-[sub_resource type="BTComment" id="BTComment_wvqa1"]
-custom_name = "Wait for animation to finish"
-
 [sub_resource type="BBVariant" id="BBVariant_xcj56"]
 saved_value = null
 resource_name = "<null>"
@@ -164,7 +165,7 @@ custom_name = "End turn"
 
 [sub_resource type="BTSequence" id="BTSequence_bfd7x"]
 custom_name = "Kill target"
-children = [SubResource("BTCheckVar_wvqa1"), SubResource("BTAction_u3iaj"), SubResource("BTCheckVar_aei7y"), SubResource("BTAction_aei7y"), SubResource("BTCheckVar_lcnse"), SubResource("BTRandomWait_u3iaj"), SubResource("BTCallMethod_wvqa1"), SubResource("BTComment_51fsn"), SubResource("BTParallel_lcnse"), SubResource("BTAction_l88cl"), SubResource("BTParallel_bfd7x"), SubResource("BTComment_wvqa1"), SubResource("BTSetVar_l88cl"), SubResource("BTSetVar_xvwg3"), SubResource("BTCallMethod_lcnse")]
+children = [SubResource("BTCheckVar_wvqa1"), SubResource("BTAction_u3iaj"), SubResource("BTCheckVar_aei7y"), SubResource("BTAction_aei7y"), SubResource("BTCheckVar_lcnse"), SubResource("BTRandomWait_u3iaj"), SubResource("BTCallMethod_wvqa1"), SubResource("BTParallel_lcnse"), SubResource("BTRandomSelector_u3iaj"), SubResource("BTSetVar_l88cl"), SubResource("BTSetVar_xvwg3"), SubResource("BTCallMethod_lcnse")]
 
 [sub_resource type="BTCondition" id="BTCondition_kxsal"]
 custom_name = "Is another enemy being perceived?"
@@ -217,6 +218,12 @@ value = SubResource("BBVariant_yng6a")
 custom_name = "Another enemy nearby"
 children = [SubResource("BTCondition_kxsal"), SubResource("BTAction_38stn"), SubResource("BTAction_i0pjc"), SubResource("BTCheckVar_yng6a"), SubResource("BTCheckVar_bfd7x"), SubResource("BTSetVar_pd318")]
 
+[sub_resource type="BTAction" id="BTAction_r5v5v"]
+custom_name = "Find distance to current target"
+script = ExtResource("2_wvqa1")
+to_var = &"target"
+output_var = &"distance_to_target"
+
 [sub_resource type="BBVariant" id="BBVariant_7ba52"]
 saved_value = null
 resource_name = "<null>"
@@ -225,12 +232,6 @@ resource_name = "<null>"
 variable = &"target"
 check_type = 5
 value = SubResource("BBVariant_7ba52")
-
-[sub_resource type="BTAction" id="BTAction_r5v5v"]
-custom_name = "Find distance to current target"
-script = ExtResource("2_wvqa1")
-to_var = &"target"
-output_var = &"distance_to_target"
 
 [sub_resource type="BBVariant" id="BBVariant_r5v5v"]
 type = 2
@@ -267,7 +268,7 @@ signal_name = "movement_ended"
 
 [sub_resource type="BTSequence" id="BTSequence_a2bvn"]
 custom_name = "Chase target"
-children = [SubResource("BTCheckVar_oooq5"), SubResource("BTAction_r5v5v"), SubResource("BTCheckVar_i0pjc"), SubResource("BTCheckTrigger_u3iaj"), SubResource("BTAction_xvwg3"), SubResource("BTAction_bk8ns")]
+children = [SubResource("BTAction_r5v5v"), SubResource("BTCheckVar_oooq5"), SubResource("BTCheckVar_i0pjc"), SubResource("BTCheckTrigger_u3iaj"), SubResource("BTAction_xvwg3"), SubResource("BTAction_bk8ns")]
 
 [sub_resource type="BBVariant" id="BBVariant_pd318"]
 saved_value = null
@@ -363,6 +364,7 @@ custom_name = "Or"
 children = [SubResource("BTCheckVar_hy7nk"), SubResource("BTCheckVar_e0adi")]
 
 [sub_resource type="BBVariant" id="BBVariant_38stn"]
+type = 9
 value_source = 1
 variable = &"candidate_target"
 resource_name = "$candidate_target"
@@ -371,13 +373,13 @@ resource_name = "$candidate_target"
 variable = &"target"
 value = SubResource("BBVariant_38stn")
 
-[sub_resource type="BBVariant" id="BBVariant_oooq5"]
+[sub_resource type="BBVariant" id="BBVariant_e0adi"]
 saved_value = null
 resource_name = "<null>"
 
 [sub_resource type="BTSetVar" id="BTSetVar_a2bvn"]
 variable = &"candidate_target"
-value = SubResource("BBVariant_oooq5")
+value = SubResource("BBVariant_e0adi")
 
 [sub_resource type="BTSequence" id="BTSequence_r5v5v"]
 custom_name = "Player running away"

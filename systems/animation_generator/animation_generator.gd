@@ -8,31 +8,41 @@ extends Node
 @export var animation_name: StringName = &"default"
 @export var library_name: StringName = &"[Global]"
 @export_range(1.0, 60.0, 1.0) var fps: float = 12.0
+@export var loop_mode := Animation.LOOP_LINEAR
 
+@export_category("Driver")
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_READ_ONLY)
-var property: NodePath
+var animation_driver: NodePath
+@export_tool_button("Select Driver", "Animation")
+var pick_driver_action = pick_property.bind(&"animation_driver")
+
+@export_category("Root Motion")
+@export var enable_root_motion: bool = false
+@export_file("*.json") var root_motion_json: String
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_READ_ONLY)
+var root_motion_driver: NodePath
+@export_tool_button("Select Driver", "Animation")
+var pick_root_motion_driver_action  = pick_property.bind(&"root_motion_driver")
 
 @export_category("Actions")
-@export_tool_button("Pick Property", "Animation")
-var pick_property_action = pick_property
-
 @export_tool_button("Generate Animation", "Animation")
 var generate_animation_action = generate_animation
 
-func pick_property() -> void:
+
+func pick_property(target: StringName) -> void:
 	EditorInterface.popup_property_selector(
 		sprite3d,
-		_on_property_selected,
+		_on_property_selected.bind(target),
 		[],
 	)
 
 
-func _on_property_selected(property_path: NodePath) -> void:
+func _on_property_selected(property_path: NodePath, target: StringName) -> void:
 	if property_path.is_empty():
 		return
 
 	var full_path = NodePath(str(get_path_to(sprite3d)) + str(property_path.get_as_property_path()))
-	property = full_path
+	set(target, full_path)
 
 
 func generate_animation() -> void:
@@ -84,26 +94,47 @@ func generate_animation() -> void:
 	var frame_duration := 1.0 / fps
 
 	animation.length = (frame_count - 1) * frame_duration
-	animation.loop_mode = Animation.LOOP_LINEAR
+	animation.loop_mode = loop_mode
 
-	var track := animation.add_track(Animation.TYPE_VALUE)
+	var animation_track := animation.add_track(Animation.TYPE_VALUE)
 
 	animation.track_set_path(
-		track,
-		property
+		animation_track,
+		animation_driver
 	)
 
 	animation.track_set_interpolation_type(
-		track,
+		animation_track,
 		Animation.INTERPOLATION_NEAREST
 	)
 
 	for anim_frame in range(frame_count):
 		animation.track_insert_key(
-			track,
+			animation_track,
 			anim_frame * frame_duration,
 			anim_frame
 		)
+
+	if enable_root_motion and not root_motion_json.is_empty():
+		var data = JSON.parse_string(FileAccess.get_file_as_string(root_motion_json))
+		var frames = data.frames
+		print(frames.size())
+		var root_motion_track := animation.add_track(Animation.TYPE_VALUE)
+		animation.track_set_path(
+			root_motion_track,
+			root_motion_driver
+		)
+		animation.value_track_set_update_mode(
+			root_motion_track, 
+			Animation.UPDATE_DISCRETE
+		)
+		for anim_frame in range(frame_count):
+			var frame = frames[anim_frame]
+			animation.track_insert_key(
+				root_motion_track,
+				anim_frame * frame_duration,
+				Vector3(frame[0], frame[1], frame[2]) * sprite3d.pixel_size
+			)
 
 	library.add_animation(animation_name, animation)
 	

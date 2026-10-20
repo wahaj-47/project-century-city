@@ -39,7 +39,7 @@ game = NodePath("Game")
 size = Vector2i(642, 362)
 
 [node name="Sun" type="DirectionalLight3D" parent="Game" unique_id=314506535]
-transform = Transform3D(-0.8649355, 0.4949473, 0.0831486, 0.38693687, 0.5521116, 0.7385477, 0.31963488, 0.67096937, -0.66905427, 0, -69.57422, -76.66135)
+transform = Transform3D(0.7071067, -0.56098545, 0.4304593, 0, 0.60876137, 0.79335326, -0.7071067, -0.56098545, 0.4304593, 0, 0, 0)
 shadow_enabled = true
 
 [node name="Door-001" parent="Game" unique_id=1456591762 instance=ExtResource("3_l8qe7")]
@@ -66,11 +66,11 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 environment = SubResource("Environment_r7qdr")
 
 [node name="Player" parent="Game" unique_id=167650114 instance=ExtResource("1_qy63d")]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 4, 1.45, 4)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 4, 1.6575193, 4)
 
 [node name="Camera" type="Camera3D" parent="Game" unique_id=2035857824]
 physics_interpolation_mode = 1
-transform = Transform3D(0.7071066, -0.51383454, 0.48577082, 2.9802312e-08, 0.68698364, 0.72667176, -0.70710653, -0.5138346, 0.48577082, 23.715416, 30.983437, 23.715416)
+transform = Transform3D(0.7071041, -0.6123665, 0.3535506, 0, 0.4999951, 0.8660187, -0.7071041, -0.6123665, 0.3535506, 21.071012, 38.977894, 21.071012)
 top_level = true
 projection = 1
 size = 24.0
@@ -84,13 +84,13 @@ script = ExtResource("7_5wxk5")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PhantomCamera3D" type="Node3D" parent="Game" unique_id=371296776 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(0.7071066, -0.51383454, 0.48577082, 2.9802312e-08, 0.68698364, 0.72667176, -0.70710653, -0.5138346, 0.48577082, 23.715416, 30.983437, 23.715416)
+transform = Transform3D(0.7071041, -0.6123665, 0.3535506, 0, 0.4999951, 0.8660187, -0.7071041, -0.6123665, 0.3535506, 21.071012, 38.977894, 21.071012)
 top_level = true
 script = ExtResource("8_keess")
 follow_mode = 5
 follow_target = NodePath("../Player")
 tween_resource = SubResource("Resource_asw1m")
-follow_offset = Vector3(10, 15, 10)
+follow_offset = Vector3(10, 20, 10)
 follow_damping_value = Vector3(0.5, 0.5, 0.5)
 follow_distance = 20.0
 spring_length = 20.0
@@ -99,7 +99,7 @@ align_position_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Enemy2" parent="Game" unique_id=469362274 instance=ExtResource("12_huvsv")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 1.45, -20)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 1.6594725, -20)
 animation_library = ExtResource("11_asw1m")
 
 [node name="Display" type="Control" parent="." unique_id=88038175 node_paths=PackedStringArray("viewport")]
