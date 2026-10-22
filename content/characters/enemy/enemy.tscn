@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cfwvtk7xp87g2" path="res://content/characters/base/character.tscn" id="1_ho334"]
 [ext_resource type="Script" uid="uid://oa7a2miol4mc" path="res://content/characters/enemy/enemy.gd" id="2_c6xed"]
-[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/alice.res" id="3_70i6h"]
+[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/al_alice.res" id="3_70i6h"]
 [ext_resource type="BlackboardPlan" uid="uid://un4hu5q2ygcn" path="res://content/ai/blackboards/bb_enemy.tres" id="3_vwt86"]
-[ext_resource type="Texture2D" uid="uid://35idheau3lt8" path="res://content/assets/characters/alice/animations/idle.png" id="4_70i6h"]
+[ext_resource type="Texture2D" uid="uid://dutf23ylykjgi" path="res://content/assets/characters/alice/animations/a_death_v2.png" id="4_70i6h"]
 [ext_resource type="Script" uid="uid://b3h3o2x0wfw6" path="res://content/characters/base/states/taking_turn.gd" id="4_427j3"]
 [ext_resource type="BehaviorTree" uid="uid://dolikxcfvpjdp" path="res://content/ai/trees/enemy/taking_turn.tres" id="4_fxr07"]
 [ext_resource type="BehaviorTree" uid="uid://dggre5yudqb0" path="res://content/ai/trees/enemy/waiting_for_turn.tres" id="5_iavur"]
@@ -47,15 +47,11 @@ animation_library = ExtResource("3_70i6h")
 
 [node name="Sprite3D" parent="." index="0" unique_id=464599280]
 texture = ExtResource("4_70i6h")
-hframes = 12
-frame = 62
+hframes = 42
+frame = 0
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_70i6h")
-
-[node name="AnimationTree" parent="." index="2" unique_id=1142802512]
-parameters/AnimMontage/Transition/current_state = "kill_v2"
-parameters/AnimMontage/Transition/current_index = 1
 
 [node name="StateMachine" parent="." index="4" unique_id=1717741298]
 blackboard_plan = ExtResource("3_vwt86")

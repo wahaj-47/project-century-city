@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clywgoxysiw8"
-path.s3tc="res://.godot/imported/kill-v1.png-f8f2d3d080708bb8b156baa8fcb292e2.s3tc.ctex"
+uid="uid://1eqvvfthmw5i"
+path.s3tc="res://.godot/imported/a_death_v1.png-c8c7dfc42109a91984a13eeac024aecf.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://content/assets/characters/alice/animations/kill-v1.png"
-dest_files=["res://.godot/imported/kill-v1.png-f8f2d3d080708bb8b156baa8fcb292e2.s3tc.ctex"]
+source_file="res://content/assets/characters/payne/animations/a_death_v1.png"
+dest_files=["res://.godot/imported/a_death_v1.png-c8c7dfc42109a91984a13eeac024aecf.s3tc.ctex"]
 
 [params]
 

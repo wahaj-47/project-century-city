@@ -10,8 +10,9 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="8_keess"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="9_huvsv"]
 [ext_resource type="Script" uid="uid://bxhk2pqjsis5f" path="res://systems/texel_snapped/texel_snapped_display.gd" id="9_tnpcc"]
-[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/payne.res" id="11_asw1m"]
+[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/al_payne.res" id="11_asw1m"]
 [ext_resource type="Shader" uid="uid://b7oui2psui32s" path="res://addons/shaders/pixel_art_upscale.gdshader" id="11_keess"]
+[ext_resource type="PackedScene" uid="uid://brbikhrkchpgo" path="res://systems/gameplay_cues/gameplay_cue_manager.tscn" id="12_4mrgl"]
 [ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://content/characters/enemy/enemy.tscn" id="12_huvsv"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
@@ -101,6 +102,8 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 [node name="Enemy2" parent="Game" unique_id=469362274 instance=ExtResource("12_huvsv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 1.6594725, -20)
 animation_library = ExtResource("11_asw1m")
+
+[node name="GameplayEffectsManager" parent="Game" unique_id=1731359172 instance=ExtResource("12_4mrgl")]
 
 [node name="Display" type="Control" parent="." unique_id=88038175 node_paths=PackedStringArray("viewport")]
 layout_mode = 3

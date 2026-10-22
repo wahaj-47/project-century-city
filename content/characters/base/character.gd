@@ -38,6 +38,10 @@ var dead: bool = false
 var camera: Camera3D
 
 
+func initialize(_config: CharacterConfig) -> void:
+	pass
+
+
 func _ready() -> void:
 	state_machine.add_transition(state_machine.ANYSTATE, dead_state, &"destroyed")
 	

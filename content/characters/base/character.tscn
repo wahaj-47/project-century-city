@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cfwvtk7xp87g2"]
 
 [ext_resource type="Script" uid="uid://bch5a2bgcfig7" path="res://content/characters/base/character.gd" id="1_hdr8e"]
-[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/jack.res" id="2_0lccp"]
-[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/idle.png" id="3_pl3v1"]
+[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/al_jack.res" id="2_0lccp"]
+[ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/a_idle.png" id="3_pl3v1"]
 [ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://addons/sprite_zd/sprite_zd.gd" id="4_pl3v1"]
 [ext_resource type="BehaviorTree" uid="uid://3j804ti4whao" path="res://content/ai/trees/player/waiting_for_turn.tres" id="5_02cod"]
 [ext_resource type="Script" uid="uid://lflc54byo7n6" path="res://content/characters/base/states/waiting_for_turn.gd" id="6_ywe0l"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://systems/character_movement_component/character_movement_component.tscn" id="7_wgs5b"]
 [ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://systems/interaction_ability_component/interaction_ability_component.tscn" id="8_2n0q0"]
 [ext_resource type="Script" uid="uid://cxblh1yorteta" path="res://addons/target_query/shape_query.gd" id="9_6kbpk"]
+[ext_resource type="PackedScene" uid="uid://qqnmsqujs1es" path="res://systems/gameplay_cues/gameplay_cue_orchestrator.tscn" id="11_0lccp"]
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_0lccp"]
 input_0/name = "kill_v1"
@@ -99,7 +100,6 @@ graph_offset = Vector2(-77, -32)
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ywe0l"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_svoki"]
-graph_offset = Vector2(-239.8696, -26.444977)
 nodes/output/position = Vector2(500, 80)
 nodes/Locomotion/node = SubResource("AnimationNodeStateMachine_02cod")
 nodes/Locomotion/position = Vector2(20, 80)
@@ -118,7 +118,7 @@ height = 2.5
 [sub_resource type="Resource" id="Resource_g4v7s"]
 script = ExtResource("9_6kbpk")
 
-[node name="Character" type="CharacterBody3D" unique_id=167650114 node_paths=PackedStringArray("initial_state")]
+[node name="Character" type="CharacterBody3D" unique_id=167650114 node_paths=PackedStringArray("initial_state") groups=["Pawn"]]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_hdr8e")
@@ -134,7 +134,7 @@ texture_filter = 0
 texture = ExtResource("3_pl3v1")
 hframes = 16
 vframes = 8
-frame = 80
+frame = 84
 script = ExtResource("4_pl3v1")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,
@@ -188,3 +188,5 @@ rotate_speed = 10
 [node name="PickupAbilityComponent" parent="." unique_id=1454045157 instance=ExtResource("8_2n0q0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
 target_query = SubResource("Resource_g4v7s")
+
+[node name="GameplayCueOrchestrator" parent="." unique_id=483840052 instance=ExtResource("11_0lccp")]

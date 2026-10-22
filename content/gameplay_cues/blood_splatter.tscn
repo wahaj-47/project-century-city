@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bec8awct4c1tb"]
+
+[ext_resource type="Texture2D" uid="uid://brf6m8ka53umu" path="res://content/assets/textures/t_blood.png" id="1_sh6dw"]
+
+[node name="BloodSplatter" type="Node3D" unique_id=438910073]
+
+[node name="Decal" type="Decal" parent="." unique_id=1269181624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+texture_albedo = ExtResource("1_sh6dw")

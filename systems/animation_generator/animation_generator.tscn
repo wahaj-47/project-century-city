@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://b6cjvjh0p6ykq"]
 
 [ext_resource type="Script" uid="uid://bcg66gyli2pmt" path="res://systems/animation_generator/animation_generator.gd" id="1_yn5jk"]
-[ext_resource type="Texture2D" uid="uid://dutf23ylykjgi" path="res://content/assets/characters/alice/animations/death-v2.png" id="2_w882r"]
+[ext_resource type="Texture2D" uid="uid://dutf23ylykjgi" path="res://content/assets/characters/alice/animations/a_death_v2.png" id="2_w882r"]
 [ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://addons/sprite_zd/sprite_zd.gd" id="3_0am16"]
-[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/alice.res" id="5_smtnp"]
-[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/jack.res" id="6_m1pct"]
-[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/payne.res" id="7_8r1rb"]
+[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/al_alice.res" id="5_smtnp"]
+[ext_resource type="AnimationLibrary" uid="uid://des1rgxiectoe" path="res://content/assets/characters/jack/al_jack.res" id="6_m1pct"]
+[ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/al_payne.res" id="7_8r1rb"]
+[ext_resource type="PackedScene" uid="uid://qqnmsqujs1es" path="res://systems/gameplay_cues/gameplay_cue_orchestrator.tscn" id="7_yn5jk"]
 
 [sub_resource type="Animation" id="Animation_8vloo"]
 resource_name = "RESET"
@@ -59,7 +60,7 @@ root_motion_json = "res://content/assets/characters/payne/animations/kill-v2.jso
 root_motion_driver = NodePath("Sprite3D:root_motion")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=797554499]
-transform = Transform3D(0.99935144, 0, 0, 0, 1, 0, 0, 0, 0.99935144, 0, 0, 0)
+transform = Transform3D(0.99935144, 0, 0, 0, 1, 0, 0, 0, 0.99935144, 1.1936, 0, -1.9791999)
 pixel_size = 0.04
 billboard = 1
 shaded = true
@@ -68,7 +69,7 @@ texture_filter = 0
 texture = ExtResource("2_w882r")
 hframes = 42
 vframes = 8
-frame = 208
+frame = 191
 script = ExtResource("3_0am16")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,
@@ -91,3 +92,5 @@ libraries/payne = ExtResource("7_8r1rb")
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_g4v7s")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="GameplayCueOrchestrator" parent="." unique_id=483840052 instance=ExtResource("7_yn5jk")]

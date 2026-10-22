@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bhin55gplo3vb" path="res://content/characters/player/player.gd" id="1_508ok"]
 [ext_resource type="PackedScene" uid="uid://cfwvtk7xp87g2" path="res://content/characters/base/character.tscn" id="1_e425n"]
-[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/alice.res" id="3_sa3aw"]
+[ext_resource type="AnimationLibrary" uid="uid://bjcjxd24txkp7" path="res://content/assets/characters/alice/al_alice.res" id="3_sa3aw"]
 [ext_resource type="Script" uid="uid://b3h3o2x0wfw6" path="res://content/characters/base/states/taking_turn.gd" id="4_5dc8e"]
-[ext_resource type="Texture2D" uid="uid://35idheau3lt8" path="res://content/assets/characters/alice/animations/idle.png" id="4_pplru"]
+[ext_resource type="Texture2D" uid="uid://35idheau3lt8" path="res://content/assets/characters/alice/animations/a_idle.png" id="4_pplru"]
 [ext_resource type="Script" uid="uid://bsu1nnrm0lr4u" path="res://content/characters/player/states/moving.gd" id="5_c6leb"]
 [ext_resource type="Script" uid="uid://cpp3x4qgicuak" path="res://content/characters/player/states/idle.gd" id="5_ixbpm"]
 [ext_resource type="Script" uid="uid://1vdrn56o5e7c" path="res://content/characters/player/states/interacting.gd" id="7_dirf7"]
@@ -19,7 +19,7 @@ animation_library = ExtResource("3_sa3aw")
 offset = Vector2(0, -4)
 texture = ExtResource("4_pplru")
 hframes = 12
-frame = 2
+frame = 0
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_sa3aw")

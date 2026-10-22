@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8yxidqe8s3f4"
-path.s3tc="res://.godot/imported/kill-v2.png-3286d8fd16918602bbf40c97f5eb264b.s3tc.ctex"
+uid="uid://bv6sd666e3qjk"
+path.s3tc="res://.godot/imported/a_walk.png-2dee741c5eceec392c38fa7424ca73d6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://content/assets/characters/payne/animations/kill-v2.png"
-dest_files=["res://.godot/imported/kill-v2.png-3286d8fd16918602bbf40c97f5eb264b.s3tc.ctex"]
+source_file="res://content/assets/characters/alice/animations/a_walk.png"
+dest_files=["res://.godot/imported/a_walk.png-2dee741c5eceec392c38fa7424ca73d6.s3tc.ctex"]
 
 [params]
 
