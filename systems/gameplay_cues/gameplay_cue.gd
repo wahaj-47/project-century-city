@@ -1,4 +1,4 @@
 class_name GameplayCue
 extends Resource
 
-@export var effect: PackedScene
+@export var scene: PackedScene

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://qqnmsqujs1es"]
+
+[ext_resource type="Script" uid="uid://bwufgoql2ml7d" path="res://systems/gameplay_cue_orchestrator/gameplay_cue_orchestrator.gd" id="1_kl5nb"]
+
+[node name="GameplayCueOrchestrator" type="Node" unique_id=936451025]
+script = ExtResource("1_kl5nb")

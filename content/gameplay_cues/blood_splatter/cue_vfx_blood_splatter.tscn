@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bec8awct4c1tb"]
+
+[ext_resource type="Script" uid="uid://debu3yjbxibcg" path="res://content/gameplay_cues/blood_splatter/cue_vfx_blood_splatter.gd" id="1_irenb"]
+[ext_resource type="Texture2D" uid="uid://brf6m8ka53umu" path="res://content/assets/textures/t_blood.png" id="2_c62yc"]
+
+[node name="CueVfxBloodSplatter" type="Node3D" unique_id=438910073 node_paths=PackedStringArray("decal")]
+script = ExtResource("1_irenb")
+decal = NodePath("Decal")
+auto_destroy = false
+
+[node name="Decal" type="Decal" parent="." unique_id=1269181624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+size = Vector3(6, 4, 6)
+texture_albedo = ExtResource("2_c62yc")
+modulate = Color(0.5014064, 0.50140655, 0.5014065, 1)
+cull_mask = 1048573

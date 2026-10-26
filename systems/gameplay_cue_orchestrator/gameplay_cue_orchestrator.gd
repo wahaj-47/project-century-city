@@ -4,5 +4,11 @@
 # It was done this way to allow cues to be potentially pooled and reused
 extends Node
 
+@export var cue_target: NodePath
+
 func execute_cue(gameplay_cue: GameplayCue) -> void:
-	GameplayCueManager.execute_cue(gameplay_cue)
+	var parameters = GameplayCueParameters.new()
+	var target = get_node(cue_target)
+
+	parameters.location = target.global_position
+	GameplayCueManager.execute_cue(target, gameplay_cue, parameters)

@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://qqnmsqujs1es"]
-
-[ext_resource type="Script" uid="uid://bwufgoql2ml7d" path="res://systems/gameplay_cues/gameplay_cue_orchestrator.gd" id="1_bqu01"]
-
-[node name="GameplayCueOrchestrator" type="Node" unique_id=483840052]
-script = ExtResource("1_bqu01")

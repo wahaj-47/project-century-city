@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://systems/character_movement_component/character_movement_component.tscn" id="7_wgs5b"]
 [ext_resource type="PackedScene" uid="uid://7vk682fu3w0x" path="res://systems/interaction_ability_component/interaction_ability_component.tscn" id="8_2n0q0"]
 [ext_resource type="Script" uid="uid://cxblh1yorteta" path="res://addons/target_query/shape_query.gd" id="9_6kbpk"]
-[ext_resource type="PackedScene" uid="uid://qqnmsqujs1es" path="res://systems/gameplay_cues/gameplay_cue_orchestrator.tscn" id="11_0lccp"]
+[ext_resource type="PackedScene" uid="uid://qqnmsqujs1es" path="res://systems/gameplay_cue_orchestrator/gameplay_cue_orchestrator.tscn" id="11_0lccp"]
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_0lccp"]
 input_0/name = "kill_v1"
@@ -126,6 +126,7 @@ initial_state = NodePath("StateMachine/WaitingForTurn")
 animation_library = ExtResource("2_0lccp")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=464599280 groups=["Snapped"]]
+layers = 2
 offset = Vector2(0, -2)
 pixel_size = 0.0416667
 billboard = 1
@@ -134,7 +135,7 @@ texture_filter = 0
 texture = ExtResource("3_pl3v1")
 hframes = 16
 vframes = 8
-frame = 84
+frame = 85
 script = ExtResource("4_pl3v1")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,
@@ -190,3 +191,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
 target_query = SubResource("Resource_g4v7s")
 
 [node name="GameplayCueOrchestrator" parent="." unique_id=483840052 instance=ExtResource("11_0lccp")]
+cue_target = NodePath("../Sprite3D")
