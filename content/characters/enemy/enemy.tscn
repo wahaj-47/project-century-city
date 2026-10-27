@@ -48,7 +48,12 @@ animation_library = ExtResource("3_70i6h")
 [node name="Sprite3D" parent="." index="0" unique_id=464599280]
 texture = ExtResource("4_70i6h")
 hframes = 12
-frame = 5
+frame = 3
+
+[node name="Shadow" parent="Sprite3D" index="0" unique_id=220438783]
+texture = ExtResource("4_70i6h")
+hframes = 12
+frame = 2
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_70i6h")

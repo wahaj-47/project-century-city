@@ -69,7 +69,7 @@ texture_filter = 0
 texture = ExtResource("2_w882r")
 hframes = 42
 vframes = 8
-frame = 126
+frame = 168
 script = ExtResource("3_0am16")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,
@@ -94,4 +94,3 @@ tree_root = SubResource("AnimationNodeStateMachine_g4v7s")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="GameplayCueOrchestrator" parent="." unique_id=483840052 instance=ExtResource("7_yn5jk")]
-transform = Transform3D(0.9999998, 0, 0, 0, 1, 0, 0, 0, 0.9999998, 0, 0, 0)

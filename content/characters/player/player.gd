@@ -2,6 +2,8 @@
 class_name Player
 extends Character
 
+@onready var pcam: PhantomCamera3D = $PhantomCamera3D
+
 @onready var taking_turn_state: LimboState = $StateMachine/TakingTurn
 @onready var idle_state: LimboState = $StateMachine/TakingTurn/Idle
 @onready var moving_state: LimboState = $StateMachine/TakingTurn/Moving

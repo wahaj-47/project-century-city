@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="GameplayCue" format=3 uid="uid://cjmflnblqcw2f"]
 
 [ext_resource type="PackedScene" uid="uid://bec8awct4c1tb" path="res://content/gameplay_cues/blood_splatter/cue_vfx_blood_splatter.tscn" id="1_brlec"]
-[ext_resource type="Script" uid="uid://13rfrwq17b6c" path="res://systems/gameplay_cues/gameplay_cue.gd" id="2_tlrap"]
+[ext_resource type="Script" path="res://systems/gameplay_cues/gameplay_cue.gd" id="2_tlrap"]
 
 [resource]
 script = ExtResource("2_tlrap")

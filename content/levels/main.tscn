@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://content/interactables/door/door.tscn" id="3_l8qe7"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_5wxk5"]
 [ext_resource type="Script" uid="uid://ds0g6y4i4tnpp" path="res://systems/texel_snapped/texel_snapped_camera.gd" id="8_a8xkr"]
-[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="8_keess"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="9_huvsv"]
 [ext_resource type="Script" uid="uid://bxhk2pqjsis5f" path="res://systems/texel_snapped/texel_snapped_display.gd" id="9_tnpcc"]
 [ext_resource type="AnimationLibrary" uid="uid://dvq7kx0v2bbjk" path="res://content/assets/characters/payne/al_payne.res" id="11_asw1m"]
 [ext_resource type="Shader" uid="uid://b7oui2psui32s" path="res://addons/shaders/pixel_art_upscale.gdshader" id="11_keess"]
@@ -20,9 +18,6 @@ fog_light_color = Color(0.03612666, 0.0437299, 0.05523669, 1)
 fog_light_energy = 0.35
 fog_height = -0.01
 fog_height_density = 3.6174
-
-[sub_resource type="Resource" id="Resource_asw1m"]
-script = ExtResource("9_huvsv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g1uoa"]
 shader = ExtResource("11_keess")
@@ -39,7 +34,7 @@ game = NodePath("Game")
 size = Vector2i(642, 362)
 
 [node name="Sun" type="DirectionalLight3D" parent="Game" unique_id=314506535]
-transform = Transform3D(0.7071067, -0.56098545, 0.4304593, 0, 0.60876137, 0.79335326, -0.7071067, -0.56098545, 0.4304593, 0, 0, 0)
+transform = Transform3D(0.6972039, -0.67800903, 0.23283139, 0.34084544, 0.59924984, 0.7243785, -0.6306594, -0.42568004, 0.64889556, 0, 0, 0)
 shadow_enabled = true
 
 [node name="Door-001" parent="Game" unique_id=1456591762 instance=ExtResource("3_l8qe7")]
@@ -70,7 +65,7 @@ transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 4, 1.657519
 
 [node name="Camera" type="Camera3D" parent="Game" unique_id=2035857824]
 physics_interpolation_mode = 1
-transform = Transform3D(0.7071041, -0.6123665, 0.3535506, 0, 0.4999951, 0.8660187, -0.7071041, -0.6123665, 0.3535506, 21.071012, 38.977894, 21.071012)
+transform = Transform3D(1, 0, 0, 0, 0.57357645, 0.819152, 0, -0.819152, 0.57357645, 4, 18.040558, 15.471527)
 top_level = true
 projection = 1
 size = 24.0
@@ -83,21 +78,6 @@ process_physics_priority = 300
 script = ExtResource("7_5wxk5")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="PhantomCamera3D" type="Node3D" parent="Game" unique_id=371296776 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(0.7071041, -0.6123665, 0.3535506, 0, 0.4999951, 0.8660187, -0.7071041, -0.6123665, 0.3535506, 21.071012, 38.977894, 21.071012)
-top_level = true
-script = ExtResource("8_keess")
-follow_mode = 5
-follow_target = NodePath("../Player")
-tween_resource = SubResource("Resource_asw1m")
-follow_offset = Vector3(10, 20, 10)
-follow_damping_value = Vector3(0.5, 0.5, 0.5)
-follow_distance = 20.0
-spring_length = 20.0
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
-metadata/_custom_type_script = "uid://csjccrhj5wnx7"
-
 [node name="Enemy2" parent="Game" unique_id=469362274 instance=ExtResource("12_huvsv")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -4, 1.6594725, -20)
 animation_library = ExtResource("11_asw1m")
@@ -107,6 +87,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
+mouse_filter = 2
 script = ExtResource("9_tnpcc")
 viewport = NodePath("../Game")
 

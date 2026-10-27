@@ -135,7 +135,7 @@ texture_filter = 0
 texture = ExtResource("3_pl3v1")
 hframes = 16
 vframes = 8
-frame = 85
+frame = 35
 script = ExtResource("4_pl3v1")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,

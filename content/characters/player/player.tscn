@@ -8,6 +8,11 @@
 [ext_resource type="Script" uid="uid://bsu1nnrm0lr4u" path="res://content/characters/player/states/moving.gd" id="5_c6leb"]
 [ext_resource type="Script" uid="uid://cpp3x4qgicuak" path="res://content/characters/player/states/idle.gd" id="5_ixbpm"]
 [ext_resource type="Script" uid="uid://1vdrn56o5e7c" path="res://content/characters/player/states/interacting.gd" id="7_dirf7"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="9_jyhv1"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_0sp7v"]
+
+[sub_resource type="Resource" id="Resource_7gqvg"]
+script = ExtResource("10_0sp7v")
 
 [node name="Player" unique_id=167650114 node_paths=PackedStringArray("initial_state") groups=["Player"] instance=ExtResource("1_e425n")]
 script = ExtResource("1_508ok")
@@ -19,7 +24,7 @@ animation_library = ExtResource("3_sa3aw")
 offset = Vector2(0, -4)
 texture = ExtResource("4_pplru")
 hframes = 12
-frame = 3
+frame = 5
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_sa3aw")
@@ -42,3 +47,22 @@ character_movement_component = NodePath("../../../CharacterMovementComponent")
 [node name="Interacting" type="LimboState" parent="StateMachine/TakingTurn" index="2" unique_id=782402771 node_paths=PackedStringArray("interaction_ability_component")]
 script = ExtResource("7_dirf7")
 interaction_ability_component = NodePath("../../../InteractionAbilityComponent")
+
+[node name="PhantomCamera3D" type="Node3D" parent="." index="9" unique_id=1687945785 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(0.7071067, -0.6123725, 0.3535534, 5.9604645e-08, 0.5, 0.86602545, -0.7071068, -0.6123724, 0.3535534, 12.071068, 17.320507, -7.9289327)
+script = ExtResource("9_jyhv1")
+follow_mode = 6
+follow_target = NodePath("..")
+tween_resource = SubResource("Resource_7gqvg")
+follow_offset = Vector3(5, 0, -15)
+follow_damping = true
+follow_damping_value = Vector3(0.5, 0.5, 0.5)
+follow_distance = 20.0
+vertical_rotation_offset = 1.0471975511965976
+horizontal_rotation_offset = -0.7853981633974483
+spring_length = 20.0
+collision_mask = 0
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+align_rotation_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
