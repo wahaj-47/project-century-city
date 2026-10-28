@@ -1,0 +1,7 @@
+[gd_resource type="BlackboardPlan" format=3 uid="uid://cyf314lxxpsue"]
+
+[resource]
+var/map/name = &"map"
+var/map/type = 24
+var/map/hint = 0
+var/map/hint_string = ""

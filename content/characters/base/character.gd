@@ -38,21 +38,18 @@ var dead: bool = false
 var camera: Camera3D
 
 
-func initialize(_config: CharacterConfig) -> void:
-	pass
-
-
-func _ready() -> void:
-	state_machine.add_transition(state_machine.ANYSTATE, dead_state, &"destroyed")
-	
-	# Initial state
-	state_machine.initial_state = initial_state
-	
+func initialize(config: CharacterConfig) -> void:
+	state_machine.blackboard.set_var("map", config.map)
 	state_machine.initialize(self)
 	state_machine.set_active(true)
 
-	_update_animation_player()
 
+func _ready() -> void:
+	# Initial state
+	state_machine.initial_state = initial_state
+	state_machine.add_transition(state_machine.ANYSTATE, dead_state, &"destroyed")
+
+	_update_animation_player()
 	camera = get_viewport().get_camera_3d()
 
 

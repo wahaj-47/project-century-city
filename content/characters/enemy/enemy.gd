@@ -7,11 +7,6 @@ extends Character
 @onready var ai_perception_component: AIPerceptionComponent = $AIPerceptionComponent
 
 
-func initialize(config: CharacterConfig) -> void:
-	super.initialize(config)
-	state_machine.blackboard.set_var("map", config.map)
-
-
 func _ready() -> void:
 	state_machine.add_transition(waiting_for_turn_state, taking_turn_state, &'turn_started')
 	state_machine.add_transition(taking_turn_state, waiting_for_turn_state, &'turn_ended')

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dedrdghc734cx" path="res://content/assets/characters/jack/animations/a_idle.png" id="3_pl3v1"]
 [ext_resource type="Script" uid="uid://dyynvkl7mkgfs" path="res://addons/sprite_zd/sprite_zd.gd" id="4_pl3v1"]
 [ext_resource type="BehaviorTree" uid="uid://3j804ti4whao" path="res://content/ai/trees/player/waiting_for_turn.tres" id="5_02cod"]
+[ext_resource type="BlackboardPlan" uid="uid://cyf314lxxpsue" path="res://content/ai/blackboards/bb_character.tres" id="5_poh6w"]
 [ext_resource type="Script" uid="uid://lflc54byo7n6" path="res://content/characters/base/states/waiting_for_turn.gd" id="6_ywe0l"]
 [ext_resource type="Script" uid="uid://ija8f7imerwt" path="res://content/characters/base/states/dead.gd" id="7_pl3v1"]
 [ext_resource type="PackedScene" uid="uid://tcekxxtds6u8" path="res://systems/character_movement_component/character_movement_component.tscn" id="7_wgs5b"]
@@ -135,7 +136,7 @@ texture_filter = 0
 texture = ExtResource("3_pl3v1")
 hframes = 16
 vframes = 8
-frame = 35
+frame = 34
 script = ExtResource("4_pl3v1")
 direction_mapping = Dictionary[Vector2, int]({
 Vector2(-1, 6.123032e-17): 2,
@@ -170,6 +171,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20751953, 0)
 shape = SubResource("CapsuleShape3D_yo2jm")
 
 [node name="StateMachine" type="LimboHSM" parent="." unique_id=1717741298]
+blackboard_plan = ExtResource("5_poh6w")
 
 [node name="WaitingForTurn" type="BTState" parent="StateMachine" unique_id=80667339 node_paths=PackedStringArray("interaction_ability_component")]
 behavior_tree = ExtResource("5_02cod")

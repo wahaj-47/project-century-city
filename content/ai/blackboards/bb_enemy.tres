@@ -43,3 +43,4 @@ var/can_move/type = 1
 var/can_move/value = true
 var/can_move/hint = 0
 var/can_move/hint_string = ""
+mapping/map = &"map"
