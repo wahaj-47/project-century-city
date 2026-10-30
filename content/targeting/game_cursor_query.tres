@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameCursorQuery" format=3 uid="uid://bms2qe5gqqbrw"]
+
+[ext_resource type="Script" uid="uid://txij3vjej05" path="res://content/targeting/game_cursor_query.gd" id="1_vinvt"]
+
+[resource]
+script = ExtResource("1_vinvt")
+collision_mask = 3
+collide_with_bodies = false
+collide_with_areas = true
+metadata/_custom_type_script = "uid://txij3vjej05"

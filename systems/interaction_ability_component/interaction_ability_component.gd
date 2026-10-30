@@ -2,24 +2,10 @@
 class_name InteractionAbilityComponent
 extends Node3D
 
-@export var target_query: TargetQuery
-@export var enabled := true		
+@export var enabled := true
 
 signal interaction_started
 signal interaction_ended
-
-var current_interaction_target: InteractionHandler:
-	set(value):
-		if current_interaction_target == value:
-			return
-
-		if current_interaction_target != null:
-			current_interaction_target.set_prompt_visible(false)
-		
-		if value != null and owner is Player:
-			value.set_prompt_visible(true)
-		
-		current_interaction_target = value
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,20 +14,6 @@ func _ready() -> void:
 		return
 
 	assert(owner is CharacterBody3D, "InteractionAbilityComponent must be attached to a CharacterBody3D.")
-
-
-func _physics_process(_delta: float) -> void:
-	if Engine.is_editor_hint():
-		return
-
-	if not enabled:
-		return
-
-	if target_query == null:
-		return
-
-	var query_result := target_query.find_target(self)
-	current_interaction_target = query_result.get("collider") as InteractionHandler
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -56,14 +28,14 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-func try_interact() -> void:
-	if current_interaction_target == null:
-		interaction_ended.emit()
-		return
+func try_interact(interaction_target: InteractionHandler) -> bool:
+	if not enabled: return false
+	if interaction_target == null: return false
 
-	current_interaction_target.interaction_started.connect(_on_interaction_started, CONNECT_ONE_SHOT)
-	current_interaction_target.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
-	current_interaction_target.interact(owner)
+	interaction_target.interaction_started.connect(_on_interaction_started, CONNECT_ONE_SHOT)
+	interaction_target.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
+	interaction_target.interact(owner)
+	return true
 
 
 func _on_interaction_started() -> void:

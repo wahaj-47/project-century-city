@@ -9,9 +9,11 @@ extends InteractionHandler
 var open = false
 var moving = false
 
+
 func _ready() -> void:
 	assert(mesh != null, "InteractionHandler must have a Mesh.")
 	assert(obstruction_check != null, "InteractionHandler must have an ObstructionCheck.")
+
 
 func interact(instigator: Node3D) -> void:
 	super.interact(instigator)
@@ -30,6 +32,7 @@ func interact(instigator: Node3D) -> void:
 	else:
 		_open_door(instigator)
 
+
 func _open_door(instigator: Node3D) -> void:
 	var to_instigator: Vector3 = instigator.global_position - global_position
 	var door_forward: Vector3 = - global_transform.basis.z
@@ -46,7 +49,7 @@ func _open_door(instigator: Node3D) -> void:
 		obstruction_check.enabled = true
 		interaction_ended.emit()
 	)
-	GameState.map.set_point_solid(global_position, false)
+	# GameState.map.set_point_solid(global_position, false)
 	
 
 func _close_door() -> void:
@@ -59,4 +62,4 @@ func _close_door() -> void:
 		obstruction_check.enabled = false
 		interaction_ended.emit()
 	)
-	GameState.map.set_point_solid(global_position, true)
+	# GameState.map.set_point_solid(global_position, true)

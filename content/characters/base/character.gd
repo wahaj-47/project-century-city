@@ -38,12 +38,6 @@ var dead: bool = false
 var camera: Camera3D
 
 
-func initialize(config: CharacterConfig) -> void:
-	state_machine.blackboard.set_var("map", config.map)
-	state_machine.initialize(self)
-	state_machine.set_active(true)
-
-
 func _ready() -> void:
 	# Initial state
 	state_machine.initial_state = initial_state
@@ -51,6 +45,12 @@ func _ready() -> void:
 
 	_update_animation_player()
 	camera = get_viewport().get_camera_3d()
+
+
+func initialize(config: CharacterConfig) -> void:
+	state_machine.blackboard.set_var("map", config.map)
+	state_machine.initialize(self)
+	state_machine.set_active(true)
 
 
 # # Called every frame. '_delta' is the elapsed time since the previous frame.

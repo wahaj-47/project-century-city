@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://cm242mtwksxk2"]
-
-[ext_resource type="Texture2D" uid="uid://bg3b42f3engcj" path="res://content/assets/textures/t_tile_highlight.png" id="1_i2vl4"]
-
-[node name="TileHighlight" type="Decal" unique_id=1721606465]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
-size = Vector3(1, 0.5, 1)
-texture_albedo = ExtResource("1_i2vl4")
-cull_mask = 1048573

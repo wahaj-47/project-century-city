@@ -9,6 +9,8 @@ extends Character
 @onready var moving_state: LimboState = $StateMachine/TakingTurn/Moving
 @onready var interacting_state: LimboState = $StateMachine/TakingTurn/Interacting
 
+@onready var crosshair: Crosshair = $StateMachine/TakingTurn/Idle/Crosshair
+
 func _ready() -> void:
 	state_machine.add_transition(waiting_for_turn_state, taking_turn_state, &'turn_started')
 	state_machine.add_transition(taking_turn_state, waiting_for_turn_state, &'turn_ended')
@@ -16,7 +18,12 @@ func _ready() -> void:
 	taking_turn_state.initial_state = idle_state
 
 	taking_turn_state.add_transition(idle_state, moving_state, &'movement_started') # Idle -> Moving
+	taking_turn_state.add_transition(moving_state, idle_state, &'movement_ended') # Moving -> Idle
 	taking_turn_state.add_transition(idle_state, interacting_state, &'interaction_started') # Idle -> Interacting
 	taking_turn_state.add_transition(interacting_state, idle_state, &'interaction_ended') # Interacting -> Idle
 
 	super._ready()
+
+func initialize(config: CharacterConfig) -> void:
+	crosshair.map = config.map
+	super.initialize(config)
