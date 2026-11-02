@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cigjuhyfie4qn"]
 
-[ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://content/interactables/door/interaction_handler.gd" id="1_t7gc3"]
 [ext_resource type="PackedScene" uid="uid://bbjl8tjmqu3w5" path="res://content/assets/door/door.glb" id="2_qfphl"]
+[ext_resource type="Script" uid="uid://0s2t2awy516s" path="res://content/interactables/navigation/door/door.gd" id="3_lyoyr"]
 [ext_resource type="PackedScene" uid="uid://bphepj1ut6qyu" path="res://systems/interaction_handler/interaction_handler.tscn" id="3_qfphl"]
 [ext_resource type="Texture2D" uid="uid://bomk3a33y4apg" path="res://ui/input_action/actions/interact.tres" id="4_7tdgq"]
 [ext_resource type="Script" uid="uid://cablgyp7f1wi8" path="res://addons/widget_component/widget.gd" id="4_mtvx5"]
@@ -16,7 +16,7 @@ scene = ExtResource("5_o6y3j")
 data = ExtResource("4_7tdgq")
 metadata/_custom_type_script = "uid://cablgyp7f1wi8"
 
-[node name="Door" type="Node3D" unique_id=1456591762 groups=["Solid"]]
+[node name="Door" type="Node3D" unique_id=1456591762]
 
 [node name="Mesh" parent="." unique_id=15829244 instance=ExtResource("2_qfphl")]
 
@@ -26,13 +26,13 @@ enabled = false
 target_position = Vector3(-2.6, 0, 0)
 collision_mask = 4
 
-[node name="InteractionHandler" parent="." unique_id=659341144 node_paths=PackedStringArray("mesh", "obstruction_check") instance=ExtResource("3_qfphl")]
+[node name="InteractionHandler" parent="." unique_id=659341144 node_paths=PackedStringArray("mesh", "obstruction_check") groups=["Navigation"] instance=ExtResource("3_qfphl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 3.3, 0)
-collision_layer = 2
-script = ExtResource("1_t7gc3")
+script = ExtResource("3_lyoyr")
 mesh = NodePath("../Mesh")
 obstruction_check = NodePath("../ObstructionCheck")
-animation_duration = 0.2
+animation_duration = 1.0
+state = 0
 
 [node name="CollisionShape3D" parent="InteractionHandler" index="0" unique_id=89542627]
 shape = SubResource("BoxShape3D_qfphl")

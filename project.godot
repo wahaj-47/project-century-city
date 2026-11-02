@@ -49,9 +49,9 @@ enabled=PackedStringArray("res://addons/controller_icons/plugin.cfg", "res://add
 Player=""
 Enemy=""
 Map=""
-Solid=""
 Snapped=""
 Pawn=""
+Navigation=""
 
 [gui]
 

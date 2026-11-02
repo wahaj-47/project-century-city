@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://1iw3if4std3f" path="res://content/levels/game_viewport.gd" id="2_huvsv"]
 [ext_resource type="MeshLibrary" uid="uid://du2t3lmoi7ogu" path="res://content/mesh_libraries/building_blocks/building_blocks.tres" id="2_wdj6m"]
 [ext_resource type="Script" uid="uid://yeacy85cb1cj" path="res://addons/astar_gridmap/astar_gridmap.gd" id="3_ifaiv"]
-[ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://content/interactables/door/door.tscn" id="3_l8qe7"]
+[ext_resource type="PackedScene" uid="uid://cigjuhyfie4qn" path="res://content/interactables/navigation/door/door.tscn" id="3_l8qe7"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_5wxk5"]
 [ext_resource type="Script" uid="uid://ds0g6y4i4tnpp" path="res://systems/texel_snapped/texel_snapped_camera.gd" id="8_a8xkr"]
 [ext_resource type="Script" uid="uid://bxhk2pqjsis5f" path="res://systems/texel_snapped/texel_snapped_display.gd" id="9_tnpcc"]
@@ -66,7 +66,7 @@ transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 4, 1.657519
 
 [node name="Camera" type="Camera3D" parent="Game" unique_id=2035857824]
 physics_interpolation_mode = 1
-transform = Transform3D(0.7071067, -0.6123725, 0.3535534, 5.9604645e-08, 0.5, 0.86602545, -0.7071068, -0.6123724, 0.3535534, 16.071068, 18.978027, -3.9289327)
+transform = Transform3D(0.7071067, -0.6123725, 0.35355347, 2.9802322e-08, 0.5, 0.8660254, -0.7071069, -0.61237234, 0.35355335, 11.071068, 18.978027, 11.071066)
 top_level = true
 projection = 1
 size = 24.0
