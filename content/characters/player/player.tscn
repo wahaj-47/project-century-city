@@ -7,10 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://35idheau3lt8" path="res://content/assets/characters/alice/animations/a_idle.png" id="4_pplru"]
 [ext_resource type="Script" uid="uid://bsu1nnrm0lr4u" path="res://content/characters/player/states/moving.gd" id="5_c6leb"]
 [ext_resource type="Script" uid="uid://cpp3x4qgicuak" path="res://content/characters/player/states/idle.gd" id="5_ixbpm"]
-[ext_resource type="PackedScene" uid="uid://cm242mtwksxk2" path="res://content/targeting/crosshair.tscn" id="7_0sp7v"]
+[ext_resource type="PackedScene" uid="uid://cm242mtwksxk2" path="res://systems/targeting/crosshair/crosshair.tscn" id="7_0sp7v"]
 [ext_resource type="Script" uid="uid://1vdrn56o5e7c" path="res://content/characters/player/states/interacting.gd" id="7_dirf7"]
-[ext_resource type="Resource" uid="uid://bms2qe5gqqbrw" path="res://content/targeting/game_cursor_query.tres" id="9_0sp7v"]
+[ext_resource type="Resource" uid="uid://bms2qe5gqqbrw" path="res://systems/targeting/target_query/game_cursor_query.tres" id="9_0sp7v"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="9_jyhv1"]
+[ext_resource type="PackedScene" uid="uid://djlg75ros48e7" path="res://systems/targeting/crosshair/trail.tscn" id="9_v3l1c"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_0sp7v"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_aei7y"]
@@ -37,7 +38,7 @@ animation_library = ExtResource("3_sa3aw")
 offset = Vector2(0, -4)
 texture = ExtResource("4_pplru")
 hframes = 12
-frame = 6
+frame = 10
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_sa3aw")
@@ -57,6 +58,8 @@ crosshair = NodePath("Crosshair")
 
 [node name="Crosshair" parent="StateMachine/TakingTurn/Idle" index="0" unique_id=1721606465 instance=ExtResource("7_0sp7v")]
 target_query = ExtResource("9_0sp7v")
+show_trail = true
+trail = ExtResource("9_v3l1c")
 
 [node name="Moving" type="LimboState" parent="StateMachine/TakingTurn" index="1" unique_id=1210772350 node_paths=PackedStringArray("character_movement_component")]
 script = ExtResource("5_c6leb")

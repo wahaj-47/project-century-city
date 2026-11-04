@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cm242mtwksxk2"]
+
+[ext_resource type="Texture2D" uid="uid://bg3b42f3engcj" path="res://content/assets/textures/t_tile_highlight.png" id="1_m40iv"]
+[ext_resource type="Script" uid="uid://bxou0pid32wb4" path="res://systems/targeting/crosshair/crosshair.gd" id="2_ji5k6"]
+[ext_resource type="Resource" uid="uid://bms2qe5gqqbrw" path="res://systems/targeting/target_query/game_cursor_query.tres" id="3_bb7wn"]
+[ext_resource type="PackedScene" uid="uid://djlg75ros48e7" path="res://systems/targeting/crosshair/trail.tscn" id="4_xfjg8"]
+
+[node name="Crosshair" type="Decal" unique_id=1721606465]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
+size = Vector3(1, 0.5, 1)
+texture_albedo = ExtResource("1_m40iv")
+cull_mask = 1048573
+script = ExtResource("2_ji5k6")
+target_query = ExtResource("3_bb7wn")
+show_trail = true
+trail = ExtResource("4_xfjg8")

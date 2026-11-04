@@ -119,6 +119,16 @@ func get_id_path(from: Vector3, to: Vector3, allow_partial_path: bool = false) -
 	return astar_grid.get_id_path(from_cell, to_cell, allow_partial_path)
 
 
+func get_world_path(from: Vector3, to: Vector3, allow_partial_path: bool = false) -> Array[Vector3]:
+	var id_path = get_id_path(from, to, allow_partial_path)
+	var world_path: Array[Vector3] = []
+
+	for cell in id_path:
+		world_path.append(to_world_coords(cell))
+
+	return world_path
+
+
 func to_grid_coords(in_position: Vector3) -> Vector2i:
 	var local_position = to_local(in_position)
 	var cell_coords = local_to_map(local_position)
