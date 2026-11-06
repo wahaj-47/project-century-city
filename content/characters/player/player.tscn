@@ -9,17 +9,15 @@
 [ext_resource type="Script" uid="uid://cpp3x4qgicuak" path="res://content/characters/player/states/idle.gd" id="5_ixbpm"]
 [ext_resource type="PackedScene" uid="uid://cm242mtwksxk2" path="res://systems/targeting/crosshair/crosshair.tscn" id="7_0sp7v"]
 [ext_resource type="Script" uid="uid://1vdrn56o5e7c" path="res://content/characters/player/states/interacting.gd" id="7_dirf7"]
-[ext_resource type="Resource" uid="uid://bms2qe5gqqbrw" path="res://systems/targeting/target_query/game_cursor_query.tres" id="9_0sp7v"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="9_jyhv1"]
-[ext_resource type="PackedScene" uid="uid://djlg75ros48e7" path="res://systems/targeting/crosshair/trail.tscn" id="9_v3l1c"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_0sp7v"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_aei7y"]
-var/target_position/name = &"target_position"
-var/target_position/type = 9
-var/target_position/value = Vector3(0, 0, 0)
-var/target_position/hint = 0
-var/target_position/hint_string = ""
+var/path/name = &"path"
+var/path/type = 36
+var/path/value = PackedVector3Array()
+var/path/hint = 0
+var/path/hint_string = ""
 var/interaction_target/name = &"interaction_target"
 var/interaction_target/type = 24
 var/interaction_target/hint = 0
@@ -38,7 +36,7 @@ animation_library = ExtResource("3_sa3aw")
 offset = Vector2(0, -4)
 texture = ExtResource("4_pplru")
 hframes = 12
-frame = 10
+frame = 0
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_sa3aw")
@@ -57,9 +55,6 @@ interaction_ability_component = NodePath("../../../InteractionAbilityComponent")
 crosshair = NodePath("Crosshair")
 
 [node name="Crosshair" parent="StateMachine/TakingTurn/Idle" index="0" unique_id=1721606465 instance=ExtResource("7_0sp7v")]
-target_query = ExtResource("9_0sp7v")
-show_trail = true
-trail = ExtResource("9_v3l1c")
 
 [node name="Moving" type="LimboState" parent="StateMachine/TakingTurn" index="1" unique_id=1210772350 node_paths=PackedStringArray("character_movement_component")]
 script = ExtResource("5_c6leb")

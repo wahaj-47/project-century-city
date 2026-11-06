@@ -10,6 +10,11 @@ var map: AStarGridMap
 
 var _pool = []
 var n_active = 0
+var path: PackedVector3Array
+
+
+func _ready() -> void:
+	visibility_changed.connect(_on_visibility_changed)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible: return
@@ -34,7 +39,7 @@ func handle_input() -> void:
 func draw_trail(from: Vector3, to: Vector3) -> void:
 	if map == null: return
 
-	var path = map.get_world_path(from, to)
+	path = map.get_world_path(from, to)
 	var n =  maxi(path.size() - 2, 0)
 	
 	for i in range(n):
@@ -62,3 +67,13 @@ func _get_or_create_instance(index: int) -> Node:
 	_pool.append(instance)
 	add_child(instance)
 	return instance
+
+
+func _clear_trail() -> void:
+	for instance in _pool:
+		instance.hide()
+	n_active = 0
+
+
+func _on_visibility_changed() -> void:
+	if not visible: _clear_trail()

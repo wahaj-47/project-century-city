@@ -109,7 +109,7 @@ func is_point_solid(point: Vector3) -> bool:
 	return astar_grid.is_point_solid(cell)
 
 
-func get_id_path(from: Vector3, to: Vector3, allow_partial_path: bool = false) -> Array[Vector2i]:
+func get_id_path(from: Vector3, to: Vector3, allow_partial_path: bool = false) -> PackedVector2Array:
 	if astar_grid == null:
 		return []
 
@@ -119,9 +119,9 @@ func get_id_path(from: Vector3, to: Vector3, allow_partial_path: bool = false) -
 	return astar_grid.get_id_path(from_cell, to_cell, allow_partial_path)
 
 
-func get_world_path(from: Vector3, to: Vector3, allow_partial_path: bool = false) -> Array[Vector3]:
+func get_world_path(from: Vector3, to: Vector3, allow_partial_path: bool = false) -> PackedVector3Array:
 	var id_path = get_id_path(from, to, allow_partial_path)
-	var world_path: Array[Vector3] = []
+	var world_path: PackedVector3Array = []
 
 	for cell in id_path:
 		world_path.append(to_world_coords(cell))

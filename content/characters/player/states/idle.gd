@@ -26,11 +26,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		character_movement_component.look_at(crosshair.global_position)
 		
 	if event.is_action_pressed("select"):
-		# Match agent position on y-axis so the collision is calculated correctly for movement.
-		var target_position = crosshair.global_position
-		target_position.y = agent.global_position.y
-		blackboard.set_var("target_position", target_position)
-		blackboard.set_var("interaction_target", crosshair.hit_result.collider)
+		handle_selection()
 
-		if crosshair.hit_result.collider is InteractionHandler: dispatch(&'interaction_started')
-		else: dispatch(&'movement_started')
+func handle_selection() -> void:
+	if not crosshair.hit_result.is_empty() and crosshair.hit_result.collider is InteractionHandler:
+		blackboard.set_var("interaction_target", crosshair.hit_result.collider)
+		dispatch(&'interaction_started')
+	else:
+		blackboard.set_var("path", crosshair.path)
+		dispatch(&'movement_started')

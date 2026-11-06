@@ -54,6 +54,7 @@ func is_blocked(target_position: Vector3) -> bool:
 
 	var from: Vector3 = owner.global_position
 	var to: Vector3 = target_position
+	to.y = from.y
 
 	var query := PhysicsRayQueryParameters3D.create(from, to)
 
