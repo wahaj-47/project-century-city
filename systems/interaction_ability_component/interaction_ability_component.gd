@@ -34,7 +34,7 @@ func try_interact(interaction_target: InteractionHandler) -> bool:
 
 	interaction_target.interaction_started.connect(_on_interaction_started, CONNECT_ONE_SHOT)
 	interaction_target.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
-	interaction_target.interact(owner)
+	interaction_target.try_interact(owner)
 	return true
 
 

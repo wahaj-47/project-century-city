@@ -9,13 +9,11 @@ signal state_changed(node: Node3D, state: Constants.NavigationState)
 var animating = false
 
 
-func can_interact() -> bool:
-	return not animating
+func _can_interact() -> bool:
+	return super._can_interact() and not animating
 
 
-func interact(instigator: Node3D) -> void:
-	super.interact(instigator)
-	interaction_started.emit()
+func _interact(instigator: Node3D) -> void:
 	animating = true
 	
 	match state:
@@ -23,8 +21,8 @@ func interact(instigator: Node3D) -> void:
 		Constants.NavigationState.OPEN: close()
 
 
-func end_interaction() -> void:
-	super.end_interaction()
+func _end_interaction() -> void:
+	super._end_interaction()
 	animating = false
 	state = Constants.NavigationState.OPEN if state == Constants.NavigationState.BLOCKED else Constants.NavigationState.BLOCKED
 	state_changed.emit(self, state)
@@ -32,6 +30,7 @@ func end_interaction() -> void:
 
 func open(instigator: Node3D) -> void:
 	pass
+
 
 func close() -> void:
 	pass

@@ -7,9 +7,6 @@ func _ready() -> void:
 	assert(character_movement_component != null, "InteractionHandler must have a CharacterMovementComponent.")
 
 func interact(instigator: Node3D) -> void:
-	super.interact(instigator)
-
-	interaction_started.emit()
 	var direction := -instigator.global_transform.basis.z.normalized()
 	var movement_successful := character_movement_component.move(direction)
 

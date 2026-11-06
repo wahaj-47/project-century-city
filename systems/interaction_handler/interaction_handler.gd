@@ -8,18 +8,27 @@ signal interaction_started
 signal interaction_ended
 
 
-func can_interact() -> bool:
-	return true
+func try_interact(instigator: Node3D) -> void:
+	interaction_started.emit()
+
+	if not _can_interact(): 
+		_end_interaction()
+		return
+
+	_interact(instigator)
+
+
+func _can_interact() -> bool:
+	return enabled
 
 
 ## Actual interaction logic should be implemented in the subclass
-func interact(instigator: Node3D) -> void:
-	if not enabled:return
-	if not can_interact(): return
+func _interact(instigator: Node3D) -> void:
+	pass
 
 
 ## Call this function to end the interaction and emit the signal. This should be called by the subclass when the interaction is finished.
-func end_interaction() -> void:
+func _end_interaction() -> void:
 	interaction_ended.emit()
 
 

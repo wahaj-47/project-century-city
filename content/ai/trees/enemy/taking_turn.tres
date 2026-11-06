@@ -263,6 +263,7 @@ resource_name = "$target"
 script = ExtResource("11_aei7y")
 actor = SubResource("BBNode_bfd7x")
 target_actor = SubResource("BBNode_l88cl")
+max_steps = 99
 
 [sub_resource type="BTAction" id="BTAction_bk8ns"]
 custom_name = "Wait for movement to end"

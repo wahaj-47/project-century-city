@@ -14,6 +14,11 @@ func _enter() -> void:
 	step = 1
 	path = blackboard.get_var("path")
 
+	if path.size() < 1:
+		push_error("Path is empty.")
+		dispatch(&'movement_ended')
+		return
+
 	character_movement_component.move(path[step])
 
 
