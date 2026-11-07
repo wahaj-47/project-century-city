@@ -1,7 +1,7 @@
 class_name Crosshair
 extends Decal
 
-@export var target_query: TargetQuery
+@export var target_query: CursorQuery
 @export var show_trail: bool = false
 @export var trail: PackedScene
 

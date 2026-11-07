@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://1vdrn56o5e7c" path="res://content/characters/player/states/interacting.gd" id="7_dirf7"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="9_jyhv1"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_0sp7v"]
+[ext_resource type="Script" uid="uid://d0hfki4nhfrjc" path="res://addons/target_query/ray_query.gd" id="10_7gqvg"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_aei7y"]
 var/path/name = &"path"
@@ -22,6 +23,18 @@ var/interaction_target/name = &"interaction_target"
 var/interaction_target/type = 24
 var/interaction_target/hint = 0
 var/interaction_target/hint_string = ""
+
+[sub_resource type="Resource" id="Resource_aei7y"]
+script = ExtResource("10_7gqvg")
+collision_mask = 2
+collide_with_bodies = false
+collide_with_areas = true
+metadata/_custom_type_script = "uid://d0hfki4nhfrjc"
+
+[sub_resource type="Resource" id="Resource_bfd7x"]
+script = ExtResource("10_7gqvg")
+relative_to_owner = null
+metadata/_custom_type_script = "uid://d0hfki4nhfrjc"
 
 [sub_resource type="Resource" id="Resource_7gqvg"]
 script = ExtResource("10_0sp7v")
@@ -36,7 +49,7 @@ animation_library = ExtResource("3_sa3aw")
 offset = Vector2(0, -4)
 texture = ExtResource("4_pplru")
 hframes = 12
-frame = 7
+frame = 5
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_sa3aw")
@@ -48,10 +61,9 @@ parameters/AnimMontage/Transition/transition_request = "kill_v1"
 blackboard_plan = SubResource("BlackboardPlan_aei7y")
 script = ExtResource("4_5dc8e")
 
-[node name="Idle" type="LimboState" parent="StateMachine/TakingTurn" index="0" unique_id=1787902812 node_paths=PackedStringArray("character_movement_component", "interaction_ability_component", "crosshair")]
+[node name="Idle" type="LimboState" parent="StateMachine/TakingTurn" index="0" unique_id=1787902812 node_paths=PackedStringArray("character_movement_component", "crosshair")]
 script = ExtResource("5_ixbpm")
 character_movement_component = NodePath("../../../CharacterMovementComponent")
-interaction_ability_component = NodePath("../../../InteractionAbilityComponent")
 crosshair = NodePath("Crosshair")
 
 [node name="Crosshair" parent="StateMachine/TakingTurn/Idle" index="0" unique_id=1721606465 instance=ExtResource("7_0sp7v")]
@@ -63,6 +75,13 @@ character_movement_component = NodePath("../../../CharacterMovementComponent")
 [node name="Interacting" type="LimboState" parent="StateMachine/TakingTurn" index="2" unique_id=782402771 node_paths=PackedStringArray("interaction_ability_component")]
 script = ExtResource("7_dirf7")
 interaction_ability_component = NodePath("../../../InteractionAbilityComponent")
+
+[node name="InteractionAbilityComponent" parent="." index="6" unique_id=1540746576]
+interaction_range = 8.0
+range_query = SubResource("Resource_aei7y")
+
+[node name="PickupAbilityComponent" parent="." index="7" unique_id=1454045157]
+range_query = SubResource("Resource_bfd7x")
 
 [node name="PhantomCamera3D" type="Node3D" parent="." index="9" unique_id=1687945785 node_paths=PackedStringArray("follow_target")]
 transform = Transform3D(0.7071067, -0.6123725, 0.35355347, 2.9802322e-08, 0.5, 0.86602545, -0.7071069, -0.6123724, 0.35355335, 7.0710683, 17.320507, 7.0710673)

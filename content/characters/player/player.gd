@@ -21,6 +21,7 @@ func _ready() -> void:
 	taking_turn_state.add_transition(moving_state, idle_state, &'movement_ended') # Moving -> Idle
 	taking_turn_state.add_transition(idle_state, interacting_state, &'interaction_started') # Idle -> Interacting
 	taking_turn_state.add_transition(interacting_state, idle_state, &'interaction_ended') # Interacting -> Idle
+	taking_turn_state.add_transition(interacting_state, idle_state, &'interaction_failed') # Interacting -> Idle
 
 	super._ready()
 

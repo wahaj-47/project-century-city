@@ -8,7 +8,7 @@ func _setup() -> void:
 
 func _enter() -> void:
 	var interaction_target = blackboard.get_var("interaction_target") as InteractionHandler
-	interaction_ability_component.try_interact(interaction_target)
+	if not interaction_ability_component.try_interact(interaction_target): dispatch(&'interaction_failed')
 
 func _on_interaction_ended() -> void:
 	dispatch(&'interaction_ended')

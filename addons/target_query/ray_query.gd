@@ -2,8 +2,8 @@
 class_name RayQuery
 extends TargetQuery
 
-## The direction relative to the context node.
 @export var target_position := Vector3.FORWARD
+@export var relative_to_owner := true
 @export_flags_3d_physics var collision_mask := 1
 @export var exclude_self := true
 @export var collide_with_bodies := true
@@ -20,7 +20,13 @@ func _init(p_target_position: Vector3 = Vector3.FORWARD, p_collision_mask: int =
 
 func find_target(context: Node3D) -> Dictionary:
 	var from := context.global_position
-	var to := context.to_global(target_position)
+	var to := target_position
+
+	if relative_to_owner:
+		to = context.to_global(target_position)
+		
+	DebugDraw3D.draw_line(from, to, Color.RED, 0.2)
+
 	var exclude := [context] if exclude_self else []
 	var query = PhysicsRayQueryParameters3D.create(from, to, collision_mask, exclude)
 	

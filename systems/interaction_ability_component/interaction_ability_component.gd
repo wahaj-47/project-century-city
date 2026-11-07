@@ -3,6 +3,8 @@ class_name InteractionAbilityComponent
 extends Node3D
 
 @export var enabled := true
+@export var interaction_range := 3.0
+@export var range_query: RayQuery
 
 signal interaction_started
 signal interaction_ended
@@ -14,6 +16,7 @@ func _ready() -> void:
 		return
 
 	assert(owner is CharacterBody3D, "InteractionAbilityComponent must be attached to a CharacterBody3D.")
+	assert(range_query != null, "InteractionAbilityComponent requires a valid range_query to function.")
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -31,6 +34,12 @@ func _get_configuration_warnings() -> PackedStringArray:
 func try_interact(interaction_target: InteractionHandler) -> bool:
 	if not enabled: return false
 	if interaction_target == null: return false
+
+	range_query.target_position = owner.global_position + (interaction_target.global_position - owner.global_position).normalized() * interaction_range
+
+	var hit := range_query.find_target(self)
+	if hit.is_empty(): return false
+	if hit.collider != interaction_target: return false
 
 	interaction_target.interaction_started.connect(_on_interaction_started, CONNECT_ONE_SHOT)
 	interaction_target.interaction_ended.connect(_on_interaction_ended, CONNECT_ONE_SHOT)
