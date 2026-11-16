@@ -9,6 +9,7 @@
 [ext_resource type="BehaviorTree" uid="uid://dggre5yudqb0" path="res://content/ai/trees/enemy/waiting_for_turn.tres" id="5_iavur"]
 [ext_resource type="PackedScene" uid="uid://cddyxwojr5ffc" path="res://addons/ai_perception_component/ai_perception_component.tscn" id="5_tlrvp"]
 [ext_resource type="PackedScene" uid="uid://djaclpj1iufus" path="res://addons/ai_perception_component/sensors/proximity_sensor/ai_proximity_sensor.tscn" id="6_03nx6"]
+[ext_resource type="Script" uid="uid://d0hfki4nhfrjc" path="res://addons/target_query/ray_query.gd" id="8_70i6h"]
 [ext_resource type="PackedScene" uid="uid://bphepj1ut6qyu" path="res://systems/interaction_handler/interaction_handler.tscn" id="8_yeuqv"]
 [ext_resource type="Script" uid="uid://cdooidmeswp4q" path="res://content/characters/enemy/interaction_handler.gd" id="11_k40fn"]
 [ext_resource type="Texture2D" uid="uid://bomk3a33y4apg" path="res://ui/input_action/actions/interact.tres" id="12_2e6xf"]
@@ -17,6 +18,15 @@
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_tlrvp"]
 mapping/map = &"map"
+mapping/turn_budget = &"turn_budget"
+
+[sub_resource type="Resource" id="Resource_k5u0k"]
+script = ExtResource("8_70i6h")
+metadata/_custom_type_script = "uid://d0hfki4nhfrjc"
+
+[sub_resource type="Resource" id="Resource_xi6o7"]
+script = ExtResource("8_70i6h")
+metadata/_custom_type_script = "uid://d0hfki4nhfrjc"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yo2jm"]
 margin = 0.0
@@ -39,7 +49,7 @@ animation_library = ExtResource("3_70i6h")
 [node name="Sprite3D" parent="." index="0" unique_id=464599280]
 texture = ExtResource("4_70i6h")
 hframes = 12
-frame = 1
+frame = 4
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_70i6h")
@@ -52,6 +62,12 @@ interaction_handler = NodePath("../../InteractionHandler")
 behavior_tree = ExtResource("4_fxr07")
 blackboard_plan = SubResource("BlackboardPlan_tlrvp")
 script = ExtResource("4_427j3")
+
+[node name="InteractionAbilityComponent" parent="." index="6" unique_id=1540746576]
+range_query = SubResource("Resource_k5u0k")
+
+[node name="PickupAbilityComponent" parent="." index="7" unique_id=1454045157]
+range_query = SubResource("Resource_xi6o7")
 
 [node name="InteractionHandler" parent="." index="8" unique_id=659341144 node_paths=PackedStringArray("character_movement_component") instance=ExtResource("8_yeuqv")]
 script = ExtResource("11_k40fn")

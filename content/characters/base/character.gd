@@ -19,7 +19,7 @@ extends CharacterBody3D
 	set(value):
 		animation_library = value
 		_update_animation_player()
-		
+
 # Animation variables
 var is_moving: bool:
 	get:
@@ -45,6 +45,20 @@ func _ready() -> void:
 
 	_update_animation_player()
 	camera = get_viewport().get_camera_3d()
+
+	GameState.turn_started.connect(_on_turn_started)
+
+
+func _on_turn_started(p_actor_type: Constants.ActorType, turn_budget: int) -> void:
+	if actor_type == p_actor_type:
+		GameState.activate(actor_type)
+		state_machine.blackboard.set_var("turn_budget", turn_budget)
+		state_machine.dispatch(&"turn_started")
+
+
+func end_turn(turn_budget):
+	GameState.end_turn(actor_type, turn_budget)
+	state_machine.dispatch(&"turn_ended")
 
 
 func initialize(config: CharacterConfig) -> void:
@@ -103,8 +117,8 @@ func is_montage_playing() -> bool:
 	return animation_tree.active && animation_tree["parameters/Slot/active"]
 
 
-func apply_movement(target_position: Vector3, check_collision := true) -> bool:
-	return character_movement_component.move(target_position, check_collision)
+func apply_movement(target_position: Vector3, check_collision := true, on_movement_finished: Callable = Callable()) -> bool:
+	return character_movement_component.move(target_position, check_collision, on_movement_finished)
 
 
 func apply_rotation(target_position: Vector3) -> void:

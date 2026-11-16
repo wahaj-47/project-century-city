@@ -33,7 +33,6 @@ metadata/_custom_type_script = "uid://d0hfki4nhfrjc"
 
 [sub_resource type="Resource" id="Resource_bfd7x"]
 script = ExtResource("10_7gqvg")
-relative_to_owner = null
 metadata/_custom_type_script = "uid://d0hfki4nhfrjc"
 
 [sub_resource type="Resource" id="Resource_7gqvg"]
@@ -49,7 +48,7 @@ animation_library = ExtResource("3_sa3aw")
 offset = Vector2(0, -4)
 texture = ExtResource("4_pplru")
 hframes = 12
-frame = 5
+frame = 3
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=1851674912]
 libraries/ = ExtResource("3_sa3aw")

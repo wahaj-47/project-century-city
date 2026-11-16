@@ -1,40 +1,43 @@
 extends Node
 
 var turn: Constants.ActorType = Constants.ActorType.PLAYER
-
 var active_enemy_count: int = 0
 
-## Emitted when a turn ends
+## Emitted when a turn starts
 ## [br]
-## [code]actor: ActorType[/code] - The actor whose turn is now active
-signal turn_started(actor_type)
+## [code]actor: ActorType[/code] - The actor whose turn started.
+signal turn_started(actor_type: Constants.ActorType, turn_budget: int)
 
-## Starts a new turn
+
+## Activates an actor for their turn
 ## [br]
-## [code]actor: ActorType[/code] - The actor that started the turn
+## [code]actor: ActorType[/code] - The actor to activate
 ## [br]
-## This is used to track how many enemies are active. It does not affect the turn itself.
-func start_turn(actor: Constants.ActorType):
+## This is used to track how many actors are active
+func activate(actor: Constants.ActorType):
 	match actor:
 		Constants.ActorType.PLAYER:
 			pass
 		Constants.ActorType.ENEMY:
 			active_enemy_count += 1
 
+
 ## Ends the current turn
 ## [br]
 ## [code]actor: ActorType[/code] - The actor that ended the turn
-func end_turn(actor: Constants.ActorType):
+## [code]turn_budget[/code] - Turn budget that actor used
+func end_turn(actor: Constants.ActorType, turn_budget: int = 1):
 	var enemy_count = get_tree().get_node_count_in_group("Enemy")
 
 	match actor:
 		Constants.ActorType.PLAYER:
 			turn = Constants.ActorType.ENEMY if enemy_count > 0 else Constants.ActorType.PLAYER
-			# Allows current state to finish processing
-			await get_tree().physics_frame
-			turn_started.emit(turn)
+
 		Constants.ActorType.ENEMY:
 			active_enemy_count -= 1
-			if active_enemy_count == 0:
-				turn = Constants.ActorType.PLAYER
-				turn_started.emit(turn)
+			if active_enemy_count > 0:
+				return
+			
+			turn = Constants.ActorType.PLAYER
+
+	turn_started.emit(turn, turn_budget)

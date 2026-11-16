@@ -1,31 +1,25 @@
 extends LimboState
 
-@export var character_movement_component: CharacterMovementComponent
-var path: PackedVector3Array
-var step: int = 1;
-
-
-func _setup() -> void:
-	assert(character_movement_component != null)
-	character_movement_component.movement_ended.connect(_on_movement_ended)
+var _actor: Character
+var _path: PackedVector3Array
+var _step: int = 1;
 
 
 func _enter() -> void:
-	step = 1
-	path = blackboard.get_var("path")
+	_actor = agent as Character
+	_step = 1
+	_path = blackboard.get_var("path")
 
-	if path.size() < 1:
+	if _path.size() < 1:
 		push_error("Path is empty.")
 		dispatch(&'movement_ended')
 		return
 
-	character_movement_component.move(path[step])
+	_actor.apply_movement(_path[_step], true, _on_movement_finished)
 
 
-func _on_movement_ended() -> void:
-	step += 1
+func _on_movement_finished() -> void:
+	_step += 1
 	
-	if step < path.size():
-		character_movement_component.move(path[step])
-	else:	
-		dispatch(&'turn_ended')
+	if _step < _path.size(): _actor.apply_movement(_path[_step], true, _on_movement_finished)
+	else: _actor.end_turn(_path.size() - 1)

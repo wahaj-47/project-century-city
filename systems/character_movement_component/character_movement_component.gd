@@ -9,10 +9,8 @@ extends Node
 @export var enable_gravity := true
 @export var rotate_to_face_movement := true
 
-signal movement_started
-signal movement_ended
-
 var is_moving := false
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -85,7 +83,7 @@ func look_at(target_position: Vector3) -> void:
 	)
 
 
-func move(target_position: Vector3, check_collision := true) -> bool:
+func move(target_position: Vector3, check_collision := true, on_movement_finished: Callable = Callable()) -> bool:
 	if is_moving:
 		return false
 
@@ -96,8 +94,6 @@ func move(target_position: Vector3, check_collision := true) -> bool:
 		return false
 	
 	is_moving = true
-	movement_started.emit()
-
 
 	var distance : Vector3 = target_position - owner.global_position
 	var duration : float = distance.length() / move_speed
@@ -105,6 +101,7 @@ func move(target_position: Vector3, check_collision := true) -> bool:
 	var movement_tween = create_tween()
 	movement_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	movement_tween.finished.connect(_on_movement_finished)
+	movement_tween.finished.connect(on_movement_finished)
 	movement_tween.tween_property(
 		owner,
 		"global_position:x",
@@ -123,4 +120,3 @@ func move(target_position: Vector3, check_collision := true) -> bool:
 
 func _on_movement_finished() -> void:
 	is_moving = false
-	movement_ended.emit()

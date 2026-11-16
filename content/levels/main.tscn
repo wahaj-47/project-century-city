@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_5wxk5"]
 [ext_resource type="Script" uid="uid://ds0g6y4i4tnpp" path="res://systems/texel_snapped/texel_snapped_camera.gd" id="8_a8xkr"]
 [ext_resource type="Script" uid="uid://bxhk2pqjsis5f" path="res://systems/texel_snapped/texel_snapped_display.gd" id="9_tnpcc"]
+[ext_resource type="PackedScene" uid="uid://d4gf5vgmmo1ag" path="res://content/characters/enemy/enemy.tscn" id="11_huvsv"]
 [ext_resource type="Shader" uid="uid://b7oui2psui32s" path="res://addons/shaders/pixel_art_upscale.gdshader" id="11_keess"]
 
 [sub_resource type="Environment" id="Environment_r7qdr"]
@@ -63,6 +64,9 @@ environment = SubResource("Environment_r7qdr")
 
 [node name="Player" parent="Game" unique_id=167650114 instance=ExtResource("1_qy63d")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 4, 1.6575193, 4)
+
+[node name="Enemy" parent="Game" unique_id=460430419 instance=ExtResource("11_huvsv")]
+transform = Transform3D(1, 0, 2.9802322e-08, 0, 1, 0, -7.450581e-09, -2.9802322e-08, 1, 4, 1.6590004, -27.999998)
 
 [node name="Camera" type="Camera3D" parent="Game" unique_id=2035857824]
 physics_interpolation_mode = 1
